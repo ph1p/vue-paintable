@@ -4,6 +4,7 @@
   "description": "Draw on any screen",
   "main": "dist/index.js",
   "author": "Phlp <phil@capshake.com>",
+  "repository": "https://github.com/appcom-interactive/vue-paintable-screen.git",
   "contributors": [
     "Philip Stapelfeldt <p.stapelfeldt@appcom-interactive.de>"
   ],
