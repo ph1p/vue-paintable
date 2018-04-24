@@ -3,7 +3,6 @@
 With this vue component you can add a paintable canvas through every page you like.
 All paintings are saved into the local storage.
 
-
 ### How to use?
 
 ```javascript
@@ -18,7 +17,13 @@ Vue.use(PaintablePlugin);
 
 ```html
 <template>
-    <paintable-screen name="my-screen" :undoRedo="false" :hide="false">
+    <paintable-screen
+        name="my-screen"
+        :showUndoRedo="false"
+        :showLineWidth="false"
+        :lineWidth="10"
+        :colors="['red', '#000']"
+        :hide="false">
         <router-view></router-view>
     </paintable-screen>
 </template>
@@ -27,7 +32,7 @@ Vue.use(PaintablePlugin);
 ### Props
 
 * name | string - required
-* undoRedo | boolean
+* showUndoRedo | boolean
 * hide | boolean
 * colors | Array of colors (rgb, hex etc.)
 * width | number
@@ -38,12 +43,11 @@ Vue.use(PaintablePlugin);
 ### Global methods
 
 * $hidePaintableNavigation | void
-    * Hide paintable navigation
+  * Hide paintable navigation
 * $showPaintableNavigation | void
-    * Show paintable navigation
-
+  * Show paintable navigation
 
 ### Events
 
 * toggle-paintable-screen | boolean
-    * Is emitted, when changing paintable state
+  * Is emitted, when changing paintable state
