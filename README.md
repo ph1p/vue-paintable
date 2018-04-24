@@ -7,6 +7,10 @@ All paintings are saved into the local storage.
 
 ### How to use?
 
+```bash
+npm install @appcominteractive/vue-paintable-screen --save
+```
+
 ```javascript
 import Vue from 'vue';
 import PaintablePlugin from '@appcominteractive/vue-paintable-screen';
