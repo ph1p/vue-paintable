@@ -32,6 +32,8 @@ Vue.use(PaintablePlugin);
 * colors | Array of colors (rgb, hex etc.)
 * width | number
 * height | number
+* showLineWidth | boolean
+* lineWidth | number
 
 ### Global methods
 

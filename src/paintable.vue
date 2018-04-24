@@ -10,18 +10,18 @@
                 <span :class="['color__pickerColor', {selected: currentColor === color}]" v-for="color in colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color); isColorPickerOpen = false;"></span>
               </div>
             </span>
-            <span class="linewidth">
+            <span class="linewidth" v-if="showLineWidth">
               <div class="navigationBtn" @click="isLineWidthPickerOpen = !isLineWidthPickerOpen">
-                font-size
+                line-width
               </div>
               <div class="linewidth__picker" v-if="isLineWidthPickerOpen">
-                <label for="linewidth__picker">Font-Size ({{lineWidth}}px):</label>
-                <input id="paintable-font-size" type="range" min="1" max="100" v-model="lineWidth" @change="isLineWidthPickerOpen = false">
-                <div class="paintableLineWidth" :style="{height: lineWidth + 'px', width: lineWidth + 'px', backgroundColor: this.currentColor}"></div>
+                <label for="linewidth__picker">({{currentLineWidth}}px):</label>
+                <input id="paintable-font-size" type="range" min="1" max="100" v-model="currentLineWidth" @change="isLineWidthPickerOpen = false">
+                <div class="paintableLineWidth" :style="{height: currentLineWidth + 'px', width: currentLineWidth + 'px', backgroundColor: this.currentColor}"></div>
               </div>
             </span>
 
-            <span v-if="undoRedo">
+            <span v-if="showUndoRedo">
               <div class="navigationBtn" @click="undoDrawingStep" :class="{disabled: !undoList.length}">undo</div>
               <div class="navigationBtn" @click="redoDrawingStep" :class="{disabled: !redoList.length}">redo</div>
             </span>
@@ -100,9 +100,17 @@ export default {
       type: Boolean,
       default: false
     },
-    undoRedo: {
+    showUndoRedo: {
       type: Boolean,
       default: true
+    },
+    showLineWidth: {
+      type: Boolean,
+      default: true
+    },
+    lineWidth: {
+      type: Number,
+      default: 5
     },
     colors: {
       type: Array,
@@ -114,12 +122,12 @@ export default {
       hidePaintable: false,
       currentColor: 'black',
       canvasId: 0,
-      lineWidth: 10,
       isEraserActive: false,
       isActive: false,
       pointCoords: [],
       redoList: [],
       undoList: [],
+      currentLineWidth: this.lineWidth,
       isColorPickerOpen: false,
       isLineWidthPickerOpen: false
     };
@@ -128,7 +136,7 @@ export default {
     name() {
       this.loadImageFromStorage();
     },
-    lineWidth(lineWidth) {
+    currentLineWidth(lineWidth) {
       ctx.lineWidth = lineWidth;
       tempCtx.lineWidth = lineWidth;
     },
