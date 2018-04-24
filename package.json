@@ -1,6 +1,6 @@
 {
   "name": "@appcominteractive/vue-paintable-screen",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Draw on any screen",
   "main": "dist/index.js",
   "author": "Ph1p <phil@capshake.com>",

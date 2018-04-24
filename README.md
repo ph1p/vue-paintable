@@ -1,5 +1,7 @@
 # vue-paintable-screen
 
+![https://www.npmjs.com/package/@appcominteractive/vue-paintable-screen](https://img.shields.io/npm/v/@appcominteractive/vue-paintable-screen.svg)
+
 With this vue component you can add a paintable canvas through every page you like.
 All paintings are saved into the local storage.
 
