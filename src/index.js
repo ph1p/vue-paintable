@@ -7,8 +7,6 @@ import Paintable from './paintable.vue';
 const PaintablePlugin = {};
 
 PaintablePlugin.install = function (Vue, options) {
-  console.log(options);
-
   if (options.setItem) {
     Paintable.methods.setItem = options.setItem;
   }
@@ -16,8 +14,6 @@ PaintablePlugin.install = function (Vue, options) {
   if (options.getItem) {
     Paintable.methods.getItem = options.getItem;
   }
-
-  console.log(Paintable);
 
   Vue.component('paintable-screen', Paintable);
 
