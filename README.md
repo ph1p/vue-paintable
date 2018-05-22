@@ -1,6 +1,6 @@
 # vue-paintable-screen
 
-![https://www.npmjs.com/package/@appcominteractive/vue-paintable-screen](https://img.shields.io/npm/v/@appcominteractive/vue-paintable-screen.svg)
+![https://www.npmjs.com/package/vue-paintable-screen](https://img.shields.io/npm/v/vue-paintable-screen.svg)
 
 With this vue plugin and component you can add a paintable canvas through your page.
 All paintings are saved by default into localStorage, but you can change that if you like.
@@ -8,12 +8,12 @@ All paintings are saved by default into localStorage, but you can change that if
 ### How to use?
 
 ```bash
-npm install @appcominteractive/vue-paintable-screen --save
+npm install vue-paintable-screen --save
 ```
 
 ```javascript
 import Vue from 'vue';
-import PaintablePlugin from '@appcominteractive/vue-paintable-screen';
+import PaintablePlugin from 'vue-paintable-screen';
 
 Vue.use(Paintable, {
   // optional methods

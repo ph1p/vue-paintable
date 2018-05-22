@@ -1,5 +1,5 @@
 {
-  "name": "@appcominteractive/vue-paintable-screen",
+  "name": "vue-paintable-screen",
   "version": "0.4.0",
   "description": "Draw on any screen",
   "keywords": [
@@ -9,10 +9,7 @@
   ],
   "main": "dist/index.js",
   "author": "Ph1p <phil@capshake.com>",
-  "repository": "https://github.com/appcom-interactive/vue-paintable-screen.git",
-  "contributors": [
-    "Philip Stapelfeldt <p.stapelfeldt@appcom-interactive.de>"
-  ],
+  "repository": "https://github.com/ph1p/vue-paintable-screen.git",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

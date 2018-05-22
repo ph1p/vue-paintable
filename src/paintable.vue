@@ -85,6 +85,11 @@
  * Copyright (C) 2018 Philip Stapelfeldt (p.stapelfeldt@appcom-interactive.de)
  * appcom interactive GmbH
  */
+let previousX = 0;
+let previousY = 0;
+let currentX = 0;
+let currentY = 0;
+
 export default {
   name: 'paintable',
   props: {
@@ -138,10 +143,6 @@ export default {
       currentLineWidth: this.lineWidth,
       isColorPickerOpen: false,
       isLineWidthPickerOpen: false,
-      previousX: 0,
-      previousY: 0,
-      currentX: 0,
-      currentY: 0,
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
@@ -319,8 +320,8 @@ export default {
     setCanvasSize() {
       // this.width = window.innerWidth;
       // this.height = window.innerHeight;
-      this.currentX = 0;
-      this.currentY = 0;
+      currentX = 0;
+      currentY = 0;
     },
     /**
      * Clear complete canvas
@@ -378,23 +379,23 @@ export default {
 
         this.saveCurrentCanvasState(this.canvas);
 
-        this.previousX = this.currentX;
-        this.previousY = this.currentY;
+        previousX = currentX;
+        previousY = currentY;
 
-        // this.currentX =
+        // currentX =
         //   e.targetTouches[0].clientX * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().left;
-        // this.currentY =
+        // currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().top;
-        this.currentX =
+        currentX =
           (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
-        this.currentY =
+        currentY =
           (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
-          x: this.currentX,
-          y: this.currentY
+          x: currentX,
+          y: currentY
         });
 
         this.tempCtx.globalCompositeOperation = 'source-over';
@@ -445,23 +446,23 @@ export default {
       e.preventDefault();
 
       if (this.isActive && this.startedDrawing) {
-        this.previousX = this.currentX;
-        this.previousY = this.currentY;
+        previousX = currentX;
+        previousY = currentY;
 
-        // this.currentX =
+        // currentX =
         //   e.targetTouches[0].clientX * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().left;
-        // this.currentY =
+        // currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().top;
-        this.currentX =
+        currentX =
           (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
-        this.currentY =
+        currentY =
           (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
-          x: this.currentX,
-          y: this.currentY
+          x: currentX,
+          y: currentY
         });
 
         this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
