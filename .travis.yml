@@ -1,9 +1,7 @@
 matrix:
   include:
     - language: node_js
-      node_js: 8
-      env:
-        - NAME="Node 8"
+      node_js: 9
       install:
         - npm cache verify
         - npm install
