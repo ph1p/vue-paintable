@@ -69,20 +69,6 @@
  * Copyright (C) 2018 Philip Stapelfeldt (p.stapelfeldt@appcom-interactive.de)
  * appcom interactive GmbH
  */
-
-// Variables
-let previousX = 0;
-let previousY = 0;
-
-let currentX = 0;
-let currentY = 0;
-
-let tempCanvas = null;
-let tempCtx = null;
-
-let canvas = null;
-let ctx = null;
-
 export default {
   name: 'paintable',
   props: {
@@ -131,20 +117,27 @@ export default {
       undoList: [],
       currentLineWidth: this.lineWidth,
       isColorPickerOpen: false,
-      isLineWidthPickerOpen: false
+      isLineWidthPickerOpen: false,
+      previousX: 0,
+      previousY: 0,
+      currentX: 0,
+      currentY: 0,
+      tempCanvas: null,
+      tempCtx: null,
+      canvas: null,
+      ctx: null
     };
   },
   watch: {
-    name() {
-      this.loadImageFromStorage();
-    },
+    name: 'init',
+    // hide: 'init',
     currentLineWidth(lineWidth) {
-      ctx.lineWidth = lineWidth;
-      tempCtx.lineWidth = lineWidth;
+      this.ctx.lineWidth = lineWidth;
+      this.tempCtx.lineWidth = lineWidth;
     },
     color(color) {
-      ctx.strokeStyle = color;
-      tempCtx.strokeStyle = color;
+      this.ctx.strokeStyle = color;
+      this.tempCtx.strokeStyle = color;
     }
   },
   beforeMount() {
@@ -181,41 +174,48 @@ export default {
      * Init paintable component and set all variables
      */
     init() {
-      // temporary canvas
-      tempCanvas = document.getElementById('temp-canvas-' + this.canvasId);
-      tempCtx = tempCanvas.getContext('2d');
+      try {
+        this.pointCoords = [];
 
-      // canvas with drawing
-      canvas = document.getElementById('canvas-' + this.canvasId);
-      ctx = canvas.getContext('2d');
+        // temporary canvas
+        this.tempCanvas = document.getElementById('temp-canvas-' + this.canvasId);
+        this.tempCtx = this.tempCanvas.getContext('2d');
 
-      tempCtx.lineCap = 'round';
-      ctx.lineCap = 'round';
+        // canvas with drawing
+        this.canvas = document.getElementById('canvas-' + this.canvasId);
+        this.ctx = this.canvas.getContext('2d');
 
-      tempCtx.lineWidth = this.lineWidth;
-      ctx.lineWidth = this.lineWidth;
+        this.tempCtx.lineCap = 'round';
+        this.ctx.lineCap = 'round';
 
-      tempCtx.strokeStyle = this.currentColor;
-      ctx.strokeStyle = this.currentColor;
+        this.tempCtx.lineWidth = this.lineWidth;
+        this.ctx.lineWidth = this.lineWidth;
 
-      this.setItem(
-        this.name + '-settings',
-        JSON.stringify({
-          width: this.width,
-          height: this.height
-        })
-      );
+        this.tempCtx.strokeStyle = this.currentColor;
+        this.ctx.strokeStyle = this.currentColor;
 
-      // set canvas width and height
-      this.setCanvasSize();
+        this.setItem(
+          this.name + '-settings',
+          JSON.stringify({
+            width: this.width,
+            height: this.height
+          })
+        );
 
-      // load image from storage
-      this.loadImageFromStorage();
+        // set canvas width and height
+        this.setCanvasSize();
 
-      // listen to hide event
-      this.$root.$on('hide-paintable-navigation', hidePaintable => {
-        this.hidePaintable = hidePaintable;
-      });
+        // load image from storage
+        this.loadImageFromStorage();
+
+        // listen to hide event
+        this.$root.$on('hide-paintable-navigation', hidePaintable => {
+          this.hidePaintable = hidePaintable;
+        });
+      } catch (err) {
+        // this.hide = true;
+        // this.hidePaintable = true;
+      }
     },
     //--------------------------------------------------
     /**
@@ -234,10 +234,10 @@ export default {
      * Restore previous image
      */
     restoreCanvasState(pop, push) {
-      ctx.globalCompositeOperation = 'source-over';
+      this.ctx.globalCompositeOperation = 'source-over';
       if (pop.length) {
         const restore_state = pop.pop();
-        this.saveCurrentCanvasState(canvas, push, true);
+        this.saveCurrentCanvasState(this.canvas, push, true);
         this.loadImageFromStorage(restore_state);
       }
     },
@@ -258,8 +258,8 @@ export default {
      */
     changeColor(color) {
       this.currentColor = color;
-      tempCtx.strokeStyle = this.currentColor;
-      ctx.strokeStyle = this.currentColor;
+      this.tempCtx.strokeStyle = this.currentColor;
+      this.ctx.strokeStyle = this.currentColor;
     },
     /**
      * Get base64 from local storage and load it into canvas
@@ -267,11 +267,11 @@ export default {
     async loadImageFromStorage(image) {
       this.clearCanvas();
 
-      const base64Image = image || await this.getItem(this.name);
+      const base64Image = image || (await this.getItem(this.name));
       if (base64Image) {
         let image = new Image();
         image.onload = () => {
-          ctx.drawImage(image, 0, 0);
+          this.ctx.drawImage(image, 0, 0);
         };
         image.src = base64Image;
       }
@@ -282,14 +282,14 @@ export default {
     setCanvasSize() {
       // this.width = window.innerWidth;
       // this.height = window.innerHeight;
-      currentX = 0;
-      currentY = 0;
+      this.currentX = 0;
+      this.currentY = 0;
     },
     /**
      * Clear complete canvas
      */
     clearCanvas() {
-      ctx.clearRect(0, 0, this.width, this.height);
+      this.ctx.clearRect(0, 0, this.width, this.height);
     },
     /**
      * Cancel current drawing and remove lines
@@ -304,7 +304,7 @@ export default {
       blank.width = this.height;
       blank.height = this.width;
 
-      return canvas.toDataURL() == blank.toDataURL();
+      return this.canvas.toDataURL() == blank.toDataURL();
     },
     /**
      * Check first, if canvas is empty.
@@ -315,7 +315,7 @@ export default {
         this.removeItem(this.name);
         this.removeItem(this.name + '-settings');
       } else {
-        this.setItem(this.name, canvas.toDataURL('image/png'));
+        this.setItem(this.name, this.canvas.toDataURL('image/png'));
         this.setItem(
           this.name + '-settings',
           JSON.stringify({
@@ -338,27 +338,27 @@ export default {
         this.isLineWidthPickerOpen = false;
         this.isColorPickerOpen = false;
 
-        this.saveCurrentCanvasState(canvas);
+        this.saveCurrentCanvasState(this.canvas);
 
-        previousX = currentX;
-        previousY = currentY;
+        this.previousX = this.currentX;
+        this.previousY = this.currentY;
 
-        // currentX =
+        // this.currentX =
         //   e.targetTouches[0].clientX * this.scalingFactor -
-        //   tempCanvas.getBoundingClientRect().left;
-        // currentY =
+        //   this.tempCanvas.getBoundingClientRect().left;
+        // this.currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
-        //   tempCanvas.getBoundingClientRect().top;
-        currentX = e.targetTouches[0].clientX - tempCanvas.getBoundingClientRect().left;
-        currentY = e.targetTouches[0].clientY - tempCanvas.getBoundingClientRect().top;
+        //   this.tempCanvas.getBoundingClientRect().top;
+        this.currentX = e.targetTouches[0].clientX - this.tempCanvas.getBoundingClientRect().left;
+        this.currentY = e.targetTouches[0].clientY - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
-          x: currentX,
-          y: currentY
+          x: this.currentX,
+          y: this.currentY
         });
 
-        tempCtx.globalCompositeOperation = 'source-over';
-        ctx.globalCompositeOperation = this.isEraserActive ? 'destination-out' : 'source-over';
+        this.tempCtx.globalCompositeOperation = 'source-over';
+        this.ctx.globalCompositeOperation = this.isEraserActive ? 'destination-out' : 'source-over';
       }
     },
     /**
@@ -366,7 +366,7 @@ export default {
      */
     drawEnd(e) {
       if (this.isActive) {
-        this.drawLine(ctx);
+        this.drawLine(this.ctx);
 
         this.pointCoords = [];
       }
@@ -375,7 +375,7 @@ export default {
      * Generate line from points array
      */
     drawLine(context) {
-      tempCtx.clearRect(0, 0, this.width, this.height);
+      this.tempCtx.clearRect(0, 0, this.width, this.height);
 
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
@@ -402,25 +402,26 @@ export default {
      */
     drawMove(e) {
       e.preventDefault();
-      if (this.isActive) {
-        previousX = currentX;
-        previousY = currentY;
 
-        // currentX =
+      if (this.isActive) {
+        this.previousX = this.currentX;
+        this.previousY = this.currentY;
+
+        // this.currentX =
         //   e.targetTouches[0].clientX * this.scalingFactor -
-        //   tempCanvas.getBoundingClientRect().left;
-        // currentY =
+        //   this.tempCanvas.getBoundingClientRect().left;
+        // this.currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
-        //   tempCanvas.getBoundingClientRect().top;
-        currentX = e.targetTouches[0].clientX - tempCanvas.getBoundingClientRect().left;
-        currentY = e.targetTouches[0].clientY - tempCanvas.getBoundingClientRect().top;
+        //   this.tempCanvas.getBoundingClientRect().top;
+        this.currentX = e.targetTouches[0].clientX - this.tempCanvas.getBoundingClientRect().left;
+        this.currentY = e.targetTouches[0].clientY - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
-          x: currentX,
-          y: currentY
+          x: this.currentX,
+          y: this.currentY
         });
 
-        this.drawLine(!this.isEraserActive ? tempCtx : ctx);
+        this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
       }
     }
   }
