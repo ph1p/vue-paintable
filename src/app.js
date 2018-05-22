@@ -16,16 +16,14 @@ Vue.use(Paintable, {
 new Vue({
     template: `
     <div>
-        <paintable-screen name="my-screen" :lineWidth="10" :hide="!isFirstPaintable">
-            test <strong>{{isFirstPaintable ? 'current view' : ''}}</strong>
-            <button @click="show">show</button>
-            <button @click="hide">hide</button>
+        <paintable-screen name="my-screen" :lineWidth="10" :hide="!isFirstPaintable" :useMouse="true">
+            <strong>{{isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)'}}</strong>
+            <button @click="show">show navigation</button>
+            <button @click="hide">hide navigation</button>
             <button @click="navigate">toggle paintable</button>
         </paintable-screen>
         <paintable-screen name="my-screen-2" :showUndoRedo="false" :showLineWidth="false" :lineWidth="10" :colors="[]" :hide="isFirstPaintable">
-            <br><br>test2 <strong>{{!isFirstPaintable ? 'current view' : ''}}</strong>
-            <button @click="show">show</button>
-            <button @click="hide">hide</button>
+
         </paintable-screen>
     </div>
     `,

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="paintable" v-show="!hide && !hidePaintable">
-        <div class="navigation">
+    <div class="paintable" v-show="!hide">
+        <div class="navigation" v-if="!hidePaintableNavigation">
           <div class="navigationBtn save" @click="togglePainting">
               <span v-if="isActive" @click="saveCurrentCanvasToStorage">save</span>
               <span v-else>draw</span>
@@ -70,11 +70,11 @@
             @touchstart="drawStart"
             @touchend="drawEnd" />
         </div>
-        <div v-if="!hide && !hidePaintable" class="content">
+        <div v-if="!hide" class="content">
             <slot></slot>
         </div>
     </div>
-    <div v-if="hide || hidePaintable" class="content">
+    <div v-if="hide" class="content">
         <slot></slot>
     </div>
   </div>
@@ -132,7 +132,7 @@ export default {
   },
   data() {
     return {
-      hidePaintable: false,
+      hidePaintableNavigation: false,
       currentColor: 'black',
       canvasId: 0,
       isEraserActive: false,
@@ -247,12 +247,12 @@ export default {
         this.loadImageFromStorage();
 
         // listen to hide event
-        this.$root.$on('hide-paintable-navigation', hidePaintable => {
-          this.hidePaintable = hidePaintable;
+        this.$root.$on('hide-paintable-navigation', hidePaintableNavigation => {
+          this.hidePaintableNavigation = hidePaintableNavigation;
         });
       } catch (err) {
         // this.hide = true;
-        // this.hidePaintable = true;
+        // this.hidePaintableNavigation = true;
       }
     },
     //--------------------------------------------------
