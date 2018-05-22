@@ -1,7 +1,8 @@
 <template>
-    <div class="paintable" v-if="!hide && !hidePaintable">
+  <div>
+    <div class="paintable" v-show="!hide && !hidePaintable">
         <div class="navigation">
-          <span  v-if="isActive">
+          <span v-if="isActive">
             <span class="color" v-if="colors.length > 0">
               <div class="navigationBtn" @click="isColorPickerOpen = !isColorPickerOpen">
                 color
@@ -53,13 +54,14 @@
         @touchstart="drawStart"
         @touchend="drawEnd" />
 
-        <div class="content">
+        <div v-if="!hide && !hidePaintable" class="content">
             <slot></slot>
         </div>
     </div>
-    <div v-else class="content">
+    <div v-if="hide || hidePaintable" class="content">
         <slot></slot>
     </div>
+  </div>
 </template>
 
 <script>
@@ -160,6 +162,15 @@ export default {
     }
   },
   methods: {
+    setItem(key, value) {
+      localStorage.setItem(key, value);
+    },
+    async getItem(key) {
+      return localStorage.getItem(key);
+    },
+    removeItem(key) {
+      localStorage.removeItem(key);
+    },
     togglePainting() {
       this.isActive = !this.isActive;
 
@@ -187,7 +198,7 @@ export default {
       tempCtx.strokeStyle = this.currentColor;
       ctx.strokeStyle = this.currentColor;
 
-      localStorage.setItem(
+      this.setItem(
         this.name + '-settings',
         JSON.stringify({
           width: this.width,
@@ -253,10 +264,10 @@ export default {
     /**
      * Get base64 from local storage and load it into canvas
      */
-    loadImageFromStorage(image) {
+    async loadImageFromStorage(image) {
       this.clearCanvas();
 
-      const base64Image = image || localStorage.getItem(this.name);
+      const base64Image = image || await this.getItem(this.name);
       if (base64Image) {
         let image = new Image();
         image.onload = () => {
@@ -301,11 +312,11 @@ export default {
      */
     saveCurrentCanvasToStorage() {
       if (this.isCanvasBlank()) {
-        localStorage.removeItem(this.name);
-        localStorage.removeItem(this.name + '-settings');
+        this.removeItem(this.name);
+        this.removeItem(this.name + '-settings');
       } else {
-        localStorage.setItem(this.name, canvas.toDataURL('image/png'));
-        localStorage.setItem(
+        this.setItem(this.name, canvas.toDataURL('image/png'));
+        this.setItem(
           this.name + '-settings',
           JSON.stringify({
             width: this.width,
@@ -416,7 +427,6 @@ export default {
 };
 </script>
 <style>
-
 </style>
 
 <style lang="scss" scoped>

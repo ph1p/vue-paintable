@@ -15,7 +15,18 @@ npm install @appcominteractive/vue-paintable-screen --save
 import Vue from 'vue';
 import PaintablePlugin from '@appcominteractive/vue-paintable-screen';
 
-Vue.use(PaintablePlugin);
+Vue.use(Paintable, {
+  // optional methods
+  setItem(key, value) {
+    localStorage.setItem(key, value);
+  },
+  async getItem(key) {
+    return localStorage.getItem(key);
+  },
+  removeItem(key) {
+    localStorage.removeItem(key);
+  }
+});
 //...
 ```
 
@@ -30,6 +41,7 @@ Vue.use(PaintablePlugin);
         :lineWidth="10"
         :colors="['red', '#000']"
         :hide="false">
+        Your content
         <router-view></router-view>
     </paintable-screen>
 </template>
@@ -37,23 +49,40 @@ Vue.use(PaintablePlugin);
 
 ### Props
 
-* name | string - required
-* showUndoRedo | boolean
-* hide | boolean
-* colors | Array of colors (rgb, hex etc.)
-* width | number
-* height | number
-* showLineWidth | boolean
-* lineWidth | number
+| name          | type                            |
+| ------------- | ------------------------------- |
+| name          | string - required               |
+| showUndoRedo  | boolean                         |
+| hide          | boolean                         |
+| colors        | Array of colors (rgb, hex etc.) |
+| width         | number                          |
+| height        | number                          |
+| showLineWidth | boolean                         |
+| lineWidth     | number                          |
+
 
 ### Global methods
 
-* $hidePaintableNavigation | void
-  * Hide paintable navigation
-* $showPaintableNavigation | void
-  * Show paintable navigation
+| name                     | type | description               |
+| ------------------------ | ---- | ------------------------- |
+| $hidePaintableNavigation | void | Hide paintable navigation |
+| $showPaintableNavigation | void | Show paintable navigation |
+
+```javascript
+mounted() {
+    this.$hidePaintableNavigation();
+}
+```
+
 
 ### Events
 
-* toggle-paintable-screen | boolean
-  * Is emitted, when changing paintable state
+| name                    | type    | description                               |
+| ----------------------- | ------- | ----------------------------------------- |
+| toggle-paintable-screen | boolean | Is emitted, when changing paintable state |
+
+```javascript
+this.$root.$on('toggle-paintable-screen', isActive => {
+  console.log(isActive);
+});
+```
