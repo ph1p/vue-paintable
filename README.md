@@ -36,9 +36,11 @@ Vue.use(Paintable, {
 <template>
     <paintable-screen
         name="my-screen"
+        :useMouse="true"
         :showUndoRedo="false"
         :showLineWidth="false"
         :lineWidth="10"
+        :colors="['red', '#000']"
         :colors="['red', '#000']"
         :hide="false">
         Your content
@@ -48,17 +50,18 @@ Vue.use(Paintable, {
 ```
 
 ### Props
-
-| name          | type                            |
-| ------------- | ------------------------------- |
-| name          | string - required               |
-| showUndoRedo  | boolean                         |
-| hide          | boolean                         |
-| colors        | Array of colors (rgb, hex etc.) |
-| width         | number                          |
-| height        | number                          |
-| showLineWidth | boolean                         |
-| lineWidth     | number                          |
+ƒ
+| name          | type                            | required | default                                                                  |
+| ------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ |
+| useMouse      | boolean                         | false    | false                                                                    |
+| name          | string - required               | true     | -                                                                        |
+| showUndoRedo  | boolean                         | false    | true                                                                     |
+| hide          | boolean                         | false    | false                                                                    |
+| colors        | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] |
+| width         | number                          | false    | window.innerWidth                                                        |
+| height        | number                          | false    | window.innerHeight                                                       |
+| showLineWidth | boolean                         | false    | true                                                                     |
+| lineWidth     | number                          | false    | 5                                                                        |
 
 
 ### Global methods

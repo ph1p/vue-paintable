@@ -40,20 +40,36 @@
           </span>
           </div>
 
-        <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
-        :width="width"
-        :height="height"
-        @touchmove="drawMove"
-        @touchstart="drawStart"
-        @touchend="drawEnd" />
+        <div v-if="useMouse">
+          <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
+            :width="width"
+            :height="height"
+            @mousemove="drawMove"
+            @mousedown="drawStart"
+            @mouseup="drawEnd" />
 
-        <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive}" class="canvas"
-        :width="width"
-        :height="height"
-        @touchmove="drawMove"
-        @touchstart="drawStart"
-        @touchend="drawEnd" />
+          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive}" class="canvas"
+            :width="width"
+            :height="height"
+            @mousemove="drawMove"
+            @mousedown="drawStart"
+            @mouseup="drawEnd" />
+        </div>
+        <div v-else>
+          <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
+            :width="width"
+            :height="height"
+            @touchmove="drawMove"
+            @touchstart="drawStart"
+            @touchend="drawEnd" />
 
+          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive}" class="canvas"
+            :width="width"
+            :height="height"
+            @touchmove="drawMove"
+            @touchstart="drawStart"
+            @touchend="drawEnd" />
+        </div>
         <div v-if="!hide && !hidePaintable" class="content">
             <slot></slot>
         </div>
@@ -72,6 +88,10 @@
 export default {
   name: 'paintable',
   props: {
+    useMouse: {
+      type: Boolean,
+      default: false
+    },
     name: {
       type: String,
       required: true
@@ -125,12 +145,13 @@ export default {
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
-      ctx: null
+      ctx: null,
+      startedDrawing: false
     };
   },
   watch: {
     name: 'init',
-    hide: 'init',
+    // hide: 'init',
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;
@@ -155,15 +176,31 @@ export default {
     }
   },
   methods: {
+    /**
+     * Set storage item
+     * @param {string} key
+     * @param {string} value
+     */
     setItem(key, value) {
       localStorage.setItem(key, value);
     },
+    /**
+     * Get storage item
+     * @param {string} key
+     */
     async getItem(key) {
       return localStorage.getItem(key);
     },
+    /**
+     * Remove item from storage
+     * @param {string} key
+     */
     removeItem(key) {
       localStorage.removeItem(key);
     },
+    /**
+     * Toggle painting
+     */
     togglePainting() {
       this.isActive = !this.isActive;
 
@@ -337,6 +374,7 @@ export default {
       if (this.isActive) {
         this.isLineWidthPickerOpen = false;
         this.isColorPickerOpen = false;
+        this.startedDrawing = true;
 
         this.saveCurrentCanvasState(this.canvas);
 
@@ -349,8 +387,10 @@ export default {
         // this.currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().top;
-        this.currentX = e.targetTouches[0].clientX - this.tempCanvas.getBoundingClientRect().left;
-        this.currentY = e.targetTouches[0].clientY - this.tempCanvas.getBoundingClientRect().top;
+        this.currentX =
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
+        this.currentY =
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
           x: this.currentX,
@@ -367,6 +407,7 @@ export default {
     drawEnd(e) {
       if (this.isActive) {
         this.drawLine(this.ctx);
+        this.startedDrawing = false;
 
         this.pointCoords = [];
       }
@@ -403,7 +444,7 @@ export default {
     drawMove(e) {
       e.preventDefault();
 
-      if (this.isActive) {
+      if (this.isActive && this.startedDrawing) {
         this.previousX = this.currentX;
         this.previousY = this.currentY;
 
@@ -413,8 +454,10 @@ export default {
         // this.currentY =
         //   e.targetTouches[0].clientY * this.scalingFactor -
         //   this.tempCanvas.getBoundingClientRect().top;
-        this.currentX = e.targetTouches[0].clientX - this.tempCanvas.getBoundingClientRect().left;
-        this.currentY = e.targetTouches[0].clientY - this.tempCanvas.getBoundingClientRect().top;
+        this.currentX =
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
+        this.currentY =
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
           x: this.currentX,
@@ -523,7 +566,8 @@ export default {
       &--save {
         background-color: #4bb5e4;
       }
-      &--undo, &--linewidth {
+      &--undo,
+      &--linewidth {
         margin-top: 10px;
       }
       &--clear {
