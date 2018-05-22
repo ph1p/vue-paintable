@@ -2,43 +2,43 @@
   <div>
     <div class="paintable" v-show="!hide && !hidePaintable">
         <div class="navigation">
+          <div class="navigationBtn save" @click="togglePainting">
+              <span v-if="isActive" @click="saveCurrentCanvasToStorage">save</span>
+              <span v-else>draw</span>
+          </div>
           <span v-if="isActive">
             <span class="color" v-if="colors.length > 0">
-              <div class="navigationBtn" @click="isColorPickerOpen = !isColorPickerOpen">
-                color
-              </div>
               <div class="color__picker" v-if="isColorPickerOpen">
                 <span :class="['color__pickerColor', {selected: currentColor === color}]" v-for="color in colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color); isColorPickerOpen = false;"></span>
               </div>
+              <div class="navigationBtn" @click="isColorPickerOpen = !isColorPickerOpen; isLineWidthPickerOpen = false;">
+                color
+              </div>
             </span>
             <span class="linewidth" v-if="showLineWidth">
-              <div class="navigationBtn" @click="isLineWidthPickerOpen = !isLineWidthPickerOpen">
-                line-width
-              </div>
               <div class="linewidth__picker" v-if="isLineWidthPickerOpen">
                 <label for="linewidth__picker">({{currentLineWidth}}px):</label>
                 <input id="paintable-font-size" type="range" min="1" max="100" v-model="currentLineWidth" @change="isLineWidthPickerOpen = false">
                 <div class="paintableLineWidth" :style="{height: currentLineWidth + 'px', width: currentLineWidth + 'px', backgroundColor: this.currentColor}"></div>
               </div>
+              <div class="navigationBtn navigationBtn--linewidth" @click="isLineWidthPickerOpen = !isLineWidthPickerOpen; isColorPickerOpen = false;">
+                line-width
+              </div>
             </span>
 
             <span v-if="showUndoRedo">
-              <div class="navigationBtn" @click="undoDrawingStep" :class="{disabled: !undoList.length}">undo</div>
-              <div class="navigationBtn" @click="redoDrawingStep" :class="{disabled: !redoList.length}">redo</div>
+              <div class="navigationBtn navigationBtn--undo" @click="undoDrawingStep" :class="{disabled: !undoList.length}">undo</div>
+              <div class="navigationBtn navigationBtn--redo" @click="redoDrawingStep" :class="{disabled: !redoList.length}">redo</div>
             </span>
 
-            <div class="navigationBtn clear" @click="clearCanvas">delete</div>
-            <div class="navigationBtn eraser" @click="isEraserActive = !isEraserActive">
+            <div class="navigationBtn navigationBtn--clear" @click="clearCanvas">delete</div>
+            <div class="navigationBtn navigationBtn--eraser" @click="isEraserActive = !isEraserActive">
                 <span v-if="!isEraserActive">eraser</span>
                 <span v-else>pencil</span>
             </div>
-            <div class="navigationBtn" @click="cancelDrawing">cancel</div>
+            <div class="navigationBtn navigationBtn--cancel" @click="cancelDrawing">cancel</div>
           </span>
-          <div class="navigationBtn save" @click="togglePainting">
-              <span v-if="isActive" @click="saveCurrentCanvasToStorage">save</span>
-              <span v-else>draw</span>
           </div>
-        </div>
 
         <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
         :width="width"
@@ -445,10 +445,11 @@ export default {
     &__picker {
       background: #4bb6e5;
       position: absolute;
-      left: 10px;
-      top: 35px;
-      padding: 10px 16px 17px 17px;
+      left: -225px;
+      top: 0;
+      padding: 12px;
       border-radius: 5px;
+      box-sizing: border-box;
       &Color {
         border-radius: 100%;
         height: 15px;
@@ -471,9 +472,9 @@ export default {
     &__picker {
       background: #4bb6e5;
       position: absolute;
-      left: 10px;
-      top: 35px;
-      padding: 10px 16px 17px 17px;
+      left: -60px;
+      top: 0;
+      padding: 12px;
       border-radius: 5px;
       &Color {
         border-radius: 100%;
@@ -495,68 +496,41 @@ export default {
   &LineWidth {
     border-radius: 100%;
   }
-  &FontSize,
-  &EraserSize {
-    input[type='range'] {
-      -webkit-appearance: none;
-      width: 100%;
-      margin: 0.7px 0;
-    }
-    input[type='range']:focus {
-      outline: none;
-    }
-    input[type='range']::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 10px;
-      cursor: pointer;
-      background: #ddd;
-      border-radius: 4px;
-    }
-    input[type='range']::-webkit-slider-thumb {
-      height: 30px;
-      width: 30px;
-      border-radius: 100%;
-      background: #3b7dbb;
-      cursor: pointer;
-      -webkit-appearance: none;
-      margin-top: -5px;
-    }
-    input[type='range']:focus::-webkit-slider-runnable-track {
-      background: #545a5a;
-    }
-    input[type='range']:focus::-ms-fill-lower {
-      background: #484d4d;
-    }
-    input[type='range']:focus::-ms-fill-upper {
-      background: #545a5a;
-    }
-  }
 
   .navigation {
     position: absolute;
     right: 20px;
     top: 20px;
     z-index: 1005;
+    background-color: #6b6b6b;
+    border-radius: 10px;
+    padding: 10px 10px 0;
     .navigationBtn {
-      padding: 10px 20px;
+      padding: 7px 8px;
       border-radius: 5px;
-      display: inline-block;
+      display: block;
       cursor: pointer;
       border: 0;
-      margin-left: 10px;
+      margin: 0 0 10px;
       background-color: #4bb5e4;
       color: #fff;
-
+      width: 60px;
+      box-sizing: border-box;
+      text-align: center;
       &.disabled {
         opacity: 0.5;
       }
-      &.save {
+      &--save {
         background-color: #4bb5e4;
       }
-      &.clear {
+      &--undo, &--linewidth {
+        margin-top: 10px;
+      }
+      &--clear {
+        margin-top: 10px;
         background-color: #dc6363;
       }
-      &.eraser {
+      &--eraser {
         background-color: #dc6363;
       }
     }

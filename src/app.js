@@ -16,7 +16,7 @@ Vue.use(Paintable, {
 new Vue({
     template: `
     <div>
-        <paintable-screen name="my-screen" :showUndoRedo="false" :showLineWidth="false" :lineWidth="10" :colors="[]" :hide="!isFirstPaintable">
+        <paintable-screen name="my-screen" :lineWidth="10" :hide="!isFirstPaintable">
             test <strong>{{isFirstPaintable ? 'current view' : ''}}</strong>
             <button @click="show">show</button>
             <button @click="hide">hide</button>
