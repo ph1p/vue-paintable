@@ -130,7 +130,7 @@ export default {
   },
   watch: {
     name: 'init',
-    // hide: 'init',
+    hide: 'init',
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;

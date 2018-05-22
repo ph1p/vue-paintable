@@ -86,3 +86,12 @@ this.$root.$on('toggle-paintable-screen', isActive => {
   console.log(isActive);
 });
 ```
+
+
+### development
+
+If you want to develop on this plugin follow these steps:
+
+- clone repo
+- run `npm install`
+- run `npm run dev`
