@@ -1,6 +1,6 @@
 {
   "name": "@appcominteractive/vue-paintable-screen",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Draw on any screen",
   "keywords": [
     "canvas",
