@@ -1,4 +1,4 @@
-# vue-paintable-screen ![https://www.npmjs.com/package/vue-paintable-screen](https://img.shields.io/npm/v/vue-paintable-screen.svg) ![https://www.npmjs.com/package/vue-paintable-screen](https://img.shields.io/travis/ph1p/vue-paintable-screen.svg)
+# vue-paintable-screen ![https://www.npmjs.com/package/vue-paintable-screen](https://img.shields.io/npm/v/vue-paintable-screen.svg) [![Build Status](https://travis-ci.org/ph1p/vue-paintable-screen.svg?branch=master)](https://travis-ci.org/ph1p/vue-paintable-screen)
 
 With this vue plugin and component you can add a paintable canvas through your page.
 All paintings are saved by default into localStorage, but you can change that if you like.
@@ -38,7 +38,6 @@ Vue.use(Paintable, {
         :showUndoRedo="false"
         :showLineWidth="false"
         :lineWidth="10"
-        :colors="['red', '#000']"
         :colors="['red', '#000']"
         :hide="false">
         Your content
