@@ -1,11 +1,8 @@
-matrix:
-  include:
-    - notifications:
-        email: false
-    - language: node_js
-      node_js: 9
-      install:
-        - npm cache verify
-        - npm install
-      script:
-        - npm start
+notifications:
+  email: false
+language: node_js
+  node_js: 9
+  install:
+    - npm install
+  script:
+    - npm start
