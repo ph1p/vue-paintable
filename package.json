@@ -27,7 +27,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server -d --open --progress --public --host 0.0.0.0",
     "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
-    "publish": "npm start && npm publish"
+    "prepublish": "npm start"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
