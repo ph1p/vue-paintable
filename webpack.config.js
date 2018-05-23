@@ -5,7 +5,7 @@ const path = require('path');
 const webpackConfig = (module.exports = {});
 const isProduction = process.env.NODE_ENV === 'production';
 
-webpackConfig.entry = isProduction ? './src' : './src/app.js';
+webpackConfig.entry = isProduction ? './src' : './src/dev/app.js';
 
 webpackConfig.output = {
   path: path.join(__dirname, './dist'),
@@ -23,7 +23,7 @@ webpackConfig.plugins = [new UglifyJsPlugin()];
 if (!isProduction) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './src/dev/index.html'
     })
   );
   webpackConfig.resolve.alias = {

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Paintable from './index';
+import Paintable from '../index';
 
 Vue.use(Paintable, {
     setItem(key, value) {
@@ -16,11 +16,12 @@ Vue.use(Paintable, {
 new Vue({
     template: `
     <div>
-        <paintable-screen name="my-screen" :lineWidth="10" :hide="!isFirstPaintable" :useMouse="true">
-            <strong>{{isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)'}}</strong>
-            <button @click="show">show navigation</button>
-            <button @click="hide">hide navigation</button>
-            <button @click="navigate">toggle paintable</button>
+        <strong>{{isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)'}}</strong>
+        <button @click="show">show navigation</button>
+        <button @click="hide">hide navigation</button>
+        <button @click="navigate">toggle paintable</button>
+        <paintable-screen name="my-screen" :lineWidth="10" :hide="!isFirstPaintable" useMouse alwaysOnTop>
+            <img src="https://placehold.it/500/500">
         </paintable-screen>
         <paintable-screen name="my-screen-2" :showUndoRedo="false" :showLineWidth="false" :lineWidth="10" :colors="[]" :hide="isFirstPaintable">
 

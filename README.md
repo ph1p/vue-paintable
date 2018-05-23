@@ -34,7 +34,7 @@ Vue.use(Paintable, {
 <template>
     <paintable-screen
         name="my-screen"
-        :useMouse="true"
+        useMouse
         :showUndoRedo="false"
         :showLineWidth="false"
         :lineWidth="10"
@@ -48,17 +48,18 @@ Vue.use(Paintable, {
 
 ### Props
 
-| name          | type                            | required | default                                                                  |
-| ------------- | ------------------------------- | -------- | -------------------------------------------------------------------------|
-| useMouse      | boolean                         | false    | false                                                                    |
-| name          | string - required               | true     | -                                                                        |
-| showUndoRedo  | boolean                         | false    | true                                                                     |
-| hide          | boolean                         | false    | false                                                                    |
-| colors        | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] |
-| width         | number                          | false    | window.innerWidth                                                        |
-| height        | number                          | false    | window.innerHeight                                                       |
-| showLineWidth | boolean                         | false    | true                                                                     |
-| lineWidth     | number                          | false    | 5                                                                        |
+| name          | type                            | required | default                                                                  | description                                                                                                               |
+| ------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| useMouse      | boolean                         | false    | false                                                                    | use mouse events instead of touch events                                                                                  |
+| name          | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
+| showUndoRedo  | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
+| hide          | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
+| colors        | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
+| width         | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
+| height        | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
+| showLineWidth | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
+| lineWidth     | number                          | false    | 5                                                                        | line width                                                                                                                |
+| alwaysOnTop   | boolean                         | false    | false                                                                    | Set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
 
 
 ### Global methods

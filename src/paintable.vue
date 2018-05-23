@@ -41,14 +41,14 @@
           </div>
 
         <div v-if="useMouse">
-          <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
+          <canvas :id="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas back"
             :width="width"
             :height="height"
             @mousemove="drawMove"
             @mousedown="drawStart"
             @mouseup="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive}" class="canvas"
+          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive || alwaysOnTop}" class="canvas"
             :width="width"
             :height="height"
             @mousemove="drawMove"
@@ -56,14 +56,14 @@
             @mouseup="drawEnd" />
         </div>
         <div v-else>
-          <canvas :id="'canvas-' + canvasId" :class="{active: isActive}" class="canvas back"
+          <canvas :id="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas back"
             :width="width"
             :height="height"
             @touchmove="drawMove"
             @touchstart="drawStart"
             @touchend="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive}" class="canvas"
+          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive || alwaysOnTop}" class="canvas"
             :width="width"
             :height="height"
             @touchmove="drawMove"
@@ -81,10 +81,6 @@
 </template>
 
 <script>
-/**
- * Copyright (C) 2018 Philip Stapelfeldt (p.stapelfeldt@appcom-interactive.de)
- * appcom interactive GmbH
- */
 let previousX = 0;
 let previousY = 0;
 let currentX = 0;
@@ -93,6 +89,10 @@ let currentY = 0;
 export default {
   name: 'paintable',
   props: {
+    alwaysOnTop: {
+      type: Boolean,
+      default: false
+    },
     useMouse: {
       type: Boolean,
       default: false
@@ -542,7 +542,7 @@ export default {
   }
 
   .navigation {
-    position: absolute;
+    position: fixed;
     right: 20px;
     top: 20px;
     z-index: 1005;
