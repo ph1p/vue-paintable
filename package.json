@@ -5,7 +5,9 @@
   "keywords": [
     "canvas",
     "vue",
-    "paintable"
+    "paintable",
+    "touch",
+    "mouse"
   ],
   "main": "dist/index.js",
   "author": "Ph1p <phil@capshake.com>",
@@ -24,7 +26,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server -d --open --progress --public --host 0.0.0.0",
-    "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js"
+    "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "publish": "npm start && npm publish"
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
