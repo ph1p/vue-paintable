@@ -1,7 +1,7 @@
-# vue-paintable [![npm](https://img.shields.io/npm/v/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![Build Status](https://travis-ci.org/ph1p/vue-paintable.svg?branch=master)](https://travis-ci.org/ph1p/vue-paintable) [![Demo](https://img.shields.io/badge/glitch-demo-fe6a73.svg)](https://vue-paintable-demo.glitch.me)
+# vue-paintable [![npm](https://badge.fury.io/js/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![Build Status](https://travis-ci.org/ph1p/vue-paintable.svg?branch=master)](https://travis-ci.org/ph1p/vue-paintable) [![Demo](https://img.shields.io/badge/glitch-demo-fe6a73.svg)](https://vue-paintable-demo.glitch.me)
 
 With this vue plugin and component you can add a paintable canvas through your page.
-All paintings are saved by default into localStorage, but you can change that if you like.
+All paintings are saved by default into localStorage.
 
 ### How to use?
 
@@ -15,10 +15,11 @@ import PaintablePlugin from 'vue-paintable';
 
 Vue.use(Paintable, {
   // optional methods
-  setItem(key, value) {
-    localStorage.setItem(key, value);
+  setItem(key, image) {
+    localStorage.setItem(key, image);
   },
-  async getItem(key) {
+  // you also can use async
+  getItem(key) {
     return localStorage.getItem(key);
   },
   removeItem(key) {
@@ -32,19 +33,59 @@ Vue.use(Paintable, {
 
 ```html
 <template>
-    <paintable-screen
+    <paintable
         name="my-screen"
         useMouse
         :showUndoRedo="false"
         :showLineWidth="false"
         :lineWidth="10"
         :colors="['red', '#000']"
+        :navigation="{
+          'draw-save': {
+            body: 'draw',
+            activeBody: '<strong>save</strong>
+          },
+          color: {
+            body: 'CP'
+          }
+        }"
         :hide="false">
         Your content
         <router-view></router-view>
-    </paintable-screen>
+    </paintable>
 </template>
 ```
+
+### Navigation
+
+Set your own navigation content by adding an object to your `<paintable>` component.
+
+```javascript
+{
+  'draw-save': {
+    body: 'draw',
+    activeBody: '<strong>save</strong>'
+  },
+  color: {
+    body: 'CP'
+  }
+}
+```
+
+**Available navigation items:**
+
+- color
+- line-width
+- undo
+- redo
+- delete
+- cancel
+
+**has active state (activeBody):**
+
+- draw-save
+- eraser-pencil
+
 
 ### Props
 
@@ -80,10 +121,10 @@ mounted() {
 
 | name                    | type    | description                               |
 | ----------------------- | ------- | ----------------------------------------- |
-| toggle-paintable-screen | boolean | Is emitted, when changing paintable state |
+| toggle-paintable | boolean | Is emitted, when changing paintable state |
 
 ```javascript
-this.$root.$on('toggle-paintable-screen', isActive => {
+this.$root.$on('toggle-paintable', isActive => {
   console.log(isActive);
 });
 ```

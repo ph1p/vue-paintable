@@ -1,44 +1,10 @@
 <template>
   <div>
     <div class="paintable" v-show="!hide">
-        <div class="navigation" v-if="!hidePaintableNavigation">
-          <div class="navigationBtn save" @click="togglePainting">
-              <span v-if="isActive" @click="saveCurrentCanvasToStorage">save</span>
-              <span v-else>draw</span>
-          </div>
-          <span v-if="isActive">
-            <span class="color" v-if="colors.length > 0">
-              <div class="color__picker" v-if="isColorPickerOpen">
-                <span :class="['color__pickerColor', {selected: currentColor === color}]" v-for="color in colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color); isColorPickerOpen = false;"></span>
-              </div>
-              <div class="navigationBtn" @click="isColorPickerOpen = !isColorPickerOpen; isLineWidthPickerOpen = false;">
-                color
-              </div>
-            </span>
-            <span class="linewidth" v-if="showLineWidth">
-              <div class="linewidth__picker" v-if="isLineWidthPickerOpen">
-                <label for="linewidth__picker">({{currentLineWidth}}px):</label>
-                <input id="paintable-font-size" type="range" min="1" max="100" v-model="currentLineWidth" @change="isLineWidthPickerOpen = false">
-                <div class="paintableLineWidth" :style="{height: currentLineWidth + 'px', width: currentLineWidth + 'px', backgroundColor: this.currentColor}"></div>
-              </div>
-              <div class="navigationBtn navigationBtn--linewidth" @click="isLineWidthPickerOpen = !isLineWidthPickerOpen; isColorPickerOpen = false;">
-                line-width
-              </div>
-            </span>
+        <Navigation>
+          <div slot="paintable-navigation-draw">fd</div>
+        </Navigation>
 
-            <span v-if="showUndoRedo">
-              <div class="navigationBtn navigationBtn--undo" @click="undoDrawingStep" :class="{disabled: !undoList.length}">undo</div>
-              <div class="navigationBtn navigationBtn--redo" @click="redoDrawingStep" :class="{disabled: !redoList.length}">redo</div>
-            </span>
-
-            <div class="navigationBtn navigationBtn--clear" @click="clearCanvas">delete</div>
-            <div class="navigationBtn navigationBtn--eraser" @click="isEraserActive = !isEraserActive">
-                <span v-if="!isEraserActive">eraser</span>
-                <span v-else>pencil</span>
-            </div>
-            <div class="navigationBtn navigationBtn--cancel" @click="cancelDrawing">cancel</div>
-          </span>
-          </div>
 
         <div v-if="useMouse">
           <canvas :id="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas back"
@@ -48,7 +14,7 @@
             @mousedown="drawStart"
             @mouseup="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive || alwaysOnTop}" class="canvas"
+          <canvas :id="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas"
             :width="width"
             :height="height"
             @mousemove="drawMove"
@@ -63,7 +29,7 @@
             @touchstart="drawStart"
             @touchend="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" v-show="!isEraserActive" :class="{active: isActive || alwaysOnTop}" class="canvas"
+          <canvas :id="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas"
             :width="width"
             :height="height"
             @touchmove="drawMove"
@@ -86,9 +52,18 @@ let previousY = 0;
 let currentX = 0;
 let currentY = 0;
 
+import Navigation from './components/navigation';
+
 export default {
   name: 'paintable',
+  components: {
+    Navigation
+  },
   props: {
+    navigation: {
+      type: Object,
+      default: null
+    },
     alwaysOnTop: {
       type: Boolean,
       default: false
@@ -141,8 +116,6 @@ export default {
       redoList: [],
       undoList: [],
       currentLineWidth: this.lineWidth,
-      isColorPickerOpen: false,
-      isLineWidthPickerOpen: false,
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
@@ -198,15 +171,6 @@ export default {
      */
     removeItem(key) {
       localStorage.removeItem(key);
-    },
-    /**
-     * Toggle painting
-     */
-    togglePainting() {
-      this.isActive = !this.isActive;
-
-      // emit root event
-      this.$root.$emit('toggle-paintable-screen', this.isActive);
     },
     /**
      * Init paintable component and set all variables
@@ -292,14 +256,6 @@ export default {
     },
     //-------------------------------------------------------------------------
     /**
-     * Change current drawing color
-     */
-    changeColor(color) {
-      this.currentColor = color;
-      this.tempCtx.strokeStyle = this.currentColor;
-      this.ctx.strokeStyle = this.currentColor;
-    },
-    /**
      * Get base64 from local storage and load it into canvas
      */
     async loadImageFromStorage(image) {
@@ -328,13 +284,6 @@ export default {
      */
     clearCanvas() {
       this.ctx.clearRect(0, 0, this.width, this.height);
-    },
-    /**
-     * Cancel current drawing and remove lines
-     */
-    cancelDrawing() {
-      this.loadImageFromStorage();
-      this.isActive = false;
     },
     isCanvasBlank() {
       const blank = document.createElement('canvas');
@@ -482,103 +431,6 @@ export default {
   width: 100%;
   &.active {
     z-index: 0;
-  }
-
-  .linewidth {
-    position: relative;
-    &__picker {
-      background: #4bb6e5;
-      position: absolute;
-      left: -225px;
-      top: 0;
-      padding: 12px;
-      border-radius: 5px;
-      box-sizing: border-box;
-      &Color {
-        border-radius: 100%;
-        height: 15px;
-        width: 15px;
-        display: block;
-        margin: 0 0 10px;
-        border: 2px solid transparent;
-        &:last-child {
-          margin: 0;
-        }
-        &.selected {
-          border: 2px solid #fff;
-        }
-      }
-    }
-  }
-
-  .color {
-    position: relative;
-    &__picker {
-      background: #4bb6e5;
-      position: absolute;
-      left: -60px;
-      top: 0;
-      padding: 12px;
-      border-radius: 5px;
-      &Color {
-        border-radius: 100%;
-        height: 15px;
-        width: 15px;
-        display: block;
-        margin: 0 0 10px;
-        border: 2px solid transparent;
-        &:last-child {
-          margin: 0;
-        }
-        &.selected {
-          border: 2px solid #fff;
-        }
-      }
-    }
-  }
-
-  &LineWidth {
-    border-radius: 100%;
-  }
-
-  .navigation {
-    position: fixed;
-    right: 20px;
-    top: 20px;
-    z-index: 1005;
-    background-color: #6b6b6b;
-    border-radius: 10px;
-    padding: 10px 10px 0;
-    .navigationBtn {
-      padding: 7px 8px;
-      border-radius: 5px;
-      display: block;
-      cursor: pointer;
-      border: 0;
-      margin: 0 0 10px;
-      background-color: #4bb5e4;
-      color: #fff;
-      width: 60px;
-      box-sizing: border-box;
-      text-align: center;
-      &.disabled {
-        opacity: 0.5;
-      }
-      &--save {
-        background-color: #4bb5e4;
-      }
-      &--undo,
-      &--linewidth {
-        margin-top: 10px;
-      }
-      &--clear {
-        margin-top: 10px;
-        background-color: #dc6363;
-      }
-      &--eraser {
-        background-color: #dc6363;
-      }
-    }
   }
 
   .canvas {
