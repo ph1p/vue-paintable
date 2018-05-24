@@ -98,13 +98,13 @@ export default {
           ]
         }
       ].map(navigationItem => {
-        if (this.paintabelView.navigation[navigationItem.name]) {
+        if (this.paintabelView.navigation && this.paintabelView.navigation[navigationItem.name]) {
           return Object.assign({}, navigationItem, this.paintabelView.navigation[navigationItem.name]);
         }
 
         if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
             navigationItem.subNavigation = navigationItem.subNavigation.map(subNavigationItem => {
-                if (this.paintabelView.navigation[subNavigationItem.name]) {
+                if (this.paintabelView.navigation && this.paintabelView.navigation[subNavigationItem.name]) {
                     return Object.assign({}, subNavigationItem, this.paintabelView.navigation[subNavigationItem.name]);
                 }
                 return subNavigationItem;
