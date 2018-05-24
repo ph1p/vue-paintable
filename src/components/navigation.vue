@@ -6,9 +6,9 @@
         </div>
 
         <div class="navigation__lineWidthPicker" v-if="isLineWidthPickerOpen">
-            <label for="linewidth__picker">({{paintabelView.currentLineWidth}}px):</label>
-            <input id="paintable-font-size" type="range" min="1" max="100" v-model="paintabelView.currentLineWidth" @change="isLineWidthPickerOpen = false">
-            <div class="paintableLineWidth" :style="lineWidthStyle"></div>
+            <label for="navigation__lineWidthPickerRange">({{paintabelView.currentLineWidth}}px):</label>
+            <input id="navigation__lineWidthPickerRange" type="range" min="1" max="100" v-model="paintabelView.currentLineWidth" @change="isLineWidthPickerOpen = false">
+            <div class="navigation__lineWidthPickerDot" :style="lineWidthStyle"></div>
         </div>
 
         <ul class="navigationMenu" :class="{'active': paintabelView.isActive}">
@@ -211,6 +211,10 @@ export default {
     padding: 12px;
     border-radius: 5px;
     box-sizing: border-box;
+    &Dot {
+        margin-top: 10px;
+        border-radius: 100%;
+    }
     &Color {
       border-radius: 100%;
       height: 15px;
