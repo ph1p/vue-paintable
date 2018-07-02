@@ -20,8 +20,13 @@ new Vue({
         <button @click="show">show navigation</button>
         <button @click="hide">hide navigation</button>
         <button @click="navigate">switch to another paintable</button>
-        <paintable-screen :navigation="navigation"
-        :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'" :lineWidth="10" useMouse alwaysOnTop>
+        <paintable-screen
+        :navigation="navigation"
+        :useMouse="isFirstPaintable"
+        :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
+        factor="0.5"
+        :lineWidth="10"
+        alwaysOnTop>
             <img src="https://placehold.it/500/500">
         </paintable-screen>
     </div>

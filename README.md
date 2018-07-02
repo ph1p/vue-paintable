@@ -100,7 +100,8 @@ Set your own navigation content by adding an object to your `<paintable>` compon
 | height        | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
 | showLineWidth | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
 | lineWidth     | number                          | false    | 5                                                                        | line width                                                                                                                |
-| alwaysOnTop   | boolean                         | false    | false                                                                    | Set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
+| alwaysOnTop   | boolean                         | false    | false                                                                    | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
+| factor        | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
 
 
 ### Global methods
@@ -119,8 +120,8 @@ mounted() {
 
 ### Events
 
-| name                    | type    | description                               |
-| ----------------------- | ------- | ----------------------------------------- |
+| name             | type    | description                               |
+| ---------------- | ------- | ----------------------------------------- |
 | toggle-paintable | boolean | Is emitted, when changing paintable state |
 
 ```javascript

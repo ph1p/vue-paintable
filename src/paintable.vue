@@ -60,6 +60,10 @@ export default {
     Navigation
   },
   props: {
+    factor: {
+      type: Number,
+      default: 1
+    },
     navigation: {
       type: Object,
       default: null
@@ -331,16 +335,12 @@ export default {
         previousX = currentX;
         previousY = currentY;
 
-        // currentX =
-        //   e.targetTouches[0].clientX * this.scalingFactor -
-        //   this.tempCanvas.getBoundingClientRect().left;
-        // currentY =
-        //   e.targetTouches[0].clientY * this.scalingFactor -
-        //   this.tempCanvas.getBoundingClientRect().top;
         currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) * this.factor -
+          this.tempCanvas.getBoundingClientRect().left;
         currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) * this.factor -
+          this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
           x: currentX,
@@ -398,16 +398,12 @@ export default {
         previousX = currentX;
         previousY = currentY;
 
-        // currentX =
-        //   e.targetTouches[0].clientX * this.scalingFactor -
-        //   this.tempCanvas.getBoundingClientRect().left;
-        // currentY =
-        //   e.targetTouches[0].clientY * this.scalingFactor -
-        //   this.tempCanvas.getBoundingClientRect().top;
         currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) - this.tempCanvas.getBoundingClientRect().left;
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) * this.factor -
+          this.tempCanvas.getBoundingClientRect().left;
         currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) - this.tempCanvas.getBoundingClientRect().top;
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) * this.factor -
+          this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
           x: currentX,
@@ -423,12 +419,16 @@ export default {
 <style>
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
+body {
+  position: fixed;
+}
 .paintable {
   overflow: hidden;
   position: fixed;
   height: 100%;
   width: 100%;
+  transform: scale(1);
   &.active {
     z-index: 0;
   }
