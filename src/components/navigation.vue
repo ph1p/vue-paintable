@@ -1,20 +1,20 @@
 <template>
-    <div class="navigation" v-if="!paintabelView.hidePaintableNavigation">
+    <div class="navigation" v-if="!paintableView.hidePaintableNavigation">
 
         <div class="navigation__colorPicker" v-if="isColorPickerOpen">
-            <span :class="['navigation__colorPickerColor', {selected: paintabelView.currentColor === color}]" v-for="color in paintabelView.colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color)"></span>
+            <span :class="['navigation__colorPickerColor', {selected: paintableView.currentColor === color}]" v-for="color in paintableView.colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color)"></span>
         </div>
 
         <div class="navigation__lineWidthPicker" v-if="isLineWidthPickerOpen">
-            <label for="navigation__lineWidthPickerRange">({{paintabelView.currentLineWidth}}px):</label>
-            <input id="navigation__lineWidthPickerRange" type="range" min="1" max="100" v-model="paintabelView.currentLineWidth" @change="isLineWidthPickerOpen = false">
+            <label for="navigation__lineWidthPickerRange">({{paintableView.currentLineWidth}}px):</label>
+            <input id="navigation__lineWidthPickerRange" type="range" min="1" max="100" v-model="paintableView.currentLineWidth" @change="isLineWidthPickerOpen = false">
             <div class="navigation__lineWidthPickerDot" :style="lineWidthStyle"></div>
         </div>
 
-        <ul class="navigationMenu" :class="{'active': paintabelView.isActive}">
+        <ul class="navigationMenu" :class="{'active': paintableView.isActive}">
             <li :class="'navigationMenu__'+item.name" v-for="item in navigation" :key="item.name">
                 <div @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
-                <ul v-if="paintabelView.isActive">
+                <ul v-if="paintableView.isActive">
                     <li v-if="item.show" v-for="item in item.subNavigation" :key="item.name" :class="['navigationMenu__'+item.name, {disabled: item.disabled}]">
                         <div @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
                     </li>
@@ -31,7 +31,7 @@ export default {
     return {
       isColorPickerOpen: false,
       isLineWidthPickerOpen: false,
-      paintabelView: this.$parent
+      paintableView: this.$parent
     };
   },
   computed: {
@@ -41,49 +41,49 @@ export default {
           name: 'draw-save',
           body: 'draw',
           activeBody: 'save',
-          isActive: this.paintabelView.isActive,
+          isActive: this.paintableView.isActive,
           click: this.togglePainting,
           subNavigation: [
             {
               name: 'color',
               body: 'color',
               disabled: false,
-              show: this.paintabelView.colors.length > 0,
+              show: this.paintableView.colors.length > 0,
               click: this.openColorPicker
             },
             {
               name: 'line-width',
               body: 'line-width',
               disabled: false,
-              show: this.paintabelView.showLineWidth,
+              show: this.paintableView.showLineWidth,
               click: this.openLineWidthPicker
             },
             {
               name: 'undo',
               body: 'undo',
-              disabled: !this.paintabelView.undoList.length,
-              show: this.paintabelView.showUndoRedo,
-              click: this.paintabelView.undoDrawingStep
+              disabled: !this.paintableView.undoList.length,
+              show: this.paintableView.showUndoRedo,
+              click: this.paintableView.undoDrawingStep
             },
             {
               name: 'redo',
               body: 'redo',
-              disabled: !this.paintabelView.redoList.length,
-              show: this.paintabelView.showUndoRedo,
-              click: this.paintabelView.redoDrawingStep
+              disabled: !this.paintableView.redoList.length,
+              show: this.paintableView.showUndoRedo,
+              click: this.paintableView.redoDrawingStep
             },
             {
               name: 'delete',
               body: 'delete',
               disabled: false,
               show: true,
-              click: this.paintabelView.clearCanvas
+              click: this.paintableView.clearCanvas
             },
             {
               name: 'eraser-pencil',
               body: 'eraser',
               activeBody: 'pencil',
-              isActive: this.paintabelView.isEraserActive,
+              isActive: this.paintableView.isEraserActive,
               disabled: false,
               show: true,
               click: this.toggleEraserAndPencil
@@ -100,16 +100,15 @@ export default {
       ].map(navigationItem => {
         if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
             navigationItem.subNavigation = navigationItem.subNavigation.map(subNavigationItem => {
-                if (this.paintabelView.navigation && this.paintabelView.navigation[subNavigationItem.name]) {
-                    console.log(Object.assign({}, subNavigationItem, this.paintabelView.navigation[subNavigationItem.name]));
-                    return Object.assign({}, subNavigationItem, this.paintabelView.navigation[subNavigationItem.name]);
+                if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
+                    return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
                 }
                 return subNavigationItem;
             });
         }
 
-        if (this.paintabelView.navigation && this.paintabelView.navigation[navigationItem.name]) {
-          return Object.assign({}, navigationItem, this.paintabelView.navigation[navigationItem.name]);
+        if (this.paintableView.navigation && this.paintableView.navigation[navigationItem.name]) {
+          return Object.assign({}, navigationItem, this.paintableView.navigation[navigationItem.name]);
         }
 
         return navigationItem;
@@ -117,15 +116,15 @@ export default {
     },
     lineWidthStyle() {
       return {
-        height: this.paintabelView.currentLineWidth + 'px',
-        width: this.paintabelView.currentLineWidth + 'px',
-        backgroundColor: this.paintabelView.currentColor
+        height: this.paintableView.currentLineWidth + 'px',
+        width: this.paintableView.currentLineWidth + 'px',
+        backgroundColor: this.paintableView.currentColor
       };
     }
   },
   methods: {
     toggleEraserAndPencil() {
-      this.paintabelView.isEraserActive = !this.paintabelView.isEraserActive;
+      this.paintableView.isEraserActive = !this.paintableView.isEraserActive;
     },
     openColorPicker() {
       this.isColorPickerOpen = !this.isColorPickerOpen;
@@ -139,8 +138,8 @@ export default {
      * Cancel current drawing and remove lines
      */
     cancelDrawing() {
-      this.paintabelView.loadImageFromStorage();
-      this.paintabelView.isActive = false;
+      this.paintableView.loadImageFromStorage();
+      this.paintableView.isActive = false;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
     },
@@ -148,9 +147,9 @@ export default {
      * Change current drawing color
      */
     changeColor(color) {
-      this.paintabelView.currentColor = color;
-      this.paintabelView.tempCtx.strokeStyle = this.paintabelView.currentColor;
-      this.paintabelView.ctx.strokeStyle = this.paintabelView.currentColor;
+      this.paintableView.currentColor = color;
+      this.paintableView.tempCtx.strokeStyle = this.paintableView.currentColor;
+      this.paintableView.ctx.strokeStyle = this.paintableView.currentColor;
 
       this.isColorPickerOpen = false;
     },
@@ -158,17 +157,17 @@ export default {
      * Toggle painting
      */
     togglePainting() {
-      if (this.paintabelView.isActive) {
-        this.paintabelView.saveCurrentCanvasToStorage();
+      if (this.paintableView.isActive) {
+        this.paintableView.saveCurrentCanvasToStorage();
       }
-      this.paintabelView.isActive = !this.paintabelView.isActive;
+      this.paintableView.isActive = !this.paintableView.isActive;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
 
       // emit root event
-      this.$root.$emit('toggle-paintable', this.paintabelView.isActive);
+      this.$root.$emit('toggle-paintable', this.paintableView.isActive);
       // deprecated
-      this.$root.$emit('toggle-paintable-screen', this.paintabelView.isActive);
+      this.$root.$emit('toggle-paintable-screen', this.paintableView.isActive);
     }
   }
 };

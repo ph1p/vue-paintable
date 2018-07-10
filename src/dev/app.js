@@ -24,8 +24,9 @@ new Vue({
         :navigation="navigation"
         :useMouse="isFirstPaintable"
         :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
-        factor="0.5"
-        :lineWidth="10"
+        :factor="1"
+        :lineWidth="5"
+        :lineWidthEraser="20"
         alwaysOnTop>
             <img src="https://placehold.it/500/500">
         </paintable-screen>

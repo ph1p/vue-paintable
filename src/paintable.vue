@@ -104,6 +104,10 @@ export default {
       type: Number,
       default: 5
     },
+    lineWidthEraser: {
+      type: Number,
+      default: 20
+    },
     colors: {
       type: Array,
       default: () => ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green']
@@ -119,7 +123,7 @@ export default {
       pointCoords: [],
       redoList: [],
       undoList: [],
-      currentLineWidth: this.lineWidth,
+      currentLineWidth: this.isEraserActive ? this.lineWidthEraser : this.lineWidth,
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
@@ -130,6 +134,9 @@ export default {
   watch: {
     name: 'init',
     // hide: 'init',
+    isEraserActive(isActive) {
+      this.currentLineWidth = isActive ? this.lineWidthEraser : this.lineWidth;
+    },
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;
