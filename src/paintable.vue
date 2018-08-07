@@ -2,19 +2,18 @@
   <div>
     <div class="paintable" v-show="!hide">
         <Navigation>
-          <div slot="paintable-navigation-draw">fd</div>
+          <div slot="paintable-navigation-draw"></div>
         </Navigation>
 
-
         <div v-if="useMouse">
-          <canvas :id="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas back"
+          <canvas :ref="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas back"
             :width="width"
             :height="height"
             @mousemove="drawMove"
             @mousedown="drawStart"
             @mouseup="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas"
+          <canvas :ref="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas"
             :width="width"
             :height="height"
             @mousemove="drawMove"
@@ -22,14 +21,14 @@
             @mouseup="drawEnd" />
         </div>
         <div v-else>
-          <canvas :id="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas back"
+          <canvas :ref="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas back"
             :width="width"
             :height="height"
             @touchmove="drawMove"
             @touchstart="drawStart"
             @touchend="drawEnd" />
 
-          <canvas :id="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" class="canvas"
+          <canvas :ref="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas"
             :width="width"
             :height="height"
             @touchmove="drawMove"
@@ -117,6 +116,7 @@ export default {
     return {
       hidePaintableNavigation: false,
       currentColor: 'black',
+      canvasIsEmpty: false,
       canvasId: 0,
       isEraserActive: false,
       isActive: false,
@@ -132,6 +132,7 @@ export default {
     };
   },
   watch: {
+    isActive: 'init',
     name: 'init',
     // hide: 'init',
     isEraserActive(isActive) {
@@ -191,11 +192,11 @@ export default {
         this.pointCoords = [];
 
         // temporary canvas
-        this.tempCanvas = document.getElementById('temp-canvas-' + this.canvasId);
+        this.tempCanvas = this.$refs['temp-canvas-' + this.canvasId];
         this.tempCtx = this.tempCanvas.getContext('2d');
 
         // canvas with drawing
-        this.canvas = document.getElementById('canvas-' + this.canvasId);
+        this.canvas = this.$refs['canvas-' + this.canvasId];
         this.ctx = this.canvas.getContext('2d');
 
         this.tempCtx.lineCap = 'round';
@@ -210,8 +211,8 @@ export default {
         this.setItem(
           this.name + '-settings',
           JSON.stringify({
-            width: this.width,
-            height: this.height
+            width: this.canvas.width,
+            height: this.canvas.height
           })
         );
 
@@ -277,8 +278,11 @@ export default {
         let image = new Image();
         image.onload = () => {
           this.ctx.drawImage(image, 0, 0);
+          this.canvasIsEmpty = this.isCanvasBlank();
         };
         image.src = base64Image;
+      } else {
+        this.canvasIsEmpty = this.isCanvasBlank();
       }
     },
     /**
@@ -294,15 +298,18 @@ export default {
      * Clear complete canvas
      */
     clearCanvas() {
-      this.ctx.clearRect(0, 0, this.width, this.height);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     isCanvasBlank() {
       const blank = document.createElement('canvas');
+      const blankCtx = blank.getContext('2d');
 
-      blank.width = this.height;
-      blank.height = this.width;
+      blankCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      return this.canvas.toDataURL() == blank.toDataURL();
+      blank.width = this.canvas.width;
+      blank.height = this.canvas.height;
+
+      return blank.toDataURL() === this.canvas.toDataURL();
     },
     /**
      * Check first, if canvas is empty.
@@ -317,13 +324,15 @@ export default {
         this.setItem(
           this.name + '-settings',
           JSON.stringify({
-            width: this.width,
-            height: this.height
+            width: this.canvas.width,
+            height: this.canvas.height
           })
         );
       }
       this.undoList = [];
       this.redoList = [];
+
+      this.canvasIsEmpty = this.isCanvasBlank();
     },
     //-------------------------------------------------------------------------
     /**
@@ -373,7 +382,7 @@ export default {
      * Generate line from points array
      */
     drawLine(context) {
-      this.tempCtx.clearRect(0, 0, this.width, this.height);
+      this.tempCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
