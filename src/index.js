@@ -14,6 +14,10 @@ const PaintablePlugin = {
       Paintable.methods.getItem = options.getItem;
     }
 
+    if (options.removeItem) {
+      Paintable.methods.removeItem = options.removeItem;
+    }
+
     Vue.component('paintable', Paintable);
 
     // deprecated
