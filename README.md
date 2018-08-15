@@ -11,9 +11,9 @@ npm install vue-paintable --save
 
 ```javascript
 import Vue from 'vue';
-import PaintablePlugin from 'vue-paintable';
+import Paintable from 'vue-paintable';
 
-Vue.use(Paintable, {
+Vue.use(PaintablePlugin, {
   // optional methods
   setItem(key, image) {
     localStorage.setItem(key, image);
@@ -44,7 +44,7 @@ Vue.use(Paintable, {
         :navigation="{
           'draw-save': {
             body: 'draw',
-            activeBody: '<strong>save</strong>
+            activeBody: '<strong>save</strong>'
           },
           color: {
             body: 'CP'
@@ -87,7 +87,6 @@ Set your own navigation content by adding an object to your `<paintable>` compon
 - draw-save
 - eraser-pencil
 
-
 ### Props
 
 | name            | type                            | required | default                                                                  | description                                                                                                               |
@@ -105,7 +104,6 @@ Set your own navigation content by adding an object to your `<paintable>` compon
 | factor          | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
 | lineWidthEraser | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
 
-
 ### Global methods
 
 | name                     | type | description               |
@@ -119,7 +117,6 @@ mounted() {
 }
 ```
 
-
 ### Events
 
 | name             | type    | description                               |
@@ -131,7 +128,6 @@ this.$root.$on('toggle-paintable', isActive => {
   console.log(isActive);
 });
 ```
-
 
 ### development
 
