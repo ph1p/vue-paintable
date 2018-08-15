@@ -13,7 +13,7 @@ npm install vue-paintable --save
 import Vue from 'vue';
 import Paintable from 'vue-paintable';
 
-Vue.use(PaintablePlugin, {
+Vue.use(Paintable, {
   // optional methods
   setItem(key, image) {
     localStorage.setItem(key, image);
