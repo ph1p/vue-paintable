@@ -23,6 +23,7 @@ new Vue({
         <paintable-screen
         :navigation="navigation"
         :useMouse="isFirstPaintable"
+        displayHorizontal
         :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
         :factor="1"
         :lineWidth="5"

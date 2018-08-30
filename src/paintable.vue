@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="paintable" v-show="!hide">
-        <Navigation>
+        <Navigation :displayHorizontal="displayHorizontal">
           <div slot="paintable-navigation-draw"></div>
         </Navigation>
 
@@ -110,6 +110,10 @@ export default {
     colors: {
       type: Array,
       default: () => ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green']
+    },
+    displayHorizontal: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
