@@ -36,10 +36,11 @@ Vue.use(Paintable, {
     <paintable
         name="my-screen"
         useMouse
+        displayHorizontal
         :showUndoRedo="false"
         :showLineWidth="false"
         :lineWidth="10"
-        :colors="['red', '#000']"
+        :colors="['red', '#000', 'rgba(255,0,0,0.5)']"
         :lineWidthEraser="20"
         :navigation="{
           'draw-save': {
@@ -73,6 +74,10 @@ Set your own navigation content by adding an object to your `<paintable>` compon
 }
 ```
 
+**Display navigation horizontal**
+
+To display the navigation horizontally add `displayHorizontal` to prop list.
+
 **Available navigation items:**
 
 - color
@@ -89,26 +94,27 @@ Set your own navigation content by adding an object to your `<paintable>` compon
 
 ### Props
 
-| name            | type                            | required | default                                                                  | description                                                                                                               |
-| --------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| useMouse        | boolean                         | false    | false                                                                    | use mouse events instead of touch events                                                                                  |
-| name            | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
-| showUndoRedo    | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
-| hide            | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
-| colors          | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
-| width           | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
-| height          | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
-| showLineWidth   | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
-| lineWidth       | number                          | false    | 5                                                                        | line width                                                                                                                |
-| alwaysOnTop     | boolean                         | false    | false                                                                    | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
-| factor          | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
-| lineWidthEraser | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
+| name              | type                            | required | default                                                                  | description                                                                                                               |
+| ----------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| useMouse          | boolean                         | false    | false                                                                    | use mouse events instead of touch events                                                                                  |
+| name              | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
+| showUndoRedo      | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
+| hide              | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
+| colors            | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
+| width             | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
+| height            | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
+| showLineWidth     | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
+| lineWidth         | number                          | false    | 5                                                                        | line width                                                                                                                |
+| alwaysOnTop       | boolean                         | false    | false                                                                    | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
+| factor            | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
+| lineWidthEraser   | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
+| displayHorizontal | boolean                         | false    | false                                                                    | display the navigation horizontally                                                                                       |
 
 ### Global methods
 
 | name                     | type | description               |
 | ------------------------ | ---- | ------------------------- |
-| $hidePaintableNavigation | void | Hide paintable navigation |
+| $hidePaintableNavigation | void | Hide paintable navigation | @ |
 | $showPaintableNavigation | void | Show paintable navigation |
 
 ```javascript

@@ -1,6 +1,5 @@
 <template>
-    <div class="navigation" v-if="!paintableView.hidePaintableNavigation">
-
+    <div class="navigation" :class="{'navigation__displayHorizontal' : displayHorizontal}" v-if="!paintableView.hidePaintableNavigation">
         <div class="navigation__colorPicker" v-if="isColorPickerOpen">
             <span :class="['navigation__colorPickerColor', {selected: paintableView.currentColor === color}]" v-for="color in paintableView.colors" :key="color" :style="{backgroundColor: color}" @click="changeColor(color)"></span>
         </div>
@@ -12,13 +11,14 @@
         </div>
 
         <ul class="navigationMenu" :class="{'active': paintableView.isActive}">
-            <li :class="'navigationMenu__'+item.name" v-for="item in navigation" :key="item.name">
-                <div @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
+            <li :class="'navigationMenu__'+item.name" v-for="item in displayHorizontal ? navigation.reverse() : navigation" :key="item.name">
+                <div v-if="!displayHorizontal" @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
                 <ul v-if="paintableView.isActive">
                     <li v-if="item.show" v-for="item in item.subNavigation" :key="item.name" :class="['navigationMenu__'+item.name, {disabled: item.disabled}]">
                         <div @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
                     </li>
                 </ul>
+                <div v-if="displayHorizontal" @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
             </li>
         </ul>
     </div>
@@ -27,6 +27,7 @@
 <script>
 export default {
   name: 'paintable-navigation',
+  props: ['displayHorizontal'],
   data() {
     return {
       isColorPickerOpen: false,
@@ -36,7 +37,7 @@ export default {
   },
   computed: {
     navigation() {
-      return [
+      const navigationItems = [
         {
           name: 'draw-save',
           body: 'draw',
@@ -97,14 +98,18 @@ export default {
             }
           ]
         }
-      ].map(navigationItem => {
+      ];
+      return navigationItems.map(navigationItem => {
         if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
-            navigationItem.subNavigation = navigationItem.subNavigation.map(subNavigationItem => {
-                if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
-                    return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
-                }
-                return subNavigationItem;
-            });
+          const navigationItemSubNavigation = this.displayHorizontal
+            ? navigationItem.subNavigation.reverse()
+            : navigationItem.subNavigation;
+          navigationItem.subNavigation = navigationItemSubNavigation.map(subNavigationItem => {
+            if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
+              return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
+            }
+            return subNavigationItem;
+          });
         }
 
         if (this.paintableView.navigation && this.paintableView.navigation[navigationItem.name]) {
@@ -212,8 +217,8 @@ export default {
     border-radius: 5px;
     box-sizing: border-box;
     &Dot {
-        margin-top: 10px;
-        border-radius: 100%;
+      margin-top: 10px;
+      border-radius: 100%;
     }
     &Color {
       border-radius: 100%;
@@ -250,6 +255,16 @@ export default {
       }
       &.selected {
         border: 2px solid #fff;
+      }
+    }
+  }
+  &__displayHorizontal {
+    .navigationMenu {
+      ul {
+        display: inline-flex;
+      }
+      li {
+        display: inline-flex;
       }
     }
   }
