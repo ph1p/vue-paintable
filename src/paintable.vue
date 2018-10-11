@@ -19,6 +19,8 @@
             @mousemove="drawMove"
             @mousedown="drawStart"
             @mouseup="drawEnd" />
+
+          <GraphPaper v-if="displayGrid && isActive" :opacity="0.09" />
         </div>
         <div v-else>
           <canvas :ref="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas back"
@@ -52,11 +54,13 @@ let currentX = 0;
 let currentY = 0;
 
 import Navigation from './components/navigation';
+import GraphPaper from './components/GraphPaper';
 
 export default {
   name: 'paintable',
   components: {
-    Navigation
+    Navigation,
+    GraphPaper
   },
   props: {
     factor: {
@@ -124,6 +128,7 @@ export default {
       canvasId: 0,
       isEraserActive: false,
       isActive: false,
+      displayGrid: false,
       pointCoords: [],
       redoList: [],
       undoList: [],
@@ -230,6 +235,9 @@ export default {
         this.$root.$on('hide-paintable-navigation', hidePaintableNavigation => {
           this.hidePaintableNavigation = hidePaintableNavigation;
         });
+
+        // listen to hide graph paper
+        this.$root.$on('toggle-graphPaper', payload => (this.displayGrid = payload));
       } catch (err) {
         // this.hide = true;
         // this.hidePaintableNavigation = true;
