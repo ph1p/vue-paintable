@@ -86,6 +86,7 @@ To display the navigation horizontally add `displayHorizontal` to prop list.
 - redo
 - delete
 - cancel
+- graph-paper
 
 **has active state (activeBody):**
 
@@ -125,14 +126,17 @@ mounted() {
 
 ### Events
 
-| name             | type    | description                               |
-| ---------------- | ------- | ----------------------------------------- |
-| toggle-paintable | boolean | Is emitted, when changing paintable state |
+| name              | type    | description                                     |
+| ----------------- | ------- | ----------------------------------------------- |
+| toggle-paintable  | boolean | Is emitted, when changing paintable state       |
+| toggle-graphPaper | boolean | Is emitted, when changing show graphPaper state |
 
 ```javascript
 this.$root.$on('toggle-paintable', isActive => {
   console.log(isActive);
 });
+
+this.$root.$on('toggle-graphPaper', payload => (this.displayGrid = payload));
 ```
 
 ### development
