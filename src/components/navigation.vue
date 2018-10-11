@@ -90,6 +90,15 @@ export default {
               click: this.toggleEraserAndPencil
             },
             {
+              name: 'graph-paper',
+              body: 'graph-paper',
+              activeBody: 'graph-paper',
+              isActive: this.paintableView.isGraphPaper,
+              disabled: false,
+              show: true,
+              click: this.toggleGraphPaper
+            },
+            {
               name: 'cancel',
               body: 'cancel',
               disabled: false,
@@ -128,6 +137,10 @@ export default {
     }
   },
   methods: {
+    toggleGraphPaper() {
+      this.paintableView.isGraphPaper = !this.paintableView.isGraphPaper;
+      this.$root.$emit('toggle-graphPaper', this.paintableView.isGraphPaper);
+    },
     toggleEraserAndPencil() {
       this.paintableView.isEraserActive = !this.paintableView.isEraserActive;
     },
