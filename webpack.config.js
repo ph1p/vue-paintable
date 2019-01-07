@@ -1,24 +1,24 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 
 const webpackConfig = (module.exports = {});
 const isProduction = process.env.NODE_ENV === 'production';
 
-webpackConfig.entry = isProduction ? './src' : './src/dev/app.js';
+webpackConfig.entry = isProduction ? ['@babel/polyfill', './csr'] : ['@babel/polyfill', './src/dev/app.js'];
 
 webpackConfig.output = {
   path: path.join(__dirname, './dist'),
   // publicPath: '/',
-  filename: 'index.js',
-  libraryTarget: 'umd'
+  filename: 'index.js'
 };
 
 webpackConfig.resolve = {
   extensions: ['.vue', '.js']
 };
 
-webpackConfig.plugins = [new UglifyJsPlugin()];
+webpackConfig.plugins = [new UglifyJsPlugin(), new VueLoaderPlugin()];
 
 if (!isProduction) {
   webpackConfig.plugins.push(
@@ -38,21 +38,31 @@ webpackConfig.module = {
       use: ['style-loader', 'css-loader']
     },
     {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        loaders: {
-          scss: 'vue-style-loader!css-loader!sass-loader'
+      test: /\.scss$/,
+      use: [
+        'vue-style-loader',
+        'css-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            indentedSyntax: false
+          }
         }
-      }
+      ]
+    },
+    {
+      test: /\.vue$/,
+      loader: 'vue-loader'
+      // options: {
+      //   loaders: {
+      //     scss: 'vue-style-loader!css-loader!sass-loader'
+      //   }
+      // }
     },
     {
       test: /\.js$/,
       loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: {
-        presets: ['es2015']
-      }
+      exclude: /node_modules/
     }
   ]
 };
