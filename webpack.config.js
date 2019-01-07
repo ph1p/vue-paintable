@@ -6,7 +6,8 @@ const path = require('path');
 const webpackConfig = (module.exports = {});
 const isProduction = process.env.NODE_ENV === 'production';
 
-webpackConfig.entry = isProduction ? ['@babel/polyfill', './csr'] : ['@babel/polyfill', './src/dev/app.js'];
+webpackConfig.mode = isProduction ? 'production' : 'development';
+webpackConfig.entry = isProduction ? ['@babel/polyfill', './src'] : ['@babel/polyfill', './src/dev/app.js'];
 
 webpackConfig.output = {
   path: path.join(__dirname, './dist'),
