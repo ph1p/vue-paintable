@@ -1,6 +1,6 @@
 {
   "name": "vue-paintable",
-  "version": "1.0.0",
+  "version": "0.11.0",
   "description": "Draw on any screen",
   "keywords": [
     "canvas",
@@ -64,7 +64,11 @@
     }
   },
   "prettier": {
-    "singleQuote": true
+    "useTabs": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "printWidth": 120,
+    "trailingComma": "none"
   },
   "browserslist": [
     "> 1%",
