@@ -119,7 +119,7 @@ To display the navigation horizontally add `displayHorizontal` to prop list.
 
 ```javascript
 mounted() {
-    this.$hidePaintableNavigation();
+  this.$hidePaintableNavigation();
 }
 ```
 
