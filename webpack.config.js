@@ -1,4 +1,3 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
@@ -19,7 +18,7 @@ webpackConfig.resolve = {
   extensions: ['.vue', '.js']
 };
 
-webpackConfig.plugins = [new UglifyJsPlugin(), new VueLoaderPlugin()];
+webpackConfig.plugins = [new VueLoaderPlugin()];
 
 if (!isProduction) {
   webpackConfig.plugins.push(
@@ -39,26 +38,8 @@ webpackConfig.module = {
       use: ['style-loader', 'css-loader']
     },
     {
-      test: /\.scss$/,
-      use: [
-        'vue-style-loader',
-        'css-loader',
-        {
-          loader: 'sass-loader',
-          options: {
-            indentedSyntax: false
-          }
-        }
-      ]
-    },
-    {
       test: /\.vue$/,
       loader: 'vue-loader'
-      // options: {
-      //   loaders: {
-      //     scss: 'vue-style-loader!css-loader!sass-loader'
-      //   }
-      // }
     },
     {
       test: /\.js$/,

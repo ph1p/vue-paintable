@@ -23,18 +23,18 @@ const PaintablePlugin = {
     // deprecated
     Vue.component('paintable-screen', Paintable);
 
-    Vue.prototype.$hidePaintableNavigation = function () {
+    Vue.prototype.$hidePaintableNavigation = function() {
       setTimeout(() => {
         this.$root.$emit('hide-paintable-navigation', true);
       }, 0);
     };
 
-    Vue.prototype.$showPaintableNavigation = function () {
+    Vue.prototype.$showPaintableNavigation = function() {
       setTimeout(() => {
         this.$root.$emit('hide-paintable-navigation', false);
       }, 0);
     };
   }
-}
+};
 
 export default PaintablePlugin;

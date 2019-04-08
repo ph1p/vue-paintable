@@ -1,46 +1,66 @@
 <template>
   <div>
     <div class="paintable" v-show="!hide">
-        <Navigation :displayHorizontal="displayHorizontal">
-          <div slot="paintable-navigation-draw"></div>
-        </Navigation>
+      <Navigation :displayHorizontal="displayHorizontal">
+        <div slot="paintable-navigation-draw"></div>
+      </Navigation>
 
-        <div v-if="useMouse">
-          <canvas :ref="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas back"
-            :width="width"
-            :height="height"
-            @mousemove="drawMove"
-            @mousedown="drawStart"
-            @mouseup="drawEnd" />
+      <div v-if="useMouse">
+        <canvas
+          :ref="'canvas-' + canvasId"
+          :class="{ active: isActive || alwaysOnTop }"
+          v-show="!canvasIsEmpty || isActive"
+          class="canvas back"
+          :width="width"
+          :height="height"
+          @mousemove="drawMove"
+          @mousedown="drawStart"
+          @mouseup="drawEnd"
+        />
 
-          <canvas :ref="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas"
-            :width="width"
-            :height="height"
-            @mousemove="drawMove"
-            @mousedown="drawStart"
-            @mouseup="drawEnd" />
-        </div>
-        <div v-else>
-          <canvas :ref="'canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas back"
-            :width="width"
-            :height="height"
-            @touchmove="drawMove"
-            @touchstart="drawStart"
-            @touchend="drawEnd" />
+        <canvas
+          :ref="'temp-canvas-' + canvasId"
+          :class="{ active: isActive || alwaysOnTop }"
+          v-show="!canvasIsEmpty || isActive"
+          class="canvas"
+          :width="width"
+          :height="height"
+          @mousemove="drawMove"
+          @mousedown="drawStart"
+          @mouseup="drawEnd"
+        />
+      </div>
+      <div v-else>
+        <canvas
+          :ref="'canvas-' + canvasId"
+          :class="{ active: isActive || alwaysOnTop }"
+          v-show="!canvasIsEmpty || isActive"
+          class="canvas back"
+          :width="width"
+          :height="height"
+          @touchmove="drawMove"
+          @touchstart="drawStart"
+          @touchend="drawEnd"
+        />
 
-          <canvas :ref="'temp-canvas-' + canvasId" :class="{active: isActive || alwaysOnTop}" v-show="!canvasIsEmpty || isActive" class="canvas"
-            :width="width"
-            :height="height"
-            @touchmove="drawMove"
-            @touchstart="drawStart"
-            @touchend="drawEnd" />
-        </div>
-        <div v-if="!hide" class="content">
-            <slot></slot>
-        </div>
+        <canvas
+          :ref="'temp-canvas-' + canvasId"
+          :class="{ active: isActive || alwaysOnTop }"
+          v-show="!canvasIsEmpty || isActive"
+          class="canvas"
+          :width="width"
+          :height="height"
+          @touchmove="drawMove"
+          @touchstart="drawStart"
+          @touchend="drawEnd"
+        />
+      </div>
+      <div v-if="!hide" class="content">
+        <slot></slot>
+      </div>
     </div>
     <div v-if="hide" class="content">
-        <slot></slot>
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -436,10 +456,9 @@ export default {
   }
 };
 </script>
-<style>
-</style>
+<style></style>
 
-<style lang="scss">
+<style>
 body {
   position: fixed;
 }
@@ -449,24 +468,23 @@ body {
   height: 100%;
   width: 100%;
   transform: scale(1);
-  &.active {
-    z-index: 0;
-  }
-
-  .canvas {
-    position: relative;
-    background-color: transparent;
-    z-index: -1;
-    position: absolute;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    &.active {
-      z-index: 1000;
-      &.back {
-        z-index: 999;
-      }
-    }
-  }
+}
+.paintable.active {
+  z-index: 0;
+}
+.paintable .canvas {
+  position: relative;
+  background-color: transparent;
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+.paintable .canvas.active {
+  z-index: 1000;
+}
+.paintable .canvas.active.back {
+  z-index: 999;
 }
 </style>

@@ -1,4 +1,4 @@
-# vue-paintable [![npm](https://badge.fury.io/js/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![Build Status](https://travis-ci.org/ph1p/vue-paintable.svg?branch=master)](https://travis-ci.org/ph1p/vue-paintable) [![Demo](https://img.shields.io/badge/glitch-demo-fe6a73.svg)](https://vue-paintable-demo.glitch.me)
+# vue-paintable [![npm](https://badge.fury.io/js/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![Build Status](https://travis-ci.org/ph1p/vue-paintable.svg?branch=master)](https://travis-ci.org/ph1p/vue-paintable) [![](https://img.shields.io/badge/now-demo-black.svg)](https://vue-paintable.ph1p.now.sh/)
 
 With this vue plugin and component you can add a paintable canvas through your page.
 All paintings are saved by default into localStorage.
@@ -140,5 +140,6 @@ this.$root.$on('toggle-paintable', isActive => {
 If you want to develop on this plugin follow these steps:
 
 - clone repo
-- run `npm install`
-- run `npm run dev`
+- run `cd demo`
+- run `yarn install` or `npm install`
+- run `yarn serve` or `npm run serve`

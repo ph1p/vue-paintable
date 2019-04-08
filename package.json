@@ -25,7 +25,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server -d --open --progress --public --host 0.0.0.0",
     "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "prepublish": "npm start"
   },
@@ -37,6 +36,7 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "babel-loader": "^8.0.5",
@@ -44,14 +44,11 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.0",
-    "node-sass": "^4.11.0",
     "postcss-color-function": "^4.0.1",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^12.0.1",
-    "sass-loader": "^7.1.0",
     "scss-loader": "0.0.1",
     "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.1.1",
     "vue": "^2.5.21",
     "vue-cli": "^2.9.6",
     "vue-loader": "^15.5.0",
@@ -59,7 +56,19 @@
     "vue-template-compiler": "^2.5.21",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
-    "@babel/polyfill": "^7.2.5"
-  }
+    "webpack-dev-server": "^3.3.0"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
