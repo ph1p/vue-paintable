@@ -1,5 +1,5 @@
 <template>
-    <div :style="{opacity}" class="graph-paper graph-paper-normal" />
+  <div :style="{ opacity }" class="graph-paper graph-paper-normal" />
 </template>
 
 <script>
@@ -14,17 +14,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .graph-paper {
   position: absolute;
   z-index: 800;
   width: 100%;
   height: 100%;
   opacity: 0.08;
-  &-normal {
-    background-size: 40px 40px;
-    background-image: linear-gradient(to right, grey 1px, transparent 1px),
-      linear-gradient(to bottom, grey 1px, transparent 1px);
-  }
+}
+.graph-paper-normal {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 </style>
+
