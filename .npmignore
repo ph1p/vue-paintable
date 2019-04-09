@@ -3,3 +3,4 @@ webpack.config.js
 travis.yml
 .vscode
 .prettierrc
+demo/
