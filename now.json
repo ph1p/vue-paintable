@@ -4,10 +4,10 @@
   "alias": ["vue-paintable.now.sh"],
   "builds": [
     {
-      "src": "./demo/package.json",
+      "src": "./package.json",
       "use": "@now/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "demo"
       }
     }
   ],

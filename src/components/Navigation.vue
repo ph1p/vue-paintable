@@ -6,7 +6,10 @@
   >
     <div class="navigation__colorPicker" v-if="isColorPickerOpen">
       <span
-        :class="['navigation__colorPickerColor', { selected: paintableView.currentColor === color }]"
+        :class="[
+          'navigation__colorPickerColor',
+          { selected: paintableView.currentColor === color }
+        ]"
         v-for="color in paintableView.colors"
         :key="color"
         :style="{ backgroundColor: color }"
@@ -15,7 +18,9 @@
     </div>
 
     <div class="navigation__lineWidthPicker" v-if="isLineWidthPickerOpen">
-      <label for="navigation__lineWidthPickerRange">({{ paintableView.currentLineWidth }}px):</label>
+      <label for="navigation__lineWidthPickerRange"
+        >({{ paintableView.currentLineWidth }}px):</label
+      >
       <input
         id="navigation__lineWidthPickerRange"
         type="range"
@@ -33,17 +38,31 @@
         v-for="item in displayHorizontal ? navigation.reverse() : navigation"
         :key="item.name"
       >
-        <div v-if="!displayHorizontal" @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
+        <div
+          v-if="!displayHorizontal"
+          @click="item.click"
+          v-html="item.isActive ? item.activeBody : item.body"
+        ></div>
         <ul v-if="paintableView.isActive">
           <li
             v-for="item in item.subNavigation"
             :key="item.name"
-            :class="['navigationMenu__' + item.name, { disabled: item.disabled }]"
+            :class="[
+              'navigationMenu__' + item.name,
+              { disabled: item.disabled }
+            ]"
           >
-            <div @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
+            <div
+              @click="item.click"
+              v-html="item.isActive ? item.activeBody : item.body"
+            ></div>
           </li>
         </ul>
-        <div v-if="displayHorizontal" @click="item.click" v-html="item.isActive ? item.activeBody : item.body"></div>
+        <div
+          v-if="displayHorizontal"
+          @click="item.click"
+          v-html="item.isActive ? item.activeBody : item.body"
+        ></div>
       </li>
     </ul>
   </div>
@@ -63,20 +82,39 @@ export default {
   computed: {
     navigation() {
       return this.filteredNavigation.map(navigationItem => {
-        if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
+        if (
+          navigationItem.subNavigation &&
+          navigationItem.subNavigation.length > 0
+        ) {
           const navigationItemSubNavigation = this.displayHorizontal
             ? navigationItem.subNavigation.reverse()
             : navigationItem.subNavigation;
-          navigationItem.subNavigation = navigationItemSubNavigation.map(subNavigationItem => {
-            if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
-              return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
+          navigationItem.subNavigation = navigationItemSubNavigation.map(
+            subNavigationItem => {
+              if (
+                this.paintableView.navigation &&
+                this.paintableView.navigation[subNavigationItem.name]
+              ) {
+                return Object.assign(
+                  {},
+                  subNavigationItem,
+                  this.paintableView.navigation[subNavigationItem.name]
+                );
+              }
+              return subNavigationItem;
             }
-            return subNavigationItem;
-          });
+          );
         }
 
-        if (this.paintableView.navigation && this.paintableView.navigation[navigationItem.name]) {
-          return Object.assign({}, navigationItem, this.paintableView.navigation[navigationItem.name]);
+        if (
+          this.paintableView.navigation &&
+          this.paintableView.navigation[navigationItem.name]
+        ) {
+          return Object.assign(
+            {},
+            navigationItem,
+            this.paintableView.navigation[navigationItem.name]
+          );
         }
 
         return navigationItem;

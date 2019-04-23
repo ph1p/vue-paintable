@@ -2,6 +2,7 @@
   "name": "vue-paintable",
   "version": "0.11.1",
   "description": "Draw on any screen",
+  "author": "Ph1p <phil@capshake.com>",
   "keywords": [
     "canvas",
     "vue",
@@ -9,70 +10,111 @@
     "touch",
     "mouse"
   ],
-  "main": "dist/index.js",
-  "author": "Ph1p <phil@capshake.com>",
-  "repository": "https://github.com/ph1p/vue-paintable.git",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,ts,json,css}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
-    "prepublish": "npm start"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name paintable ./src/plugin.ts && rm ./dist/demo.html",
+    "now-build": "yarn build && vue-cli-service build ./src/main.ts --dest ./demo",
+    "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+  "main": "dist/paintable.common.js",
+  "unpkg": "dist/paintable.umd.min.js",
+  "files": [
+    "dist/paintable.common.js",
+    "dist/paintable.umd.min.js",
+    "dist/paintable.umd.js"
+  ],
+  "dependencies": {
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-transform-regenerator": "^7.0.0",
-    "@babel/polyfill": "^7.2.5",
-    "@babel/preset-env": "^7.2.3",
-    "@babel/preset-es2015": "^7.0.0-beta.53",
-    "babel-loader": "^8.0.5",
-    "css-loader": "^2.1.0",
-    "html-webpack-plugin": "^3.2.0",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.0",
-    "postcss-color-function": "^4.0.1",
-    "postcss-cssnext": "^3.1.0",
-    "postcss-import": "^12.0.1",
-    "scss-loader": "0.0.1",
-    "style-loader": "^0.23.1",
-    "vue": "^2.5.21",
-    "vue-cli": "^2.9.6",
-    "vue-loader": "^15.5.0",
-    "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.5.21",
-    "webpack": "^4.28.3",
-    "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.3.0"
+    "@types/jest": "^23.1.4",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-plugin-typescript": "^3.6.0",
+    "@vue/cli-plugin-unit-jest": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "lint-staged": "^8.1.5",
+    "ts-jest": "^23.0.0",
+    "typescript": "^3.4.3",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/prettier",
+      "@vue/typescript"
+    ],
+    "rules": {
+      "no-console": 0
+    },
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    }
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "prettier": {
-    "useTabs": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "printWidth": 120,
-    "trailingComma": "none"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "vue",
+      "ts",
+      "tsx"
+    ],
+    "transform": {
+      "^.+\\.vue$": "vue-jest",
+      ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "snapshotSerializers": [
+      "jest-serializer-vue"
+    ],
+    "testMatch": [
+      "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
+    ],
+    "testURL": "http://localhost/",
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "gitHooks": {
+    "pre-commit": "yarn now-build && git add demo && git add dist && lint-staged"
+  },
+  "lint-staged": {
+    "./src/*.{js,vue}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
 }

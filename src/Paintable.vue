@@ -55,13 +55,9 @@
           @touchend="drawEnd"
         />
       </div>
-      <div v-if="!hide" class="content">
-        <slot></slot>
-      </div>
+      <div v-if="!hide" class="content"><slot></slot></div>
     </div>
-    <div v-if="hide" class="content">
-      <slot></slot>
-    </div>
+    <div v-if="hide" class="content"><slot></slot></div>
   </div>
 </template>
 
@@ -71,7 +67,7 @@ let previousY = 0;
 let currentX = 0;
 let currentY = 0;
 
-import Navigation from './components/navigation';
+import Navigation from './components/Navigation';
 
 export default {
   name: 'paintable',
@@ -129,7 +125,14 @@ export default {
     },
     colors: {
       type: Array,
-      default: () => ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green']
+      default: () => [
+        'black',
+        '#f00',
+        '#4481c7',
+        'rgba(255, 235, 59, 0.4)',
+        '#999',
+        'green'
+      ]
     },
     displayHorizontal: {
       type: Boolean,
@@ -147,7 +150,9 @@ export default {
       pointCoords: [],
       redoList: [],
       undoList: [],
-      currentLineWidth: this.isEraserActive ? this.lineWidthEraser : this.lineWidth,
+      currentLineWidth: this.isEraserActive
+        ? this.lineWidthEraser
+        : this.lineWidth,
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
@@ -376,10 +381,12 @@ export default {
         previousY = currentY;
 
         currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) * this.factor -
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) *
+            this.factor -
           this.tempCanvas.getBoundingClientRect().left;
         currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) * this.factor -
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) *
+            this.factor -
           this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
@@ -388,7 +395,9 @@ export default {
         });
 
         this.tempCtx.globalCompositeOperation = 'source-over';
-        this.ctx.globalCompositeOperation = this.isEraserActive ? 'destination-out' : 'source-over';
+        this.ctx.globalCompositeOperation = this.isEraserActive
+          ? 'destination-out'
+          : 'source-over';
       }
     },
     /**
@@ -439,10 +448,12 @@ export default {
         previousY = currentY;
 
         currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) * this.factor -
+          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) *
+            this.factor -
           this.tempCanvas.getBoundingClientRect().left;
         currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) * this.factor -
+          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) *
+            this.factor -
           this.tempCanvas.getBoundingClientRect().top;
 
         this.pointCoords.push({
@@ -456,7 +467,6 @@ export default {
   }
 };
 </script>
-<style></style>
 
 <style>
 body {

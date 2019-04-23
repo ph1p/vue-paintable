@@ -1,10 +1,12 @@
 <template>
   <div>
-    <strong>{{ isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)' }}</strong>
+    <strong>{{
+      isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)'
+    }}</strong>
     <button @click="show">show navigation</button>
     <button @click="hide">hide navigation</button>
     <button @click="navigate">switch to another paintable</button>
-    <paintable-screen
+    <paintable
       :navigation="navigation"
       :useMouse="isFirstPaintable"
       displayHorizontal
@@ -15,7 +17,7 @@
       alwaysOnTop
     >
       <img src="https://placehold.it/500/500" />
-    </paintable-screen>
+    </paintable>
   </div>
 </template>
 

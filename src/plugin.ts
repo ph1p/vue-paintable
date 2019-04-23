@@ -1,27 +1,26 @@
-/**
- * Copyright (C) 2018 Philip Stapelfeldt (p.stapelfeldt@appcom-interactive.de)
- * appcom interactive GmbH
- */
-import Paintable from './paintable.vue';
+import Paintable from './Paintable.vue';
+
+interface PaintableOptions {
+  setItem: any;
+  getItem: any;
+  removeItem: any;
+}
 
 const PaintablePlugin = {
-  install(Vue, options) {
-    if (options.setItem) {
+  install(Vue: any, options: PaintableOptions) {
+    if (options && options.setItem) {
       Paintable.methods.setItem = options.setItem;
     }
 
-    if (options.getItem) {
+    if (options && options.getItem) {
       Paintable.methods.getItem = options.getItem;
     }
 
-    if (options.removeItem) {
+    if (options && options.removeItem) {
       Paintable.methods.removeItem = options.removeItem;
     }
 
     Vue.component('paintable', Paintable);
-
-    // deprecated
-    Vue.component('paintable-screen', Paintable);
 
     Vue.prototype.$hidePaintableNavigation = function() {
       setTimeout(() => {
