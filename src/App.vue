@@ -1,22 +1,35 @@
 <template>
   <div>
-    <strong>{{
-      isFirstPaintable ? 'current 1 (mouse)' : 'current 2 (touch)'
-    }}</strong>
-    <button @click="show">show navigation</button>
-    <button @click="hide">hide navigation</button>
-    <button @click="navigate">switch to another paintable</button>
     <paintable
+      :width="800"
+      :height="800"
+      :hide="hidePaintable"
+      :horizontalNavigation="true"
       :navigation="navigation"
-      :useMouse="isFirstPaintable"
-      displayHorizontal
       :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
       :factor="1"
       :lineWidth="5"
       :lineWidthEraser="20"
       alwaysOnTop
+      class="paint"
     >
-      <img src="https://placehold.it/500/500" />
+      <div class="control">
+        <h3>
+          Paintable <strong>{{ isFirstPaintable ? '1' : '2' }}</strong>
+        </h3>
+        <button @click="hidePaintable = !hidePaintable">show/hide</button>
+        <button @click="show">show navigation</button>
+        <button @click="hide">hide navigation</button>
+        <button @click="navigate">switch to another paintable</button>
+      </div>
+
+      <img
+        :src="
+          `https://source.unsplash.com/collection/837167/800x80${
+            isFirstPaintable ? 0 : 1
+          }`
+        "
+      />
     </paintable>
   </div>
 </template>
@@ -25,7 +38,8 @@
 export default {
   data() {
     return {
-      isFirstPaintable: true
+      isFirstPaintable: true,
+      hidePaintable: false
     };
   },
   mounted() {
@@ -37,11 +51,11 @@ export default {
     navigation() {
       return {
         'draw-save': {
-          body: 'draw :)',
+          body: 'click here!',
           activeBody: '<strong>save</strong>'
         },
         color: {
-          body: 'CP'
+          body: 'color'
         }
       };
     }
@@ -61,12 +75,31 @@ export default {
 </script>
 
 <style>
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  position: initial !important;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+h3 {
+  font-weight: normal;
+}
+.control {
+  margin: 20px;
+}
+.paint {
+  border: 5px solid #000;
+  border-radius: 5px;
+  margin: 40px auto;
+  box-sizing: border-box;
+  display: block;
+  width: 810px !important;
+  height: 810px !important;
+  position: relative !important;
 }
 </style>

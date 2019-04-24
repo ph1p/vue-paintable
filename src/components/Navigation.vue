@@ -1,7 +1,7 @@
 <template>
   <div
     class="navigation"
-    :class="{ navigation__displayHorizontal: displayHorizontal }"
+    :class="{ navigation__horizontalNavigation: horizontalNavigation }"
     v-if="!paintableView.hidePaintableNavigation"
   >
     <div class="navigation__colorPicker" v-if="isColorPickerOpen">
@@ -35,11 +35,11 @@
     <ul class="navigationMenu" :class="{ active: paintableView.isActive }">
       <li
         :class="'navigationMenu__' + item.name"
-        v-for="item in displayHorizontal ? navigation.reverse() : navigation"
+        v-for="item in horizontalNavigation ? navigation.reverse() : navigation"
         :key="item.name"
       >
         <div
-          v-if="!displayHorizontal"
+          v-if="!horizontalNavigation"
           @click="item.click"
           v-html="item.isActive ? item.activeBody : item.body"
         ></div>
@@ -59,7 +59,7 @@
           </li>
         </ul>
         <div
-          v-if="displayHorizontal"
+          v-if="horizontalNavigation"
           @click="item.click"
           v-html="item.isActive ? item.activeBody : item.body"
         ></div>
@@ -71,7 +71,7 @@
 <script>
 export default {
   name: 'paintable-navigation',
-  props: ['displayHorizontal'],
+  props: ['horizontalNavigation'],
   data() {
     return {
       isColorPickerOpen: false,
@@ -86,7 +86,7 @@ export default {
           navigationItem.subNavigation &&
           navigationItem.subNavigation.length > 0
         ) {
-          const navigationItemSubNavigation = this.displayHorizontal
+          const navigationItemSubNavigation = this.horizontalNavigation
             ? navigationItem.subNavigation.reverse()
             : navigationItem.subNavigation;
           navigationItem.subNavigation = navigationItemSubNavigation.map(
@@ -319,10 +319,10 @@ export default {
 .navigation__colorPickerColor.selected {
   border: 2px solid #fff;
 }
-.navigation__displayHorizontal .navigationMenu ul {
+.navigation__horizontalNavigation .navigationMenu ul {
   display: inline-flex;
 }
-.navigation__displayHorizontal .navigationMenu li {
+.navigation__horizontalNavigation .navigationMenu li {
   display: inline-flex;
 }
 </style>

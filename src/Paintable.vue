@@ -1,64 +1,44 @@
 <template>
-  <div>
-    <div class="paintable" v-show="!hide">
-      <Navigation :displayHorizontal="displayHorizontal">
-        <div slot="paintable-navigation-draw"></div>
-      </Navigation>
+  <div class="paintable" v-if="!hide">
+    <Navigation :horizontalNavigation="horizontalNavigation">
+      <div slot="paintable-navigation-draw"></div>
+    </Navigation>
 
-      <div v-if="useMouse">
-        <canvas
-          :ref="'canvas-' + canvasId"
-          :class="{ active: isActive || alwaysOnTop }"
-          v-show="!canvasIsEmpty || isActive"
-          class="canvas back"
-          :width="width"
-          :height="height"
-          @mousemove="drawMove"
-          @mousedown="drawStart"
-          @mouseup="drawEnd"
-        />
+    <canvas
+      :ref="'canvas-' + canvasId"
+      :class="{ active: isActive || alwaysOnTop }"
+      :style="{
+        pointerEvents: !isActive ? 'none' : 'all',
+        display: !canvasIsEmpty || isActive ? 'block' : 'none'
+      }"
+      class="canvas back"
+      :width="width"
+      :height="height"
+      @pointermove="drawMove"
+      @pointerdown="drawStart"
+      @pointerup="drawEnd"
+      @pointercancel="drawEnd"
+    />
 
-        <canvas
-          :ref="'temp-canvas-' + canvasId"
-          :class="{ active: isActive || alwaysOnTop }"
-          v-show="!canvasIsEmpty || isActive"
-          class="canvas"
-          :width="width"
-          :height="height"
-          @mousemove="drawMove"
-          @mousedown="drawStart"
-          @mouseup="drawEnd"
-        />
-      </div>
-      <div v-else>
-        <canvas
-          :ref="'canvas-' + canvasId"
-          :class="{ active: isActive || alwaysOnTop }"
-          v-show="!canvasIsEmpty || isActive"
-          class="canvas back"
-          :width="width"
-          :height="height"
-          @touchmove="drawMove"
-          @touchstart="drawStart"
-          @touchend="drawEnd"
-        />
+    <canvas
+      :ref="'temp-canvas-' + canvasId"
+      :class="{ active: isActive || alwaysOnTop }"
+      :style="{
+        pointerEvents: !isActive ? 'none' : 'all',
+        display: !canvasIsEmpty || isActive ? 'block' : 'none'
+      }"
+      class="canvas"
+      :width="width"
+      :height="height"
+      @pointermove="drawMove"
+      @pointerdown="drawStart"
+      @pointerup="drawEnd"
+      @pointercancel="drawEnd"
+    />
 
-        <canvas
-          :ref="'temp-canvas-' + canvasId"
-          :class="{ active: isActive || alwaysOnTop }"
-          v-show="!canvasIsEmpty || isActive"
-          class="canvas"
-          :width="width"
-          :height="height"
-          @touchmove="drawMove"
-          @touchstart="drawStart"
-          @touchend="drawEnd"
-        />
-      </div>
-      <div v-if="!hide" class="content"><slot></slot></div>
-    </div>
-    <div v-if="hide" class="content"><slot></slot></div>
+    <div class="content"><slot></slot></div>
   </div>
+  <div v-else class="content"><slot></slot></div>
 </template>
 
 <script>
@@ -85,11 +65,7 @@ export default {
     },
     alwaysOnTop: {
       type: Boolean,
-      default: false
-    },
-    useMouse: {
-      type: Boolean,
-      default: false
+      default: true
     },
     name: {
       type: String,
@@ -134,7 +110,7 @@ export default {
         'green'
       ]
     },
-    displayHorizontal: {
+    horizontalNavigation: {
       type: Boolean,
       default: false
     }
@@ -163,7 +139,11 @@ export default {
   watch: {
     isActive: 'init',
     name: 'init',
-    // hide: 'init',
+    hide() {
+      this.$nextTick(() => {
+        this.init();
+      });
+    },
     isEraserActive(isActive) {
       this.currentLineWidth = isActive ? this.lineWidthEraser : this.lineWidth;
     },
@@ -217,6 +197,7 @@ export default {
      * Init paintable component and set all variables
      */
     init() {
+      console.log('init');
       try {
         this.pointCoords = [];
 
@@ -380,19 +361,19 @@ export default {
         previousX = currentX;
         previousY = currentY;
 
-        currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) *
-            this.factor -
-          this.tempCanvas.getBoundingClientRect().left;
-        currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) *
-            this.factor -
-          this.tempCanvas.getBoundingClientRect().top;
+        if (e.clientX && e.clientY) {
+          currentX =
+            e.clientX * this.factor -
+            this.tempCanvas.getBoundingClientRect().left;
+          currentY =
+            e.clientY * this.factor -
+            this.tempCanvas.getBoundingClientRect().top;
 
-        this.pointCoords.push({
-          x: currentX,
-          y: currentY
-        });
+          this.pointCoords.push({
+            x: currentX,
+            y: currentY
+          });
+        }
 
         this.tempCtx.globalCompositeOperation = 'source-over';
         this.ctx.globalCompositeOperation = this.isEraserActive
@@ -420,22 +401,24 @@ export default {
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
 
-      context.beginPath();
-      context.moveTo(p1.x, p1.y);
+      if (p1.x && p1.y) {
+        context.beginPath();
+        context.moveTo(p1.x, p1.y);
 
-      for (let i = 1, len = this.pointCoords.length; i < len; i++) {
-        let midPoint = {
-          x: p1.x + (p2.x - p1.x) / 2,
-          y: p1.y + (p2.y - p1.y) / 2
-        };
-        context.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-        p1 = this.pointCoords[i];
-        p2 = this.pointCoords[i + 1];
+        for (let i = 1, len = this.pointCoords.length; i < len; i++) {
+          let midPoint = {
+            x: p1.x + (p2.x - p1.x) / 2,
+            y: p1.y + (p2.y - p1.y) / 2
+          };
+          context.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+          p1 = this.pointCoords[i];
+          p2 = this.pointCoords[i + 1];
+        }
+
+        context.lineTo(p1.x, p1.y);
+        context.stroke();
+        context.closePath();
       }
-
-      context.lineTo(p1.x, p1.y);
-      context.stroke();
-      context.closePath();
     },
     /**
      * Draw line on move and add current position to an array
@@ -447,21 +430,20 @@ export default {
         previousX = currentX;
         previousY = currentY;
 
-        currentX =
-          (!this.useMouse ? e.targetTouches[0].clientX : e.clientX) *
-            this.factor -
-          this.tempCanvas.getBoundingClientRect().left;
-        currentY =
-          (!this.useMouse ? e.targetTouches[0].clientY : e.clientY) *
-            this.factor -
-          this.tempCanvas.getBoundingClientRect().top;
+        if (e.clientX && e.clientY) {
+          currentX =
+            e.clientX * this.factor -
+            this.tempCanvas.getBoundingClientRect().left;
+          currentY =
+            e.clientY * this.factor -
+            this.tempCanvas.getBoundingClientRect().top;
 
-        this.pointCoords.push({
-          x: currentX,
-          y: currentY
-        });
-
-        this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
+          this.pointCoords.push({
+            x: currentX,
+            y: currentY
+          });
+          this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
+        }
       }
     }
   }
@@ -490,6 +472,7 @@ body {
   left: 0;
   top: 0;
   overflow: hidden;
+  touch-action: none;
 }
 .paintable .canvas.active {
   z-index: 1000;
