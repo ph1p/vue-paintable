@@ -310,6 +310,8 @@ export default {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     isCanvasBlank() {
+      this.ctx.globalCompositeOperation = 'source-over';
+
       const blank = document.createElement('canvas');
       const blankCtx = blank.getContext('2d');
 
@@ -318,6 +320,8 @@ export default {
       blank.width = this.canvas.width;
       blank.height = this.canvas.height;
 
+      console.log(blank.toDataURL() === this.canvas.toDataURL());
+
       return blank.toDataURL() === this.canvas.toDataURL();
     },
     /**
@@ -325,6 +329,9 @@ export default {
      * If its not empty save it to the storage.
      */
     saveCurrentCanvasToStorage() {
+      // reset to pencil
+      this.isEraserActive = false;
+
       if (this.isCanvasBlank()) {
         this.removeItem(this.name);
         this.removeItem(this.name + '-settings');
