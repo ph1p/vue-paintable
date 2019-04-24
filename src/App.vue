@@ -31,6 +31,14 @@
         "
       />
     </paintable>
+    <footer>
+      <a
+        class="github-link"
+        _target="blank"
+        href="https://github.com/ph1p/vue-paintable"
+        >on github</a
+      >
+    </footer>
   </div>
 </template>
 
@@ -102,5 +110,27 @@ h3 {
   height: 810px !important;
   position: relative !important;
   overflow: hidden;
+}
+footer {
+  text-align: center;
+}
+footer a {
+  color: #777;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+button {
+  border: 0;
+  margin: 0 10px 0 0;
+  font-size: 14px;
+  padding: 10px 15px;
+  opacity: 0.8;
+  background-color: rgb(19, 102, 141);
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 1;
 }
 </style>
