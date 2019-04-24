@@ -101,5 +101,6 @@ h3 {
   width: 810px !important;
   height: 810px !important;
   position: relative !important;
+  overflow: hidden;
 }
 </style>
