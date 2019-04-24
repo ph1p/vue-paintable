@@ -320,8 +320,6 @@ export default {
       blank.width = this.canvas.width;
       blank.height = this.canvas.height;
 
-      console.log(blank.toDataURL() === this.canvas.toDataURL());
-
       return blank.toDataURL() === this.canvas.toDataURL();
     },
     /**
