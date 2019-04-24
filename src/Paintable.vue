@@ -197,7 +197,6 @@ export default {
      * Init paintable component and set all variables
      */
     init() {
-      console.log('init');
       try {
         this.pointCoords = [];
 

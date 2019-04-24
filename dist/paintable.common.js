@@ -581,7 +581,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=51e20095&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=a2be7a10&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
@@ -592,7 +592,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=51e20095&
+// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=a2be7a10&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=6516d8a6&scoped=true&
 var Navigationvue_type_template_id_6516d8a6_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
@@ -1173,7 +1173,6 @@ let currentY = 0;
      * Init paintable component and set all variables
      */
     init() {
-      console.log('init');
       try {
         this.pointCoords = [];
 
