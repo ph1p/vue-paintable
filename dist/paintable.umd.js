@@ -1465,6 +1465,7 @@ var Paintable_component = normalizeComponent(
 
 /* harmony default export */ var Paintable = (Paintable_component.exports);
 // CONCATENATED MODULE: ./src/plugin.ts
+if (false) {}
 
 var PaintablePlugin = {
     install: function (Vue, options) {
@@ -1505,4 +1506,3 @@ var PaintablePlugin = {
 
 /******/ });
 });
-//# sourceMappingURL=paintable.umd.js.map

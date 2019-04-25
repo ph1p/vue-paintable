@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name paintable ./src/plugin.ts && rm ./dist/demo.html",
+    "build-fallback": "FALLBACK=true vue-cli-service build --mode production --target lib --name fallback ./src/plugin.ts",
+    "build": "vue-cli-service build --mode production --target lib --name paintable ./src/plugin.ts && yarn build-fallback --no-clean && rm ./dist/demo.html",
     "now-build": "yarn build && vue-cli-service build ./src/main.ts --dest ./demo",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -25,6 +26,7 @@
     "dist/paintable.umd.js"
   ],
   "dependencies": {
+    "pepjs": "^0.5.2",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0"

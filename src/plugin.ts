@@ -1,3 +1,7 @@
+if (process.env.VUE_APP_FALLBACK) {
+  require('pepjs');
+}
+
 import Paintable from './Paintable.vue';
 
 interface PaintableOptions {
