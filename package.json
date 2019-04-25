@@ -18,12 +18,15 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
-  "main": "dist/paintable.common.js",
+  "browser": "dist/paintable.common.js",
   "unpkg": "dist/paintable.umd.min.js",
   "files": [
     "dist/paintable.common.js",
     "dist/paintable.umd.min.js",
-    "dist/paintable.umd.js"
+    "dist/paintable.umd.js",
+    "dist/fallback.common.js",
+    "dist/fallback.umd.min.js",
+    "dist/fallback.umd.js"
   ],
   "dependencies": {
     "pepjs": "^0.5.2",

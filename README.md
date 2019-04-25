@@ -42,9 +42,9 @@ Vue.use(Paintable, {
 If you want to support older browsers that do not support `pointer events`, you can proceed as follows:
 
 ```javascript
-import Paintable from 'vue-paintable/dist/fallback';
+import Paintable from 'vue-paintable/dist/fallback.common';
 // or
-const Paintable = require('vue-paintable/dist/fallback');
+const Paintable = require('vue-paintable/dist/fallback.common.js');
 ```
 
 #### Inside your components
