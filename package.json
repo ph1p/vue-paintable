@@ -16,8 +16,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build-fallback": "FALLBACK=true vue-cli-service build --mode production --target lib --name fallback ./src/plugin.ts",
-    "build": "vue-cli-service build --mode production --target lib --name paintable ./src/plugin.ts && yarn build-fallback --no-clean && rm ./dist/demo.html",
+    "build": "vue-cli-service build --mode production --target lib --name paintable ./src/plugin.ts && rm ./dist/demo.html",
     "now-build": "yarn build && vue-cli-service build ./src/main.ts --dest ./demo",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
@@ -27,18 +26,12 @@
   "files": [
     "dist/paintable.common.js",
     "dist/paintable.umd.min.js",
-    "dist/paintable.umd.js",
-    "dist/fallback.common.js",
-    "dist/fallback.umd.min.js",
-    "dist/fallback.umd.js"
+    "dist/paintable.umd.js"
   ],
-  "dependencies": {
-    "pepjs": "^0.5.2",
+  "devDependencies": {
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.1.0"
-  },
-  "devDependencies": {
+    "vue-property-decorator": "^8.1.0",
     "@types/jest": "^23.1.4",
     "@vue/cli-plugin-eslint": "^3.6.0",
     "@vue/cli-plugin-typescript": "^3.6.0",

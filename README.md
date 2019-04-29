@@ -37,14 +37,26 @@ Vue.use(Paintable, {
 //...
 ```
 
-#### fallback
+#### fallback (pepjs)
 
-If you want to support older browsers that do not support `pointer events`, you can proceed as follows:
+If you want to support older browsers that do not support `pointer events`.
+
+Just use [`pepjs`](https://github.com/jquery/PEP#readme) to polyfill these events.
+
+```bash
+npm install pepjs
+# or
+yarn add pepjs
+```
 
 ```javascript
-import Paintable from 'vue-paintable/dist/fallback.common';
+import 'pepjs';
+import Paintable from 'vue-paintable';
+
 // or
-const Paintable = require('vue-paintable/dist/fallback.common.js');
+
+require('pepjs');
+const Paintable = require('vue-paintable.js');
 ```
 
 #### Inside your components
@@ -106,19 +118,19 @@ To display the navigation horizontally add `horizontalNavigation` to prop list.
 
 ### Props
 
-| name               | type                            | required | default                                                                  | description                                                                                                               |
-| ------------------ | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| name               | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
-| showUndoRedo       | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
-| hide               | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
-| colors             | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
-| width              | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
-| height             | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
-| showLineWidth      | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
-| lineWidth          | number                          | false    | 5                                                                        | line width                                                                                                                |
-| alwaysOnTop        | boolean                         | false    | true                                                                     | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
-| factor             | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
-| lineWidthEraser    | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
+| name                 | type                            | required | default                                                                  | description                                                                                                               |
+| -------------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| name                 | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
+| showUndoRedo         | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
+| hide                 | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
+| colors               | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
+| width                | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
+| height               | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
+| showLineWidth        | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
+| lineWidth            | number                          | false    | 5                                                                        | line width                                                                                                                |
+| alwaysOnTop          | boolean                         | false    | true                                                                     | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
+| factor               | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
+| lineWidthEraser      | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
 | horizontalNavigation | boolean                         | false    | true                                                                     | display the navigation horizontally or vertically                                                                         |
 
 ### Global methods
