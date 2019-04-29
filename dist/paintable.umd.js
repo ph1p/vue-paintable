@@ -468,7 +468,33 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ "7354":
+/***/ "67f2":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("e833");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("9703d566", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
+/***/ "6b54":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_65338345_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("67f2");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_65338345_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_65338345_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_65338345_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "e833":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("2350")(false);
@@ -476,36 +502,10 @@ exports = module.exports = __webpack_require__("2350")(false);
 
 
 // module
-exports.push([module.i, ".navigation[data-v-6516d8a6]{position:fixed;right:20px;top:20px;z-index:1005;background-color:#333;border-radius:5px;color:#fff}.navigation .navigationMenu[data-v-6516d8a6],.navigation .navigationMenu ul[data-v-6516d8a6]{list-style:none;padding:0;margin:0}.navigation .navigationMenu li>div[data-v-6516d8a6]{cursor:pointer;padding:12px}.navigation .navigationMenu li.disabled[data-v-6516d8a6]{opacity:.5}.navigation__lineWidthPicker[data-v-6516d8a6]{background:#333;position:absolute;left:-225px;top:0;padding:12px;border-radius:5px;-webkit-box-sizing:border-box;box-sizing:border-box}.navigation__lineWidthPickerDot[data-v-6516d8a6]{margin-top:10px;border-radius:100%}.navigation__lineWidthPickerColor[data-v-6516d8a6]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__lineWidthPickerColor[data-v-6516d8a6]:last-child{margin:0}.navigation__lineWidthPickerColor.selected[data-v-6516d8a6]{border:2px solid #fff}.navigation__colorPicker[data-v-6516d8a6]{background:#333;position:absolute;left:-60px;top:0;padding:12px;border-radius:5px}.navigation__colorPickerColor[data-v-6516d8a6]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__colorPickerColor[data-v-6516d8a6]:last-child{margin:0}.navigation__colorPickerColor.selected[data-v-6516d8a6]{border:2px solid #fff}.navigation__horizontalNavigation .navigationMenu li[data-v-6516d8a6],.navigation__horizontalNavigation .navigationMenu ul[data-v-6516d8a6]{display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex}", ""]);
+exports.push([module.i, ".navigation[data-v-65338345]{position:fixed;right:20px;top:20px;z-index:1005;background-color:#333;border-radius:5px;color:#fff}.navigation .navigationMenu[data-v-65338345],.navigation .navigationMenu ul[data-v-65338345]{list-style:none;padding:0;margin:0}.navigation .navigationMenu li>div[data-v-65338345]{cursor:pointer;padding:12px}.navigation .navigationMenu li.disabled[data-v-65338345]{opacity:.5}.navigation__lineWidthPicker[data-v-65338345]{background:#333;position:absolute;left:-225px;top:0;padding:12px;border-radius:5px;-webkit-box-sizing:border-box;box-sizing:border-box}.navigation__lineWidthPickerDot[data-v-65338345]{margin-top:10px;border-radius:100%}.navigation__lineWidthPickerColor[data-v-65338345]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__lineWidthPickerColor[data-v-65338345]:last-child{margin:0}.navigation__lineWidthPickerColor.selected[data-v-65338345]{border:2px solid #fff}.navigation__colorPicker[data-v-65338345]{background:#333;position:absolute;left:-60px;top:0;padding:12px;border-radius:5px}.navigation__colorPickerColor[data-v-65338345]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__colorPickerColor[data-v-65338345]:last-child{margin:0}.navigation__colorPickerColor.selected[data-v-65338345]{border:2px solid #fff}.navigation__horizontalNavigation .navigationMenu li[data-v-65338345],.navigation__horizontalNavigation .navigationMenu ul[data-v-65338345]{display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex}", ""]);
 
 // exports
 
-
-/***/ }),
-
-/***/ "9f5f":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("7354");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("5e5b0ec2", content, true, {"sourceMap":false,"shadowMode":false});
-
-/***/ }),
-
-/***/ "ae08":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_6516d8a6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("9f5f");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_6516d8a6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_6516d8a6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_index_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_6516d8a6_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -590,31 +590,31 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=d7c5d630&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=23ec8da6&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[(!_vm.disableNavigation)?_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]):_vm._e(),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
-    }),attrs:{"width":_vm.width,"height":_vm.height},on:{"pointermove":_vm.drawMove,"pointerdown":_vm.drawStart,"pointerup":_vm.drawEnd,"pointercancel":_vm.drawEnd}}),_c('canvas',{ref:'temp-canvas-' + _vm.canvasId,staticClass:"canvas",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
+    }),attrs:{"width":_vm.width,"height":_vm.height}}),_c('canvas',{ref:'temp-canvas-' + _vm.canvasId,staticClass:"canvas",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
-    }),attrs:{"width":_vm.width,"height":_vm.height},on:{"pointermove":_vm.drawMove,"pointerdown":_vm.drawStart,"pointerup":_vm.drawEnd,"pointercancel":_vm.drawEnd}}),_c('div',{staticClass:"content"},[_vm._t("default")],2)],1):_c('div',{staticClass:"content"},[_vm._t("default")],2)}
+    }),attrs:{"width":_vm.width,"height":_vm.height},on:_vm._d({},[_vm.drawMoveEvent,_vm.drawMove,_vm.drawStartEvent,_vm.drawStart,_vm.drawEndEvent,_vm.drawEnd])}),_c('div',{staticClass:"content"},[_vm._t("default")],2)],1):_c('div',{staticClass:"content"},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=d7c5d630&
+// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=23ec8da6&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=6516d8a6&scoped=true&
-var Navigationvue_type_template_id_6516d8a6_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
+var Navigationvue_type_template_id_65338345_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
         'navigation__colorPickerColor',
         { selected: _vm.paintableView.currentColor === color }
       ],style:({ backgroundColor: color }),on:{"click":function($event){return _vm.changeColor(color)}}})}),0):_vm._e(),(_vm.isLineWidthPickerOpen)?_c('div',{staticClass:"navigation__lineWidthPicker"},[_c('label',{attrs:{"for":"navigation__lineWidthPickerRange"}},[_vm._v("("+_vm._s(_vm.paintableView.currentLineWidth)+"px):")]),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.paintableView.currentLineWidth),expression:"paintableView.currentLineWidth"}],attrs:{"id":"navigation__lineWidthPickerRange","type":"range","min":"1","max":"100"},domProps:{"value":(_vm.paintableView.currentLineWidth)},on:{"change":function($event){_vm.isLineWidthPickerOpen = false},"__r":function($event){return _vm.$set(_vm.paintableView, "currentLineWidth", $event.target.value)}}}),_c('div',{staticClass:"navigation__lineWidthPickerDot",style:(_vm.lineWidthStyle)})]):_vm._e(),_c('ul',{staticClass:"navigationMenu",class:{ active: _vm.paintableView.isActive }},_vm._l((_vm.horizontalNavigation ? _vm.navigation.reverse() : _vm.navigation),function(item){return _c('li',{key:item.name,class:'navigationMenu__' + item.name},[(!_vm.horizontalNavigation)?_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}}):_vm._e(),(_vm.paintableView.isActive)?_c('ul',_vm._l((item.subNavigation),function(item){return _c('li',{key:item.name,class:[
             'navigationMenu__' + item.name,
             { disabled: item.disabled }
           ]},[_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}})])}),0):_vm._e(),(_vm.horizontalNavigation)?_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}}):_vm._e()])}),0)]):_vm._e()}
-var Navigationvue_type_template_id_6516d8a6_scoped_true_staticRenderFns = []
+var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=template&id=6516d8a6&scoped=true&
+// CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=script&lang=js&
 //
@@ -797,7 +797,7 @@ var Navigationvue_type_template_id_6516d8a6_scoped_true_staticRenderFns = []
               body: 'cancel',
               disabled: false,
               show: true,
-              click: this.cancelDrawing
+              click: this.paintableView.cancelDrawing
             }
           ].filter(item => item.show)
         }
@@ -824,15 +824,6 @@ var Navigationvue_type_template_id_6516d8a6_scoped_true_staticRenderFns = []
       this.isColorPickerOpen = false;
     },
     /**
-     * Cancel current drawing and remove lines
-     */
-    cancelDrawing() {
-      this.paintableView.loadImageFromStorage();
-      this.paintableView.isActive = false;
-      this.isColorPickerOpen = false;
-      this.isLineWidthPickerOpen = false;
-    },
-    /**
      * Change current drawing color
      */
     changeColor(color) {
@@ -849,22 +840,20 @@ var Navigationvue_type_template_id_6516d8a6_scoped_true_staticRenderFns = []
       if (this.paintableView.isActive) {
         this.paintableView.saveCurrentCanvasToStorage();
       }
+
       this.paintableView.isActive = !this.paintableView.isActive;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
 
-      // emit root event
-      this.$root.$emit('toggle-paintable', this.paintableView.isActive);
-      // deprecated
-      this.$root.$emit('toggle-paintable-screen', this.paintableView.isActive);
+      this.$parent.$emit('toggle-paintable', this.paintableView.isActive);
     }
   }
 });
 
 // CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_Navigationvue_type_script_lang_js_ = (Navigationvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/Navigation.vue?vue&type=style&index=0&id=6516d8a6&scoped=true&lang=css&
-var Navigationvue_type_style_index_0_id_6516d8a6_scoped_true_lang_css_ = __webpack_require__("ae08");
+// EXTERNAL MODULE: ./src/components/Navigation.vue?vue&type=style&index=0&id=65338345&scoped=true&lang=css&
+var Navigationvue_type_style_index_0_id_65338345_scoped_true_lang_css_ = __webpack_require__("6b54");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -972,11 +961,11 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_Navigationvue_type_script_lang_js_,
-  Navigationvue_type_template_id_6516d8a6_scoped_true_render,
-  Navigationvue_type_template_id_6516d8a6_scoped_true_staticRenderFns,
+  Navigationvue_type_template_id_65338345_scoped_true_render,
+  Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns,
   false,
   null,
-  "6516d8a6",
+  "65338345",
   null
   
 )
@@ -1024,11 +1013,7 @@ var component = normalizeComponent(
 //
 //
 //
-//
-//
 
-let previousX = 0;
-let previousY = 0;
 let currentX = 0;
 let currentY = 0;
 
@@ -1098,16 +1083,31 @@ let currentY = 0;
     horizontalNavigation: {
       type: Boolean,
       default: false
+    },
+    disableNavigation: {
+      type: Boolean,
+      default: false
+    },
+    active: {
+      type: Boolean,
+      default: false
+    },
+    color: {
+      type: String,
+      default: '#000'
+    },
+    useEraser: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      hidePaintableNavigation: false,
-      currentColor: 'black',
+      currentColor: this.color,
       canvasIsEmpty: false,
       canvasId: 0,
-      isEraserActive: false,
-      isActive: false,
+      isEraserActive: this.useEraser,
+      isActive: this.active,
       pointCoords: [],
       redoList: [],
       undoList: [],
@@ -1118,7 +1118,11 @@ let currentY = 0;
       tempCtx: null,
       canvas: null,
       ctx: null,
-      startedDrawing: false
+      startedDrawing: false,
+      drawMoveEvent: 'mousemove',
+      drawStartEvent: 'mousedown',
+      drawEndEvent: 'mouseup',
+      isMouse: true
     };
   },
   watch: {
@@ -1129,20 +1133,41 @@ let currentY = 0;
         this.init();
       });
     },
+    lineWidth(lineWidth) {
+      this.currentLineWidth = lineWidth;
+    },
+    lineWidthEraser(lineWidth) {
+      this.currentLineWidth = lineWidth;
+    },
+    useEraser(useEraser) {
+      this.isEraserActive = useEraser;
+    },
+    active(isActive) {
+      this.isActive = isActive;
+    },
+    color(color) {
+      this.currentColor = color;
+      this.tempCtx.strokeStyle = this.currentColor;
+      this.ctx.strokeStyle = this.currentColor;
+    },
     isEraserActive(isActive) {
       this.currentLineWidth = isActive ? this.lineWidthEraser : this.lineWidth;
     },
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;
-    },
-    color(color) {
-      this.ctx.strokeStyle = color;
-      this.tempCtx.strokeStyle = color;
     }
   },
   beforeMount() {
     this.canvasId = Math.round(Math.random() * 1000);
+  },
+  created() {
+    if (this.isTouch) {
+      this.drawMoveEvent = 'touchmove';
+      this.drawStartEvent = 'touchstart';
+      this.drawEndEvent = 'touchend';
+      this.isMouse = false;
+    }
   },
   mounted() {
     this.init();
@@ -1153,9 +1178,29 @@ let currentY = 0;
      */
     scalingFactor() {
       return window.devicePixelRatio || 1;
+    },
+    /**
+     * Check if it is a touch device
+     * thanks to: https://ctrlq.org/code/19616-detect-touch-screen-javascript
+     */
+    isTouch() {
+      return (
+        'ontouchstart' in window ||
+        navigator.MaxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
     }
   },
   methods: {
+    /**
+     * Cancel current drawing and remove lines
+     */
+    cancelDrawing() {
+      this.loadImageFromStorage();
+      this.isActive = false;
+      this.isColorPickerOpen = false;
+      this.isLineWidthPickerOpen = false;
+    },
     /**
      * Set storage item
      * @param {string} key
@@ -1216,10 +1261,7 @@ let currentY = 0;
         // load image from storage
         this.loadImageFromStorage();
 
-        // listen to hide event
-        this.$root.$on('hide-paintable-navigation', hidePaintableNavigation => {
-          this.hidePaintableNavigation = hidePaintableNavigation;
-        });
+        this.$emit('toggle-paintable', this.isActive);
       } catch (err) {
         // this.hide = true;
         // this.hidePaintableNavigation = true;
@@ -1252,9 +1294,9 @@ let currentY = 0;
     /**
      * Save the current canvas state an push it to undo- or redolist
      */
-    saveCurrentCanvasState(canvas, list, keep_redo) {
-      keep_redo = keep_redo || false;
-      if (!keep_redo) {
+    saveCurrentCanvasState(canvas, list, keepRedo) {
+      keepRedo = keepRedo || false;
+      if (!keepRedo) {
         this.redoList = [];
       }
 
@@ -1347,16 +1389,14 @@ let currentY = 0;
 
         this.saveCurrentCanvasState(this.canvas);
 
-        previousX = currentX;
-        previousY = currentY;
+        const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
+        const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
-        if (e.clientX && e.clientY) {
+        if (x && y) {
           currentX =
-            e.clientX * this.factor -
-            this.tempCanvas.getBoundingClientRect().left;
+            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
           currentY =
-            e.clientY * this.factor -
-            this.tempCanvas.getBoundingClientRect().top;
+            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
 
           this.pointCoords.push({
             x: currentX,
@@ -1373,7 +1413,7 @@ let currentY = 0;
     /**
      * End of drawing a line
      */
-    drawEnd(e) {
+    drawEnd() {
       if (this.isActive) {
         this.drawLine(this.ctx);
         this.startedDrawing = false;
@@ -1416,21 +1456,20 @@ let currentY = 0;
       e.preventDefault();
 
       if (this.isActive && this.startedDrawing) {
-        previousX = currentX;
-        previousY = currentY;
+        const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
+        const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
-        if (e.clientX && e.clientY) {
+        if (x && y) {
           currentX =
-            e.clientX * this.factor -
-            this.tempCanvas.getBoundingClientRect().left;
+            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
           currentY =
-            e.clientY * this.factor -
-            this.tempCanvas.getBoundingClientRect().top;
+            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
 
           this.pointCoords.push({
             x: currentX,
             y: currentY
           });
+
           this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }
@@ -1464,34 +1503,27 @@ var Paintable_component = normalizeComponent(
 )
 
 /* harmony default export */ var Paintable = (Paintable_component.exports);
-// CONCATENATED MODULE: ./src/plugin.ts
+// CONCATENATED MODULE: ./src/plugin.js
 
-var PaintablePlugin = {
-    install: function (Vue, options) {
-        if (options && options.setItem) {
-            Paintable.methods.setItem = options.setItem;
-        }
-        if (options && options.getItem) {
-            Paintable.methods.getItem = options.getItem;
-        }
-        if (options && options.removeItem) {
-            Paintable.methods.removeItem = options.removeItem;
-        }
-        Vue.component('paintable', Paintable);
-        Vue.prototype.$hidePaintableNavigation = function () {
-            var _this = this;
-            setTimeout(function () {
-                _this.$root.$emit('hide-paintable-navigation', true);
-            }, 0);
-        };
-        Vue.prototype.$showPaintableNavigation = function () {
-            var _this = this;
-            setTimeout(function () {
-                _this.$root.$emit('hide-paintable-navigation', false);
-            }, 0);
-        };
+
+const PaintablePlugin = {
+  install(Vue, options) {
+    if (options && options.setItem) {
+      Paintable.methods.setItem = options.setItem;
     }
+
+    if (options && options.getItem) {
+      Paintable.methods.getItem = options.getItem;
+    }
+
+    if (options && options.removeItem) {
+      Paintable.methods.removeItem = options.removeItem;
+    }
+
+    Vue.component('paintable', Paintable);
+  }
 };
+
 /* harmony default export */ var src_plugin = (PaintablePlugin);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js

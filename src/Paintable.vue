@@ -1,6 +1,9 @@
 <template>
   <div class="paintable" v-if="!hide">
-    <Navigation :horizontalNavigation="horizontalNavigation">
+    <Navigation
+      v-if="!disableNavigation"
+      :horizontalNavigation="horizontalNavigation"
+    >
       <div slot="paintable-navigation-draw"></div>
     </Navigation>
 
@@ -14,10 +17,6 @@
       class="canvas back"
       :width="width"
       :height="height"
-      @pointermove="drawMove"
-      @pointerdown="drawStart"
-      @pointerup="drawEnd"
-      @pointercancel="drawEnd"
     />
 
     <canvas
@@ -30,10 +29,9 @@
       class="canvas"
       :width="width"
       :height="height"
-      @pointermove="drawMove"
-      @pointerdown="drawStart"
-      @pointerup="drawEnd"
-      @pointercancel="drawEnd"
+      @[drawMoveEvent]="drawMove"
+      @[drawStartEvent]="drawStart"
+      @[drawEndEvent]="drawEnd"
     />
 
     <div class="content"><slot></slot></div>
@@ -42,8 +40,6 @@
 </template>
 
 <script>
-let previousX = 0;
-let previousY = 0;
 let currentX = 0;
 let currentY = 0;
 
@@ -113,16 +109,31 @@ export default {
     horizontalNavigation: {
       type: Boolean,
       default: false
+    },
+    disableNavigation: {
+      type: Boolean,
+      default: false
+    },
+    active: {
+      type: Boolean,
+      default: false
+    },
+    color: {
+      type: String,
+      default: '#000'
+    },
+    useEraser: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
-      hidePaintableNavigation: false,
-      currentColor: 'black',
+      currentColor: this.color,
       canvasIsEmpty: false,
       canvasId: 0,
-      isEraserActive: false,
-      isActive: false,
+      isEraserActive: this.useEraser,
+      isActive: this.active,
       pointCoords: [],
       redoList: [],
       undoList: [],
@@ -133,7 +144,11 @@ export default {
       tempCtx: null,
       canvas: null,
       ctx: null,
-      startedDrawing: false
+      startedDrawing: false,
+      drawMoveEvent: 'mousemove',
+      drawStartEvent: 'mousedown',
+      drawEndEvent: 'mouseup',
+      isMouse: true
     };
   },
   watch: {
@@ -144,20 +159,41 @@ export default {
         this.init();
       });
     },
+    lineWidth(lineWidth) {
+      this.currentLineWidth = lineWidth;
+    },
+    lineWidthEraser(lineWidth) {
+      this.currentLineWidth = lineWidth;
+    },
+    useEraser(useEraser) {
+      this.isEraserActive = useEraser;
+    },
+    active(isActive) {
+      this.isActive = isActive;
+    },
+    color(color) {
+      this.currentColor = color;
+      this.tempCtx.strokeStyle = this.currentColor;
+      this.ctx.strokeStyle = this.currentColor;
+    },
     isEraserActive(isActive) {
       this.currentLineWidth = isActive ? this.lineWidthEraser : this.lineWidth;
     },
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;
-    },
-    color(color) {
-      this.ctx.strokeStyle = color;
-      this.tempCtx.strokeStyle = color;
     }
   },
   beforeMount() {
     this.canvasId = Math.round(Math.random() * 1000);
+  },
+  created() {
+    if (this.isTouch) {
+      this.drawMoveEvent = 'touchmove';
+      this.drawStartEvent = 'touchstart';
+      this.drawEndEvent = 'touchend';
+      this.isMouse = false;
+    }
   },
   mounted() {
     this.init();
@@ -168,9 +204,29 @@ export default {
      */
     scalingFactor() {
       return window.devicePixelRatio || 1;
+    },
+    /**
+     * Check if it is a touch device
+     * thanks to: https://ctrlq.org/code/19616-detect-touch-screen-javascript
+     */
+    isTouch() {
+      return (
+        'ontouchstart' in window ||
+        navigator.MaxTouchPoints > 0 ||
+        navigator.msMaxTouchPoints > 0
+      );
     }
   },
   methods: {
+    /**
+     * Cancel current drawing and remove lines
+     */
+    cancelDrawing() {
+      this.loadImageFromStorage();
+      this.isActive = false;
+      this.isColorPickerOpen = false;
+      this.isLineWidthPickerOpen = false;
+    },
     /**
      * Set storage item
      * @param {string} key
@@ -231,10 +287,7 @@ export default {
         // load image from storage
         this.loadImageFromStorage();
 
-        // listen to hide event
-        this.$root.$on('hide-paintable-navigation', hidePaintableNavigation => {
-          this.hidePaintableNavigation = hidePaintableNavigation;
-        });
+        this.$emit('toggle-paintable', this.isActive);
       } catch (err) {
         // this.hide = true;
         // this.hidePaintableNavigation = true;
@@ -267,9 +320,9 @@ export default {
     /**
      * Save the current canvas state an push it to undo- or redolist
      */
-    saveCurrentCanvasState(canvas, list, keep_redo) {
-      keep_redo = keep_redo || false;
-      if (!keep_redo) {
+    saveCurrentCanvasState(canvas, list, keepRedo) {
+      keepRedo = keepRedo || false;
+      if (!keepRedo) {
         this.redoList = [];
       }
 
@@ -362,16 +415,14 @@ export default {
 
         this.saveCurrentCanvasState(this.canvas);
 
-        previousX = currentX;
-        previousY = currentY;
+        const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
+        const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
-        if (e.clientX && e.clientY) {
+        if (x && y) {
           currentX =
-            e.clientX * this.factor -
-            this.tempCanvas.getBoundingClientRect().left;
+            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
           currentY =
-            e.clientY * this.factor -
-            this.tempCanvas.getBoundingClientRect().top;
+            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
 
           this.pointCoords.push({
             x: currentX,
@@ -388,7 +439,7 @@ export default {
     /**
      * End of drawing a line
      */
-    drawEnd(e) {
+    drawEnd() {
       if (this.isActive) {
         this.drawLine(this.ctx);
         this.startedDrawing = false;
@@ -431,21 +482,20 @@ export default {
       e.preventDefault();
 
       if (this.isActive && this.startedDrawing) {
-        previousX = currentX;
-        previousY = currentY;
+        const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
+        const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
-        if (e.clientX && e.clientY) {
+        if (x && y) {
           currentX =
-            e.clientX * this.factor -
-            this.tempCanvas.getBoundingClientRect().left;
+            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
           currentY =
-            e.clientY * this.factor -
-            this.tempCanvas.getBoundingClientRect().top;
+            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
 
           this.pointCoords.push({
             x: currentX,
             y: currentY
           });
+
           this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }

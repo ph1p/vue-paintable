@@ -37,44 +37,28 @@ Vue.use(Paintable, {
 //...
 ```
 
-#### fallback (pepjs)
-
-If you want to support older browsers that do not support `pointer events`.
-
-Just use [`pepjs`](https://github.com/jquery/PEP#readme) to polyfill these events.
-
-```bash
-npm install pepjs
-# or
-yarn add pepjs
-```
-
-```javascript
-import 'pepjs';
-import Paintable from 'vue-paintable';
-
-// or
-
-require('pepjs');
-const Paintable = require('vue-paintable.js');
-```
-
 #### Inside your components
 
 ```html
 <template>
   <paintable
+    alwaysOnTop
+    :active="isActive"
     :width="800"
     :height="800"
+    :disableNavigation="disableNavigation"
     :hide="hidePaintable"
     :horizontalNavigation="true"
     :navigation="navigation"
     :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
     :factor="1"
-    :lineWidth="5"
+    :lineWidth="dynamicLineWidth"
     :lineWidthEraser="20"
-    alwaysOnTop
+    :useEraser="useEraser"
+    :color="color"
     class="paint"
+    ref="paintable"
+    @toggle-paintable="toggledPaintable"
   >
     Your content
     <router-view></router-view>
@@ -116,35 +100,47 @@ To display the navigation horizontally add `horizontalNavigation` to prop list.
 - draw-save
 - eraser-pencil
 
+### Custom Navigation
+
+To use a custom navigation disable the default navigation with `disableNavigation`.
+
+#### use \$refs to call paintable methods
+
+```html
+<paintable ref="paintable">content</paintable>
+
+<button @click="$refs.paintable.undoDrawingStep">undo</button>
+<button @click="$refs.paintable.redoDrawingStep">redo</button>
+<button @click="$refs.paintable.clearCanvas">clear</button>
+<button @click="$refs.paintable.saveCurrentCanvasToStorage">
+  save
+</button>
+<button @click="$refs.paintable.cancelDrawing">cancel</button>
+```
+
+Take a look at the [demo](https://vue-paintable.now.sh/) (`/src/App.vue`)
+
+
 ### Props
 
-| name                 | type                            | required | default                                                                  | description                                                                                                               |
-| -------------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| name                 | string - required               | true     | -                                                                        | unique identifier                                                                                                         |
-| showUndoRedo         | boolean                         | false    | true                                                                     | show undo and redo button                                                                                                 |
-| hide                 | boolean                         | false    | false                                                                    | hide the complete paintable                                                                                               |
-| colors               | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                                                                                 |
-| width                | number                          | false    | window.innerWidth                                                        | canvas width                                                                                                              |
-| height               | number                          | false    | window.innerHeight                                                       | canvas height                                                                                                             |
-| showLineWidth        | boolean                         | false    | true                                                                     | show button to set line width                                                                                             |
-| lineWidth            | number                          | false    | 5                                                                        | line width                                                                                                                |
-| alwaysOnTop          | boolean                         | false    | true                                                                     | set canvas always as top layer. Caution! Don't this, if you've elements like links, buttons or input fields on your page. |
-| factor               | number                          | false    | 1                                                                        | set a scale factor if needed                                                                                              |
-| lineWidthEraser      | number                          | false    | 20                                                                       | set eraser line width                                                                                                     |
-| horizontalNavigation | boolean                         | false    | true                                                                     | display the navigation horizontally or vertically                                                                         |
-
-### Global methods
-
-| name                      | type | description               |
-| ------------------------- | ---- | ------------------------- |
-| \$hidePaintableNavigation | void | Hide paintable navigation | @ |
-| \$showPaintableNavigation | void | Show paintable navigation |
-
-```javascript
-mounted() {
-  this.$hidePaintableNavigation();
-}
-```
+| name                 | type                            | required | default                                                                  | description                                       |
+| -------------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------- |
+| name                 | string - required               | true     | -                                                                        | unique identifier                                 |
+| showUndoRedo         | boolean                         | false    | true                                                                     | show undo and redo button                         |
+| hide                 | boolean                         | false    | false                                                                    | hide the complete paintable                       |
+| colors               | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                         |
+| width                | number                          | false    | window.innerWidth                                                        | canvas width                                      |
+| height               | number                          | false    | window.innerHeight                                                       | canvas height                                     |
+| showLineWidth        | boolean                         | false    | true                                                                     | show button to set line width                     |
+| lineWidth            | number                          | false    | 5                                                                        | line width                                        |
+| alwaysOnTop          | boolean                         | false    | true                                                                     | set canvas always as top layer                    |
+| factor               | number                          | false    | 1                                                                        | set a scale factor if needed                      |
+| lineWidthEraser      | number                          | false    | 20                                                                       | set eraser line width                             |
+| horizontalNavigation | boolean                         | false    | true                                                                     | display the navigation horizontally or vertically |
+| disableNavigation    | boolean                         | false    | false                                                                    | hide navigation                                   |
+| active               | boolean                         | false    | false                                                                    | set paintable active/inactive                     |
+| color                | string                          | false    | #000                                                                     | current color                                     |
+| useEraser            | boolean                         | false    | false                                                                    | set to true, to use the eraser                    |
 
 ### Events
 
@@ -152,10 +148,8 @@ mounted() {
 | ---------------- | ------- | ----------------------------------------- |
 | toggle-paintable | boolean | Is emitted, when changing paintable state |
 
-```javascript
-this.$root.$on('toggle-paintable', isActive => {
-  console.log(isActive);
-});
+```html
+<paintable @toggle-paintable="toggledPaintable"></paintable>
 ```
 
 ### development

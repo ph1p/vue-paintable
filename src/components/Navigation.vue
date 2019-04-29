@@ -178,7 +178,7 @@ export default {
               body: 'cancel',
               disabled: false,
               show: true,
-              click: this.cancelDrawing
+              click: this.paintableView.cancelDrawing
             }
           ].filter(item => item.show)
         }
@@ -205,15 +205,6 @@ export default {
       this.isColorPickerOpen = false;
     },
     /**
-     * Cancel current drawing and remove lines
-     */
-    cancelDrawing() {
-      this.paintableView.loadImageFromStorage();
-      this.paintableView.isActive = false;
-      this.isColorPickerOpen = false;
-      this.isLineWidthPickerOpen = false;
-    },
-    /**
      * Change current drawing color
      */
     changeColor(color) {
@@ -230,14 +221,12 @@ export default {
       if (this.paintableView.isActive) {
         this.paintableView.saveCurrentCanvasToStorage();
       }
+
       this.paintableView.isActive = !this.paintableView.isActive;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
 
-      // emit root event
-      this.$root.$emit('toggle-paintable', this.paintableView.isActive);
-      // deprecated
-      this.$root.$emit('toggle-paintable-screen', this.paintableView.isActive);
+      this.$parent.$emit('toggle-paintable', this.paintableView.isActive);
     }
   }
 };

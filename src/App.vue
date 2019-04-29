@@ -1,25 +1,54 @@
 <template>
   <div>
+    <div class="custom-navigation">
+      <button @click="isActive = !isActive">toggle custom navigation</button>
+      <div class="controls" v-if="isActive">
+        <input
+          type="range"
+          @input="dynamicLineWidth = +$event.target.value"
+          min="1"
+          max="100"
+        />
+        <input type="color" v-model="color" /><br /><br />
+        <button @click="$refs.paintable.undoDrawingStep">undo</button>
+        <button @click="$refs.paintable.redoDrawingStep">redo</button>
+        <button @click="$refs.paintable.clearCanvas">clear</button><br /><br />
+        <button @click="$refs.paintable.saveCurrentCanvasToStorage">
+          save
+        </button>
+        <button @click="$refs.paintable.cancelDrawing">cancel</button>
+        <button @click="useEraser = !useEraser">
+          {{ useEraser ? 'eraser' : 'pencil' }}
+        </button>
+      </div>
+    </div>
     <paintable
+      alwaysOnTop
+      :active="isActive"
       :width="800"
       :height="800"
+      :disableNavigation="disableNavigation"
       :hide="hidePaintable"
       :horizontalNavigation="true"
       :navigation="navigation"
       :name="isFirstPaintable ? 'my-screen' : 'my-second-screen'"
       :factor="1"
-      :lineWidth="5"
+      :lineWidth="dynamicLineWidth"
       :lineWidthEraser="20"
-      alwaysOnTop
+      :useEraser="useEraser"
+      :color="color"
       class="paint"
+      ref="paintable"
+      @toggle-paintable="toggledPaintable"
     >
       <div class="control">
         <h3>
           Paintable <strong>{{ isFirstPaintable ? '1' : '2' }}</strong>
         </h3>
         <button @click="hidePaintable = !hidePaintable">show/hide</button>
-        <button @click="show">show navigation</button>
-        <button @click="hide">hide navigation</button>
+        <button @click="disableNavigation = !disableNavigation">
+          toggle navigation
+        </button>
         <button @click="navigate">switch to another paintable</button>
       </div>
 
@@ -47,13 +76,13 @@ export default {
   data() {
     return {
       isFirstPaintable: true,
-      hidePaintable: false
+      hidePaintable: false,
+      disableNavigation: false,
+      dynamicLineWidth: 5,
+      isActive: false,
+      useEraser: false,
+      color: '#000'
     };
-  },
-  mounted() {
-    this.$root.$on('toggle-paintable', isActive => {
-      console.log('paintable', isActive);
-    });
   },
   computed: {
     navigation() {
@@ -77,6 +106,9 @@ export default {
     },
     show() {
       this.$showPaintableNavigation();
+    },
+    toggledPaintable(isActive) {
+      this.isActive = isActive;
     }
   }
 };
@@ -132,5 +164,18 @@ button {
 }
 button:hover {
   opacity: 1;
+}
+.custom-navigation {
+  position: fixed;
+  top: 40px;
+  left: 40px;
+  z-index: 1001;
+  background-color: #fff;
+}
+.custom-navigation .controls {
+  margin: 10px 0 0 0;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
 }
 </style>
