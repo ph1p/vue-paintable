@@ -1,4 +1,4 @@
-module.exports =
+/* eslint-disable */module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1526,4 +1526,4 @@ const PaintablePlugin = {
 
 /***/ })
 
-/******/ });
+/******/ });/* eslint-enable */
