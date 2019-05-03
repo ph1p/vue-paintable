@@ -17,10 +17,10 @@
   "scripts": {
     "serve": "yarn build && vue-cli-service serve",
     "build": "vue-cli-service build --mode production --target lib --name paintable ./src/plugin.js && rm ./dist/demo.html",
-    "postbuild":"node ./scripts/set-eslint-ignores.js",
+    "postbuild": "node ./scripts/set-eslint-ignores.js",
     "now-build": "yarn build && vue-cli-service build ./src/main.js --dest ./demo",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test": "vue-cli-service test:unit"
   },
   "browser": "dist/paintable.common.js",
   "unpkg": "dist/paintable.umd.min.js",
@@ -30,19 +30,18 @@
     "dist/paintable.umd.js"
   ],
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.7.0",
     "@vue/cli-plugin-eslint": "^3.7.0",
-    "@vue/cli-plugin-unit-jest": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
+    "@vue/cli-plugin-pwa": "^3.7.0",
+    "@vue/cli-plugin-unit-jest": "^3.7.0",
+    "@vue/cli-service": "^3.7.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "lint-staged": "^8.1.5",
-    "ts-jest": "^23.0.0",
+    "lint-staged": "^8.1.6",
     "vue": "^2.6.10",
-    "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.1.0",
     "vue-template-compiler": "^2.5.21"
   },
   "prettier": {
@@ -76,14 +75,12 @@
       "js",
       "jsx",
       "json",
-      "vue",
-      "ts",
-      "tsx"
+      "vue"
     ],
     "transform": {
       "^.+\\.vue$": "vue-jest",
       ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
-      "^.+\\.jsx?$": "ts-jest"
+      "^.+\\.jsx?$": "babel-jest"
     },
     "transformIgnorePatterns": [
       "/node_modules/"

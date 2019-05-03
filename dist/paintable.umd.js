@@ -590,7 +590,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=23ec8da6&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb0ace9-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=23ec8da6&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[(!_vm.disableNavigation)?_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]):_vm._e(),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
@@ -603,7 +603,7 @@ var staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=23ec8da6&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"6a83156a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb0ace9-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
 var Navigationvue_type_template_id_65338345_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
         'navigation__colorPickerColor',
         { selected: _vm.paintableView.currentColor === color }
@@ -616,7 +616,7 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
 
 // CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -687,10 +687,10 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
 //
 //
 //
-
 /* harmony default export */ var Navigationvue_type_script_lang_js_ = ({
   name: 'paintable-navigation',
   props: ['horizontalNavigation'],
+
   data() {
     return {
       isColorPickerOpen: false,
@@ -698,111 +698,84 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
       paintableView: this.$parent
     };
   },
+
   computed: {
     navigation() {
       return this.filteredNavigation.map(navigationItem => {
-        if (
-          navigationItem.subNavigation &&
-          navigationItem.subNavigation.length > 0
-        ) {
-          const navigationItemSubNavigation = this.horizontalNavigation
-            ? navigationItem.subNavigation.reverse()
-            : navigationItem.subNavigation;
-          navigationItem.subNavigation = navigationItemSubNavigation.map(
-            subNavigationItem => {
-              if (
-                this.paintableView.navigation &&
-                this.paintableView.navigation[subNavigationItem.name]
-              ) {
-                return Object.assign(
-                  {},
-                  subNavigationItem,
-                  this.paintableView.navigation[subNavigationItem.name]
-                );
-              }
-              return subNavigationItem;
+        if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
+          const navigationItemSubNavigation = this.horizontalNavigation ? navigationItem.subNavigation.reverse() : navigationItem.subNavigation;
+          navigationItem.subNavigation = navigationItemSubNavigation.map(subNavigationItem => {
+            if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
+              return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
             }
-          );
+
+            return subNavigationItem;
+          });
         }
 
-        if (
-          this.paintableView.navigation &&
-          this.paintableView.navigation[navigationItem.name]
-        ) {
-          return Object.assign(
-            {},
-            navigationItem,
-            this.paintableView.navigation[navigationItem.name]
-          );
+        if (this.paintableView.navigation && this.paintableView.navigation[navigationItem.name]) {
+          return Object.assign({}, navigationItem, this.paintableView.navigation[navigationItem.name]);
         }
 
         return navigationItem;
       });
     },
+
     filteredNavigation() {
-      return [
-        {
-          name: 'draw-save',
-          body: 'draw',
-          activeBody: 'save',
-          isActive: this.paintableView.isActive,
-          click: this.togglePainting,
-          subNavigation: [
-            {
-              name: 'color',
-              body: 'color',
-              disabled: false,
-              show: this.paintableView.colors.length > 0,
-              click: this.openColorPicker
-            },
-            {
-              name: 'line-width',
-              body: 'line-width',
-              disabled: false,
-              show: this.paintableView.showLineWidth,
-              click: this.openLineWidthPicker
-            },
-            {
-              name: 'undo',
-              body: 'undo',
-              disabled: !this.paintableView.undoList.length,
-              show: this.paintableView.showUndoRedo,
-              click: this.paintableView.undoDrawingStep
-            },
-            {
-              name: 'redo',
-              body: 'redo',
-              disabled: !this.paintableView.redoList.length,
-              show: this.paintableView.showUndoRedo,
-              click: this.paintableView.redoDrawingStep
-            },
-            {
-              name: 'delete',
-              body: 'delete',
-              disabled: false,
-              show: true,
-              click: this.paintableView.clearCanvas
-            },
-            {
-              name: 'eraser-pencil',
-              body: 'eraser',
-              activeBody: 'pencil',
-              isActive: this.paintableView.isEraserActive,
-              disabled: false,
-              show: true,
-              click: this.toggleEraserAndPencil
-            },
-            {
-              name: 'cancel',
-              body: 'cancel',
-              disabled: false,
-              show: true,
-              click: this.paintableView.cancelDrawing
-            }
-          ].filter(item => item.show)
-        }
-      ];
+      return [{
+        name: 'draw-save',
+        body: 'draw',
+        activeBody: 'save',
+        isActive: this.paintableView.isActive,
+        click: this.togglePainting,
+        subNavigation: [{
+          name: 'color',
+          body: 'color',
+          disabled: false,
+          show: this.paintableView.colors.length > 0,
+          click: this.openColorPicker
+        }, {
+          name: 'line-width',
+          body: 'line-width',
+          disabled: false,
+          show: this.paintableView.showLineWidth,
+          click: this.openLineWidthPicker
+        }, {
+          name: 'undo',
+          body: 'undo',
+          disabled: !this.paintableView.undoList.length,
+          show: this.paintableView.showUndoRedo,
+          click: this.paintableView.undoDrawingStep
+        }, {
+          name: 'redo',
+          body: 'redo',
+          disabled: !this.paintableView.redoList.length,
+          show: this.paintableView.showUndoRedo,
+          click: this.paintableView.redoDrawingStep
+        }, {
+          name: 'delete',
+          body: 'delete',
+          disabled: false,
+          show: true,
+          click: this.paintableView.clearCanvas
+        }, {
+          name: 'eraser-pencil',
+          body: 'eraser',
+          activeBody: 'pencil',
+          isActive: this.paintableView.isEraserActive,
+          disabled: false,
+          show: true,
+          click: this.toggleEraserAndPencil
+        }, {
+          name: 'cancel',
+          body: 'cancel',
+          disabled: false,
+          show: true,
+          click: this.paintableView.cancelDrawing
+        }].filter(item => item.show)
+      }];
     },
+
     lineWidthStyle() {
       return {
         height: this.paintableView.currentLineWidth + 'px',
@@ -810,19 +783,23 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
         backgroundColor: this.paintableView.currentColor
       };
     }
+
   },
   methods: {
     toggleEraserAndPencil() {
       this.paintableView.isEraserActive = !this.paintableView.isEraserActive;
     },
+
     openColorPicker() {
       this.isColorPickerOpen = !this.isColorPickerOpen;
       this.isLineWidthPickerOpen = false;
     },
+
     openLineWidthPicker() {
       this.isLineWidthPickerOpen = !this.isLineWidthPickerOpen;
       this.isColorPickerOpen = false;
     },
+
     /**
      * Change current drawing color
      */
@@ -830,9 +807,9 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
       this.paintableView.currentColor = color;
       this.paintableView.tempCtx.strokeStyle = this.paintableView.currentColor;
       this.paintableView.ctx.strokeStyle = this.paintableView.currentColor;
-
       this.isColorPickerOpen = false;
     },
+
     /**
      * Toggle painting
      */
@@ -844,12 +821,11 @@ var Navigationvue_type_template_id_65338345_scoped_true_staticRenderFns = []
       this.paintableView.isActive = !this.paintableView.isActive;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
-
       this.$parent.$emit('toggle-paintable', this.paintableView.isActive);
     }
+
   }
 });
-
 // CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=script&lang=js&
  /* harmony default export */ var components_Navigationvue_type_script_lang_js_ = (Navigationvue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./src/components/Navigation.vue?vue&type=style&index=0&id=65338345&scoped=true&lang=css&
@@ -971,7 +947,7 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var Navigation = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=script&lang=js&
 //
 //
 //
@@ -1013,11 +989,8 @@ var component = normalizeComponent(
 //
 //
 //
-
 let currentX = 0;
 let currentY = 0;
-
-
 
 /* harmony default export */ var Paintablevue_type_script_lang_js_ = ({
   name: 'paintable',
@@ -1071,14 +1044,7 @@ let currentY = 0;
     },
     colors: {
       type: Array,
-      default: () => [
-        'black',
-        '#f00',
-        '#4481c7',
-        'rgba(255, 235, 59, 0.4)',
-        '#999',
-        'green'
-      ]
+      default: () => ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green']
     },
     horizontalNavigation: {
       type: Boolean,
@@ -1101,6 +1067,7 @@ let currentY = 0;
       default: false
     }
   },
+
   data() {
     return {
       currentColor: this.color,
@@ -1111,9 +1078,7 @@ let currentY = 0;
       pointCoords: [],
       redoList: [],
       undoList: [],
-      currentLineWidth: this.isEraserActive
-        ? this.lineWidthEraser
-        : this.lineWidth,
+      currentLineWidth: this.isEraserActive ? this.lineWidthEraser : this.lineWidth,
       tempCanvas: null,
       tempCtx: null,
       canvas: null,
@@ -1125,42 +1090,54 @@ let currentY = 0;
       isMouse: true
     };
   },
+
   watch: {
     isActive: 'init',
     name: 'init',
+
     hide() {
       this.$nextTick(() => {
         this.init();
       });
     },
+
     lineWidth(lineWidth) {
       this.currentLineWidth = lineWidth;
     },
+
     lineWidthEraser(lineWidth) {
       this.currentLineWidth = lineWidth;
     },
+
     useEraser(useEraser) {
       this.isEraserActive = useEraser;
     },
+
     active(isActive) {
       this.isActive = isActive;
     },
+
     color(color) {
       this.currentColor = color;
       this.tempCtx.strokeStyle = this.currentColor;
       this.ctx.strokeStyle = this.currentColor;
     },
+
     isEraserActive(isActive) {
       this.currentLineWidth = isActive ? this.lineWidthEraser : this.lineWidth;
     },
+
     currentLineWidth(lineWidth) {
       this.ctx.lineWidth = lineWidth;
       this.tempCtx.lineWidth = lineWidth;
     }
+
   },
+
   beforeMount() {
     this.canvasId = Math.round(Math.random() * 1000);
   },
+
   created() {
     if (this.isTouch) {
       this.drawMoveEvent = 'touchmove';
@@ -1169,9 +1146,11 @@ let currentY = 0;
       this.isMouse = false;
     }
   },
+
   mounted() {
     this.init();
   },
+
   computed: {
     /**
      * Get scaling factor of current device
@@ -1179,17 +1158,15 @@ let currentY = 0;
     scalingFactor() {
       return window.devicePixelRatio || 1;
     },
+
     /**
      * Check if it is a touch device
      * thanks to: https://ctrlq.org/code/19616-detect-touch-screen-javascript
      */
     isTouch() {
-      return (
-        'ontouchstart' in window ||
-        navigator.MaxTouchPoints > 0 ||
-        navigator.msMaxTouchPoints > 0
-      );
+      return 'ontouchstart' in window || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     }
+
   },
   methods: {
     /**
@@ -1201,6 +1178,7 @@ let currentY = 0;
       this.isColorPickerOpen = false;
       this.isLineWidthPickerOpen = false;
     },
+
     /**
      * Set storage item
      * @param {string} key
@@ -1209,6 +1187,7 @@ let currentY = 0;
     setItem(key, value) {
       localStorage.setItem(key, value);
     },
+
     /**
      * Get storage item
      * @param {string} key
@@ -1216,6 +1195,7 @@ let currentY = 0;
     async getItem(key) {
       return localStorage.getItem(key);
     },
+
     /**
      * Remove item from storage
      * @param {string} key
@@ -1223,104 +1203,104 @@ let currentY = 0;
     removeItem(key) {
       localStorage.removeItem(key);
     },
+
     /**
      * Init paintable component and set all variables
      */
     init() {
       try {
-        this.pointCoords = [];
+        this.pointCoords = []; // temporary canvas
 
-        // temporary canvas
         this.tempCanvas = this.$refs['temp-canvas-' + this.canvasId];
-        this.tempCtx = this.tempCanvas.getContext('2d');
+        this.tempCtx = this.tempCanvas.getContext('2d'); // canvas with drawing
 
-        // canvas with drawing
         this.canvas = this.$refs['canvas-' + this.canvasId];
         this.ctx = this.canvas.getContext('2d');
-
         this.tempCtx.lineCap = 'round';
         this.ctx.lineCap = 'round';
-
         this.tempCtx.lineWidth = this.lineWidth;
         this.ctx.lineWidth = this.lineWidth;
-
         this.tempCtx.strokeStyle = this.currentColor;
         this.ctx.strokeStyle = this.currentColor;
+        this.setItem(this.name + '-settings', JSON.stringify({
+          width: this.canvas.width,
+          height: this.canvas.height
+        })); // set canvas width and height
 
-        this.setItem(
-          this.name + '-settings',
-          JSON.stringify({
-            width: this.canvas.width,
-            height: this.canvas.height
-          })
-        );
+        this.setCanvasSize(); // load image from storage
 
-        // set canvas width and height
-        this.setCanvasSize();
-
-        // load image from storage
         this.loadImageFromStorage();
-
         this.$emit('toggle-paintable', this.isActive);
-      } catch (err) {
-        // this.hide = true;
+      } catch (err) {// this.hide = true;
         // this.hidePaintableNavigation = true;
       }
     },
+
     //--------------------------------------------------
+
     /**
      * Undo drawed line
      */
     undoDrawingStep() {
       this.restoreCanvasState(this.undoList, this.redoList);
     },
+
     /**
      * Redo drawed line
      */
     redoDrawingStep() {
       this.restoreCanvasState(this.redoList, this.undoList);
     },
+
     /**
      * Restore previous image
      */
     restoreCanvasState(pop, push) {
       this.ctx.globalCompositeOperation = 'source-over';
+
       if (pop.length) {
         const restore_state = pop.pop();
         this.saveCurrentCanvasState(this.canvas, push, true);
         this.loadImageFromStorage(restore_state);
       }
     },
+
     /**
      * Save the current canvas state an push it to undo- or redolist
      */
     saveCurrentCanvasState(canvas, list, keepRedo) {
       keepRedo = keepRedo || false;
+
       if (!keepRedo) {
         this.redoList = [];
       }
 
       (list || this.undoList).push(canvas.toDataURL('image/png'));
     },
+
     //-------------------------------------------------------------------------
+
     /**
      * Get base64 from local storage and load it into canvas
      */
     async loadImageFromStorage(image) {
       this.clearCanvas();
-
       const base64Image = image || (await this.getItem(this.name));
+
       if (base64Image) {
         let image = new Image();
+
         image.onload = () => {
           this.ctx.drawImage(image, 0, 0);
           this.canvasIsEmpty = this.isCanvasBlank();
         };
+
         image.src = base64Image;
       } else {
         this.canvasIsEmpty = this.isCanvasBlank();
       }
     },
+
     /**
      * Set current canvas size
      */
@@ -1330,25 +1310,24 @@ let currentY = 0;
       currentX = 0;
       currentY = 0;
     },
+
     /**
      * Clear complete canvas
      */
     clearCanvas() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
+
     isCanvasBlank() {
       this.ctx.globalCompositeOperation = 'source-over';
-
       const blank = document.createElement('canvas');
       const blankCtx = blank.getContext('2d');
-
       blankCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
       blank.width = this.canvas.width;
       blank.height = this.canvas.height;
-
       return blank.toDataURL() === this.canvas.toDataURL();
     },
+
     /**
      * Check first, if canvas is empty.
      * If its not empty save it to the storage.
@@ -1362,20 +1341,19 @@ let currentY = 0;
         this.removeItem(this.name + '-settings');
       } else {
         this.setItem(this.name, this.canvas.toDataURL('image/png'));
-        this.setItem(
-          this.name + '-settings',
-          JSON.stringify({
-            width: this.canvas.width,
-            height: this.canvas.height
-          })
-        );
+        this.setItem(this.name + '-settings', JSON.stringify({
+          width: this.canvas.width,
+          height: this.canvas.height
+        }));
       }
+
       this.undoList = [];
       this.redoList = [];
-
       this.canvasIsEmpty = this.isCanvasBlank();
     },
+
     //-------------------------------------------------------------------------
+
     /**
      * Start drawing lines
      */
@@ -1386,18 +1364,13 @@ let currentY = 0;
         this.isLineWidthPickerOpen = false;
         this.isColorPickerOpen = false;
         this.startedDrawing = true;
-
         this.saveCurrentCanvasState(this.canvas);
-
         const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
         if (x && y) {
-          currentX =
-            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
-          currentY =
-            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
-
+          currentX = x * this.factor - this.tempCanvas.getBoundingClientRect().left;
+          currentY = y * this.factor - this.tempCanvas.getBoundingClientRect().top;
           this.pointCoords.push({
             x: currentX,
             y: currentY
@@ -1405,11 +1378,10 @@ let currentY = 0;
         }
 
         this.tempCtx.globalCompositeOperation = 'source-over';
-        this.ctx.globalCompositeOperation = this.isEraserActive
-          ? 'destination-out'
-          : 'source-over';
+        this.ctx.globalCompositeOperation = this.isEraserActive ? 'destination-out' : 'source-over';
       }
     },
+
     /**
      * End of drawing a line
      */
@@ -1417,16 +1389,15 @@ let currentY = 0;
       if (this.isActive) {
         this.drawLine(this.ctx);
         this.startedDrawing = false;
-
         this.pointCoords = [];
       }
     },
+
     /**
      * Generate line from points array
      */
     drawLine(context) {
       this.tempCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
 
@@ -1449,6 +1420,7 @@ let currentY = 0;
         context.closePath();
       }
     },
+
     /**
      * Draw line on move and add current position to an array
      */
@@ -1460,23 +1432,19 @@ let currentY = 0;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
         if (x && y) {
-          currentX =
-            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
-          currentY =
-            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
-
+          currentX = x * this.factor - this.tempCanvas.getBoundingClientRect().left;
+          currentY = y * this.factor - this.tempCanvas.getBoundingClientRect().top;
           this.pointCoords.push({
             x: currentX,
             y: currentY
           });
-
           this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }
     }
+
   }
 });
-
 // CONCATENATED MODULE: ./src/Paintable.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_Paintablevue_type_script_lang_js_ = (Paintablevue_type_script_lang_js_); 
 // EXTERNAL MODULE: ./src/Paintable.vue?vue&type=style&index=0&lang=css&
@@ -1505,7 +1473,6 @@ var Paintable_component = normalizeComponent(
 /* harmony default export */ var Paintable = (Paintable_component.exports);
 // CONCATENATED MODULE: ./src/plugin.js
 
-
 const PaintablePlugin = {
   install(Vue, options) {
     if (options && options.setItem) {
@@ -1522,10 +1489,9 @@ const PaintablePlugin = {
 
     Vue.component('paintable', Paintable);
   }
+
 };
-
 /* harmony default export */ var src_plugin = (PaintablePlugin);
-
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
