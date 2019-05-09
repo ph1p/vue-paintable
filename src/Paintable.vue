@@ -507,7 +507,7 @@ export default {
           });
 
           if (this.threshold) {
-            var distanceFirstAndLastPoint = Math.sqrt(
+            const distanceFirstAndLastPoint = Math.sqrt(
               Math.pow(
                 this.pointCoords[this.pointCoords.length - 1].y -
                   this.pointCoords[0].y,
