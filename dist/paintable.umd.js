@@ -590,7 +590,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb0ace9-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=23ec8da6&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"036debc0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=519a5450&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[(!_vm.disableNavigation)?_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]):_vm._e(),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
@@ -601,9 +601,9 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=23ec8da6&
+// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=519a5450&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3fb0ace9-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"036debc0-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=65338345&scoped=true&
 var Navigationvue_type_template_id_65338345_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
         'navigation__colorPickerColor',
         { selected: _vm.paintableView.currentColor === color }
@@ -989,6 +989,10 @@ var component = normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
 let currentX = 0;
 let currentY = 0;
 
@@ -1025,6 +1029,10 @@ let currentY = 0;
     hide: {
       type: Boolean,
       default: false
+    },
+    threshold: {
+      type: Number,
+      default: 0
     },
     showUndoRedo: {
       type: Boolean,
@@ -1087,7 +1095,8 @@ let currentY = 0;
       drawMoveEvent: 'mousemove',
       drawStartEvent: 'mousedown',
       drawEndEvent: 'mouseup',
-      isMouse: true
+      isMouse: true,
+      thresholdReached: false
     };
   },
 
@@ -1359,6 +1368,7 @@ let currentY = 0;
      */
     drawStart(e) {
       e.preventDefault();
+      this.thresholdReached = false;
 
       if (this.isActive) {
         this.isLineWidthPickerOpen = false;
@@ -1390,6 +1400,7 @@ let currentY = 0;
         this.drawLine(this.ctx);
         this.startedDrawing = false;
         this.pointCoords = [];
+        this.thresholdReached = false;
       }
     },
 
@@ -1401,7 +1412,7 @@ let currentY = 0;
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
 
-      if (p1.x && p1.y) {
+      if (p1 && p2 && p1.x && p1.y) {
         context.beginPath();
         context.moveTo(p1.x, p1.y);
 
@@ -1438,6 +1449,18 @@ let currentY = 0;
             x: currentX,
             y: currentY
           });
+
+          if (this.threshold) {
+            var distanceFirstAndLastPoint = Math.sqrt(Math.pow(this.pointCoords[this.pointCoords.length - 1].y - this.pointCoords[0].y, 2) + Math.pow(this.pointCoords[this.pointCoords.length - 1].x - this.pointCoords[0].x, 2));
+
+            if (distanceFirstAndLastPoint > this.threshold) {
+              if (!this.thresholdReached) {
+                this.thresholdReached = true;
+                this.$emit('thresholdReached');
+              }
+            }
+          }
+
           this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }

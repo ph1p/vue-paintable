@@ -34,9 +34,13 @@
       @[drawEndEvent]="drawEnd"
     />
 
-    <div class="content"><slot></slot></div>
+    <div class="content">
+      <slot></slot>
+    </div>
   </div>
-  <div v-else class="content"><slot></slot></div>
+  <div v-else class="content">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -78,6 +82,10 @@ export default {
     hide: {
       type: Boolean,
       default: false
+    },
+    threshold: {
+      type: Number,
+      default: 0
     },
     showUndoRedo: {
       type: Boolean,
@@ -148,7 +156,8 @@ export default {
       drawMoveEvent: 'mousemove',
       drawStartEvent: 'mousedown',
       drawEndEvent: 'mouseup',
-      isMouse: true
+      isMouse: true,
+      thresholdReached: false
     };
   },
   watch: {
@@ -407,7 +416,7 @@ export default {
      */
     drawStart(e) {
       e.preventDefault();
-
+      this.thresholdReached = false;
       if (this.isActive) {
         this.isLineWidthPickerOpen = false;
         this.isColorPickerOpen = false;
@@ -445,6 +454,7 @@ export default {
         this.startedDrawing = false;
 
         this.pointCoords = [];
+        this.thresholdReached = false;
       }
     },
     /**
@@ -456,7 +466,7 @@ export default {
       let p1 = this.pointCoords[0];
       let p2 = this.pointCoords[1];
 
-      if (p1.x && p1.y) {
+      if (p1 && p2 && p1.x && p1.y) {
         context.beginPath();
         context.moveTo(p1.x, p1.y);
 
@@ -495,6 +505,28 @@ export default {
             x: currentX,
             y: currentY
           });
+
+          if (this.threshold) {
+            const distanceFirstAndLastPoint = Math.sqrt(
+              Math.pow(
+                this.pointCoords[this.pointCoords.length - 1].y -
+                  this.pointCoords[0].y,
+                2
+              ) +
+                Math.pow(
+                  this.pointCoords[this.pointCoords.length - 1].x -
+                    this.pointCoords[0].x,
+                  2
+                )
+            );
+
+            if (distanceFirstAndLastPoint > this.threshold) {
+              if (!this.thresholdReached) {
+                this.thresholdReached = true;
+                this.$emit('thresholdReached');
+              }
+            }
+          }
 
           this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
