@@ -123,33 +123,37 @@ Take a look at the [demo](https://vue-paintable.now.sh/) (`/src/App.vue`)
 
 ### Props
 
-| name                 | type                            | required | default                                                                  | description                                       |
-| -------------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ------------------------------------------------- |
-| name                 | string - required               | true     | -                                                                        | unique identifier                                 |
-| showUndoRedo         | boolean                         | false    | true                                                                     | show undo and redo button                         |
-| hide                 | boolean                         | false    | false                                                                    | hide the complete paintable                       |
-| colors               | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                         |
-| width                | number                          | false    | window.innerWidth                                                        | canvas width                                      |
-| height               | number                          | false    | window.innerHeight                                                       | canvas height                                     |
-| showLineWidth        | boolean                         | false    | true                                                                     | show button to set line width                     |
-| lineWidth            | number                          | false    | 5                                                                        | line width                                        |
-| alwaysOnTop          | boolean                         | false    | true                                                                     | set canvas always as top layer                    |
-| factor               | number                          | false    | 1                                                                        | set a scale factor if needed                      |
-| lineWidthEraser      | number                          | false    | 20                                                                       | set eraser line width                             |
-| horizontalNavigation | boolean                         | false    | true                                                                     | display the navigation horizontally or vertically |
-| disableNavigation    | boolean                         | false    | false                                                                    | hide navigation                                   |
-| active               | boolean                         | false    | false                                                                    | set paintable active/inactive                     |
-| color                | string                          | false    | #000                                                                     | current color                                     |
-| useEraser            | boolean                         | false    | false                                                                    | set to true, to use the eraser                    |
+| name                 | type                            | required | default                                                                  | description                                                    |
+| -------------------- | ------------------------------- | -------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------|
+| name                 | string - required               | true     | -                                                                        | unique identifier                                              |
+| showUndoRedo         | boolean                         | false    | true                                                                     | show undo and redo button                                      |
+| hide                 | boolean                         | false    | false                                                                    | hide the complete paintable                                    |
+| colors               | Array of colors (rgb, hex etc.) | false    | ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green'] | array of choosable colors                                      |
+| width                | number                          | false    | window.innerWidth                                                        | canvas width                                                   |
+| height               | number                          | false    | window.innerHeight                                                       | canvas height                                                  |
+| showLineWidth        | boolean                         | false    | true                                                                     | show button to set line width                                  |
+| lineWidth            | number                          | false    | 5                                                                        | line width                                                     |
+| alwaysOnTop          | boolean                         | false    | true                                                                     | set canvas always as top layer                                 |
+| factor               | number                          | false    | 1                                                                        | set a scale factor if needed                                   |
+| lineWidthEraser      | number                          | false    | 20                                                                       | set eraser line width                                          |
+| horizontalNavigation | boolean                         | false    | true                                                                     | display the navigation horizontally or vertically              |
+| disableNavigation    | boolean                         | false    | false                                                                    | hide navigation                                                |
+| active               | boolean                         | false    | false                                                                    | set paintable active/inactive                                  |
+| color                | string                          | false    | #000                                                                     | current color                                                  |
+| useEraser            | boolean                         | false    | false                                                                    | set to true, to use the eraser                                 |
+| threshold            | number                          | false    | 0                                                                        | set the threshold on which an event gets triggered (see events)|
 
 ### Events
 
-| name             | type    | description                               |
-| ---------------- | ------- | ----------------------------------------- |
-| toggle-paintable | boolean | Is emitted, when changing paintable state |
+| name             | type    | description                                          |
+| ---------------- | ------- | ---------------------------------------------------- |
+| toggle-paintable | boolean | Is emitted, when changing paintable state            |
+| thresholdReached | boolean | Is emitted, when the speciefied threshold is reached |
 
 ```html
 <paintable @toggle-paintable="toggledPaintable"></paintable>
+
+<paintable :threshold="10" @thresholdReached="thresholdReached"></paintable>
 ```
 
 ### development
