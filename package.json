@@ -17,7 +17,6 @@
   "scripts": {
     "serve": "yarn build && vue-cli-service serve",
     "build": "vue-cli-service build --mode production --target lib --name paintable ./src/plugin.js && rm ./dist/demo.html",
-    "postbuild": "node ./scripts/set-eslint-ignores.js",
     "now-build": "yarn build && vue-cli-service build ./src/main.js --dest ./demo",
     "lint": "vue-cli-service lint",
     "test": "vue-cli-service test:unit"
