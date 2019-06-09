@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.178e1dd00fa607b494efb7e83359dc14.js"
+  "/precache-manifest.df456c67c9005874446fdeda929100ac.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-paintable"});
