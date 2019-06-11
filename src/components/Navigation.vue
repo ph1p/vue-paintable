@@ -20,7 +20,7 @@
     <div class="navigation__lineWidthPicker" v-if="isLineWidthPickerOpen">
       <label for="navigation__lineWidthPickerRange"
         >({{ paintableView.currentLineWidth }}px):</label
-      >
+      ><br />
       <input
         id="navigation__lineWidthPickerRange"
         type="range"

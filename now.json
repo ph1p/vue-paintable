@@ -10,11 +10,5 @@
         "distDir": "demo"
       }
     }
-  ],
-  "routes": [
-    { "src": "^/js/(.*)", "dest": "/demo/js/$1" },
-    { "src": "^/css/(.*)", "dest": "/demo/css/$1" },
-    { "src": "^/img/(.*)", "dest": "/demo/img/$1" },
-    { "src": ".*", "dest": "/demo/index.html" }
   ]
 }

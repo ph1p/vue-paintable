@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Paintable from '../dist/paintable.common';
+import Paintable from './plugin';
 
 Vue.use(Paintable);
 

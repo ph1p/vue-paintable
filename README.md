@@ -3,6 +3,13 @@
 With this vue plugin and component you can add a paintable canvas through your page.
 All paintings are saved by default into localStorage.
 
+
+<p align="center">
+  <a target="_blank" href="https://vue-paintable.now.sh">
+    <img src="./demo.png">
+  </a>
+</p>
+
 ### How to use?
 
 ```bash

@@ -3,6 +3,7 @@
     <div class="custom-navigation">
       <button @click="isActive = !isActive">toggle custom navigation</button>
       <div class="controls" v-if="isActive">
+        {{ dynamicLineWidth }}px<br />
         <input
           type="range"
           @input="dynamicLineWidth = +$event.target.value"
@@ -18,12 +19,12 @@
         </button>
         <button @click="$refs.paintable.cancelDrawing">cancel</button>
         <button @click="useEraser = !useEraser">
-          {{ useEraser ? 'eraser' : 'pencil' }}
+          {{ !useEraser ? 'eraser' : 'pencil' }}
         </button>
       </div>
     </div>
+
     <paintable
-      alwaysOnTop
       :active="isActive"
       :width="800"
       :height="800"
@@ -54,7 +55,7 @@
 
       <img
         :src="
-          `https://source.unsplash.com/collection/837167/800x80${
+          `https://source.unsplash.com/collection/195845/800x80${
             isFirstPaintable ? 0 : 1
           }`
         "
