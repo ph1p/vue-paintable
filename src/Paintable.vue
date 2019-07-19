@@ -351,7 +351,7 @@ export default {
           this.ctx.drawImage(image, 0, 0);
           this.canvasIsEmpty = this.isCanvasBlank();
         };
-        image.src = base64Image;
+        image.src = base64Image; // eslint-disable-line
       } else {
         this.canvasIsEmpty = this.isCanvasBlank();
       }
