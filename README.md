@@ -1,11 +1,11 @@
-# vue-paintable [![npm](https://badge.fury.io/js/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![](https://img.shields.io/badge/now-demo-black.svg)](https://vue-paintable.now.sh/)
+# vue-paintable [![npm](https://badge.fury.io/js/vue-paintable.svg)](https://www.npmjs.com/package/vue-paintable) [![](https://img.shields.io/badge/vercel-demo-black.svg)](https://vue-paintable.vercel.app/)
 
 With this vue plugin and component you can add a paintable canvas through your page.
 All paintings are saved by default into localStorage.
 
 
 <p align="center">
-  <a target="_blank" href="https://vue-paintable.now.sh">
+  <a target="_blank" href="https://vue-paintable.vercel.app">
     <img src="./demo.png">
   </a>
 </p>
@@ -125,7 +125,7 @@ To use a custom navigation disable the default navigation with `disableNavigatio
 <button @click="$refs.paintable.cancelDrawing">cancel</button>
 ```
 
-Take a look at the [demo](https://vue-paintable.now.sh/) (`/src/App.vue`)
+Take a look at the [demo](https://vue-paintable.vercel.app/) (`/src/App.vue`)
 
 
 ### Props

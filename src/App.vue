@@ -28,7 +28,6 @@
       :active="isActive"
       :width="800"
       :height="800"
-      :disableNavigation="disableNavigation"
       :hide="hidePaintable"
       :horizontalNavigation="true"
       :navigation="navigation"
@@ -47,9 +46,6 @@
           Paintable <strong>{{ isFirstPaintable ? '1' : '2' }}</strong>
         </h3>
         <button @click="hidePaintable = !hidePaintable">show/hide</button>
-        <button @click="disableNavigation = !disableNavigation">
-          toggle navigation
-        </button>
         <button @click="navigate">switch to another paintable</button>
       </div>
 
@@ -78,7 +74,6 @@ export default {
     return {
       isFirstPaintable: true,
       hidePaintable: false,
-      disableNavigation: false,
       dynamicLineWidth: 5,
       isActive: false,
       useEraser: false,

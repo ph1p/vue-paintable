@@ -1,11 +1,11 @@
 {
   "version": 2,
   "name": "vue-paintable",
-  "alias": ["vue-paintable.now.sh"],
+  "alias": ["vue-paintable.vercel.app"],
   "builds": [
     {
       "src": "./package.json",
-      "use": "@now/static-build",
+      "use": "@vercel/static-build",
       "config": {
         "distDir": "demo"
       }
