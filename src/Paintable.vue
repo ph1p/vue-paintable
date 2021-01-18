@@ -402,9 +402,9 @@ export default {
 
         if (x && y) {
           currentX =
-            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
+            (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
           currentY =
-            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
+            (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
 
           this.pointCoords.push({
             x: currentX,
@@ -470,9 +470,9 @@ export default {
 
         if (x && y) {
           currentX =
-            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
+            (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
           currentY =
-            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
+            (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
 
           this.pointCoords.push({
             x: currentX,
