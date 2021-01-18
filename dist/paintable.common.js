@@ -610,7 +610,7 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"34430b68-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=6ffdcffa&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5202b722-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=66ad717a&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
@@ -621,7 +621,7 @@ var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._sel
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=6ffdcffa&
+// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=66ad717a&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=script&lang=js&
 //
@@ -1028,8 +1028,8 @@ let currentY = 0;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
         if (x && y) {
-          currentX = x * this.factor - this.tempCanvas.getBoundingClientRect().left;
-          currentY = y * this.factor - this.tempCanvas.getBoundingClientRect().top;
+          currentX = (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
+          currentY = (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
           this.pointCoords.push({
             x: currentX,
             y: currentY
@@ -1088,8 +1088,8 @@ let currentY = 0;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
         if (x && y) {
-          currentX = x * this.factor - this.tempCanvas.getBoundingClientRect().left;
-          currentY = y * this.factor - this.tempCanvas.getBoundingClientRect().top;
+          currentX = (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
+          currentY = (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
           this.pointCoords.push({
             x: currentX,
             y: currentY
