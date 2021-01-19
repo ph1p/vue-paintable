@@ -96,6 +96,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "2443":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("9043");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("9ee9b9f6", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
 /***/ "24fb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -503,6 +518,17 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
+/***/ "57b0":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_67b314bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("2443");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_67b314bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Navigation_vue_vue_type_style_index_0_id_67b314bc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "8875":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -588,6 +614,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
+/***/ "9043":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".navigation[data-v-67b314bc]{position:fixed;right:20px;top:20px;z-index:1005;background-color:#333;border-radius:5px;color:#fff}.navigation .navigationMenu[data-v-67b314bc],.navigation .navigationMenu ul[data-v-67b314bc]{list-style:none;padding:0;margin:0}.navigation .navigationMenu li>div[data-v-67b314bc]{cursor:pointer;padding:12px}.navigation .navigationMenu li.disabled[data-v-67b314bc]{opacity:.5}.navigation__lineWidthPicker[data-v-67b314bc]{background:#333;position:absolute;left:-225px;top:0;padding:12px;border-radius:5px;-webkit-box-sizing:border-box;box-sizing:border-box}.navigation__lineWidthPickerDot[data-v-67b314bc]{margin-top:10px;border-radius:100%}.navigation__lineWidthPickerColor[data-v-67b314bc]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__lineWidthPickerColor[data-v-67b314bc]:last-child{margin:0}.navigation__lineWidthPickerColor.selected[data-v-67b314bc]{border:2px solid #fff}.navigation__colorPicker[data-v-67b314bc]{background:#333;position:absolute;left:-60px;top:0;padding:12px;border-radius:5px}.navigation__colorPickerColor[data-v-67b314bc]{border-radius:100%;height:15px;width:15px;display:block;margin:0 0 10px;border:2px solid transparent}.navigation__colorPickerColor[data-v-67b314bc]:last-child{margin:0}.navigation__colorPickerColor.selected[data-v-67b314bc]{border:2px solid #fff}.navigation__horizontalNavigation .navigationMenu li[data-v-67b314bc],.navigation__horizontalNavigation .navigationMenu ul[data-v-67b314bc]{display:-webkit-inline-box;display:-ms-inline-flexbox;display:inline-flex}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -619,20 +659,376 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5202b722-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=66ad717a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1ca830e2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=template&id=1d81ce36&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.hide)?_c('div',{staticClass:"paintable"},[(!_vm.disableNavigation)?_c('Navigation',{attrs:{"horizontalNavigation":_vm.horizontalNavigation}},[_c('div',{attrs:{"slot":"paintable-navigation-draw"},slot:"paintable-navigation-draw"})]):_vm._e(),_c('canvas',{ref:'canvas-' + _vm.canvasId,staticClass:"canvas back",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
     }),attrs:{"width":_vm.width,"height":_vm.height}}),_c('canvas',{ref:'temp-canvas-' + _vm.canvasId,staticClass:"canvas",class:{ active: _vm.isActive || _vm.alwaysOnTop },style:({
       pointerEvents: !_vm.isActive ? 'none' : 'all',
       display: !_vm.canvasIsEmpty || _vm.isActive ? 'block' : 'none'
-    }),attrs:{"width":_vm.width,"height":_vm.height},on:_vm._d({},[_vm.drawMoveEvent,_vm.drawMove,_vm.drawStartEvent,_vm.drawStart,_vm.drawEndEvent,_vm.drawEnd])}),_c('div',{staticClass:"content"},[_vm._t("default")],2)]):_c('div',{staticClass:"content"},[_vm._t("default")],2)}
+    }),attrs:{"width":_vm.width,"height":_vm.height},on:_vm._d({},[_vm.drawMoveEvent,_vm.drawMove,_vm.drawStartEvent,_vm.drawStart,_vm.drawEndEvent,_vm.drawEnd])}),_c('div',{staticClass:"content"},[_vm._t("default")],2)],1):_c('div',{staticClass:"content"},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=66ad717a&
+// CONCATENATED MODULE: ./src/Paintable.vue?vue&type=template&id=1d81ce36&
 
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1ca830e2-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=template&id=67b314bc&scoped=true&
+var Navigationvue_type_template_id_67b314bc_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!_vm.paintableView.hidePaintableNavigation)?_c('div',{staticClass:"navigation",class:{ navigation__horizontalNavigation: _vm.horizontalNavigation }},[(_vm.isColorPickerOpen)?_c('div',{staticClass:"navigation__colorPicker"},_vm._l((_vm.paintableView.colors),function(color){return _c('span',{key:color,class:[
+        'navigation__colorPickerColor',
+        { selected: _vm.paintableView.currentColor === color }
+      ],style:({ backgroundColor: color }),on:{"click":function($event){return _vm.changeColor(color)}}})}),0):_vm._e(),(_vm.isLineWidthPickerOpen)?_c('div',{staticClass:"navigation__lineWidthPicker"},[_c('label',{attrs:{"for":"navigation__lineWidthPickerRange"}},[_vm._v("("+_vm._s(_vm.paintableView.currentLineWidth)+"px):")]),_c('br'),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.paintableView.currentLineWidth),expression:"paintableView.currentLineWidth"}],attrs:{"id":"navigation__lineWidthPickerRange","type":"range","min":"1","max":"100"},domProps:{"value":(_vm.paintableView.currentLineWidth)},on:{"change":function($event){_vm.isLineWidthPickerOpen = false},"__r":function($event){return _vm.$set(_vm.paintableView, "currentLineWidth", $event.target.value)}}}),_c('div',{staticClass:"navigation__lineWidthPickerDot",style:(_vm.lineWidthStyle)})]):_vm._e(),_c('ul',{staticClass:"navigationMenu",class:{ active: _vm.paintableView.isActive }},_vm._l((_vm.horizontalNavigation ? _vm.navigation.reverse() : _vm.navigation),function(item){return _c('li',{key:item.name,class:'navigationMenu__' + item.name},[(!_vm.horizontalNavigation)?_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}}):_vm._e(),(_vm.paintableView.isActive)?_c('ul',_vm._l((item.subNavigation),function(item){return _c('li',{key:item.name,class:[
+            'navigationMenu__' + item.name,
+            { disabled: item.disabled }
+          ]},[_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}})])}),0):_vm._e(),(_vm.horizontalNavigation)?_c('div',{domProps:{"innerHTML":_vm._s(item.isActive ? item.activeBody : item.body)},on:{"click":item.click}}):_vm._e()])}),0)]):_vm._e()}
+var Navigationvue_type_template_id_67b314bc_scoped_true_staticRenderFns = []
+
+
+// CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=template&id=67b314bc&scoped=true&
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Navigation.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ var Navigationvue_type_script_lang_js_ = ({
+  name: 'paintable-navigation',
+  props: ['horizontalNavigation'],
+
+  data() {
+    return {
+      isColorPickerOpen: false,
+      isLineWidthPickerOpen: false,
+      paintableView: this.$parent
+    };
+  },
+
+  computed: {
+    navigation() {
+      return this.filteredNavigation.map(navigationItem => {
+        if (navigationItem.subNavigation && navigationItem.subNavigation.length > 0) {
+          const navigationItemSubNavigation = this.horizontalNavigation ? navigationItem.subNavigation.reverse() : navigationItem.subNavigation;
+          navigationItem.subNavigation = navigationItemSubNavigation.map(subNavigationItem => {
+            if (this.paintableView.navigation && this.paintableView.navigation[subNavigationItem.name]) {
+              return Object.assign({}, subNavigationItem, this.paintableView.navigation[subNavigationItem.name]);
+            }
+
+            return subNavigationItem;
+          });
+        }
+
+        if (this.paintableView.navigation && this.paintableView.navigation[navigationItem.name]) {
+          return Object.assign({}, navigationItem, this.paintableView.navigation[navigationItem.name]);
+        }
+
+        return navigationItem;
+      });
+    },
+
+    filteredNavigation() {
+      return [{
+        name: 'draw-save',
+        body: 'draw',
+        activeBody: 'save',
+        isActive: this.paintableView.isActive,
+        click: this.togglePainting,
+        subNavigation: [{
+          name: 'color',
+          body: 'color',
+          disabled: false,
+          show: this.paintableView.colors.length > 0,
+          click: this.openColorPicker
+        }, {
+          name: 'line-width',
+          body: 'line-width',
+          disabled: false,
+          show: this.paintableView.showLineWidth,
+          click: this.openLineWidthPicker
+        }, {
+          name: 'undo',
+          body: 'undo',
+          disabled: !this.paintableView.undoList.length,
+          show: this.paintableView.showUndoRedo,
+          click: this.paintableView.undoDrawingStep
+        }, {
+          name: 'redo',
+          body: 'redo',
+          disabled: !this.paintableView.redoList.length,
+          show: this.paintableView.showUndoRedo,
+          click: this.paintableView.redoDrawingStep
+        }, {
+          name: 'delete',
+          body: 'delete',
+          disabled: false,
+          show: true,
+          click: this.paintableView.clearCanvas
+        }, {
+          name: 'eraser-pencil',
+          body: 'eraser',
+          activeBody: 'pencil',
+          isActive: this.paintableView.isEraserActive,
+          disabled: false,
+          show: true,
+          click: this.toggleEraserAndPencil
+        }, {
+          name: 'cancel',
+          body: 'cancel',
+          disabled: false,
+          show: true,
+          click: this.paintableView.cancelDrawing
+        }].filter(item => item.show)
+      }];
+    },
+
+    lineWidthStyle() {
+      return {
+        height: this.paintableView.currentLineWidth + 'px',
+        width: this.paintableView.currentLineWidth + 'px',
+        backgroundColor: this.paintableView.currentColor
+      };
+    }
+
+  },
+  methods: {
+    toggleEraserAndPencil() {
+      this.paintableView.isEraserActive = !this.paintableView.isEraserActive;
+    },
+
+    openColorPicker() {
+      this.isColorPickerOpen = !this.isColorPickerOpen;
+      this.isLineWidthPickerOpen = false;
+    },
+
+    openLineWidthPicker() {
+      this.isLineWidthPickerOpen = !this.isLineWidthPickerOpen;
+      this.isColorPickerOpen = false;
+    },
+
+    /**
+     * Change current drawing color
+     */
+    changeColor(color) {
+      this.paintableView.currentColor = color;
+      this.paintableView.tempCtx.strokeStyle = this.paintableView.currentColor;
+      this.paintableView.ctx.strokeStyle = this.paintableView.currentColor;
+      this.isColorPickerOpen = false;
+    },
+
+    /**
+     * Toggle painting
+     */
+    togglePainting() {
+      if (this.paintableView.isActive) {
+        this.paintableView.saveCurrentCanvasToStorage();
+      }
+
+      this.paintableView.isActive = !this.paintableView.isActive;
+      this.isColorPickerOpen = false;
+      this.isLineWidthPickerOpen = false;
+      this.$parent.$emit('toggle-paintable', this.paintableView.isActive);
+    }
+
+  }
+});
+// CONCATENATED MODULE: ./src/components/Navigation.vue?vue&type=script&lang=js&
+ /* harmony default export */ var components_Navigationvue_type_script_lang_js_ = (Navigationvue_type_script_lang_js_); 
+// EXTERNAL MODULE: ./src/components/Navigation.vue?vue&type=style&index=0&id=67b314bc&scoped=true&lang=css&
+var Navigationvue_type_style_index_0_id_67b314bc_scoped_true_lang_css_ = __webpack_require__("57b0");
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functional component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+// CONCATENATED MODULE: ./src/components/Navigation.vue
+
+
+
+
+
+
+/* normalize component */
+
+var component = normalizeComponent(
+  components_Navigationvue_type_script_lang_js_,
+  Navigationvue_type_template_id_67b314bc_scoped_true_render,
+  Navigationvue_type_template_id_67b314bc_scoped_true_staticRenderFns,
+  false,
+  null,
+  "67b314bc",
+  null
+  
+)
+
+/* harmony default export */ var Navigation = (component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Paintable.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -673,8 +1069,12 @@ var staticRenderFns = []
 //
 let currentX = 0;
 let currentY = 0;
+
 /* harmony default export */ var Paintablevue_type_script_lang_js_ = ({
   name: 'paintable',
+  components: {
+    Navigation: Navigation
+  },
   props: {
     factor: {
       type: Number,
@@ -729,6 +1129,10 @@ let currentY = 0;
       default: () => ['black', '#f00', '#4481c7', 'rgba(255, 235, 59, 0.4)', '#999', 'green']
     },
     horizontalNavigation: {
+      type: Boolean,
+      default: false
+    },
+    disableNavigation: {
       type: Boolean,
       default: false
     },
@@ -904,7 +1308,9 @@ let currentY = 0;
         this.setItem(this.name + '-settings', JSON.stringify({
           width: this.canvas.width,
           height: this.canvas.height
-        })); // load image from storage
+        })); // set canvas width and height
+
+        this.setCanvasSize(); // load image from storage
 
         this.loadImageFromStorage();
         this.$emit('toggle-paintable', this.isActive);
@@ -936,9 +1342,9 @@ let currentY = 0;
       this.ctx.globalCompositeOperation = 'source-over';
 
       if (pop.length) {
-        const restoreState = pop.pop();
+        const restore_state = pop.pop();
         this.saveCurrentCanvasState(this.canvas, push, true);
-        this.loadImageFromStorage(restoreState);
+        this.loadImageFromStorage(restore_state);
       }
     },
 
@@ -965,17 +1371,27 @@ let currentY = 0;
       const base64Image = image || (await this.getItem(this.name));
 
       if (base64Image) {
-        const dummyImage = new Image();
+        let image = new Image();
 
-        dummyImage.onload = () => {
-          this.ctx.drawImage(dummyImage, 0, 0);
+        image.onload = () => {
+          this.ctx.drawImage(image, 0, 0);
           this.canvasIsEmpty = this.isCanvasBlank();
         };
 
-        dummyImage.src = base64Image; // eslint-disable-line
+        image.src = base64Image; // eslint-disable-line
       } else {
         this.canvasIsEmpty = this.isCanvasBlank();
       }
+    },
+
+    /**
+     * Set current canvas size
+     */
+    setCanvasSize() {
+      // this.width = window.innerWidth;
+      // this.height = window.innerHeight;
+      currentX = 0;
+      currentY = 0;
     },
 
     /**
@@ -1065,25 +1481,29 @@ let currentY = 0;
     /**
      * Generate line from points array
      */
-    drawLine(context, isTemporaryLine = false) {
-      const points = this.pointCoords.filter((e, i) => i % (isTemporaryLine ? 10 : 25) === 0);
+    drawLine(context) {
       this.tempCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      context.beginPath();
-      context.moveTo(points[0].x, points[0].y);
+      let p1 = this.pointCoords[0];
+      let p2 = this.pointCoords[1];
 
-      for (let point = 0; point < points.length - 1; point++) {
-        const p0 = point > 0 ? points[point - 1] : points[0];
-        const p1 = points[point];
-        const p2 = points[point + 1];
-        const p3 = point != points.length - 2 ? points[point + 2] : p2;
-        const cp1x = p1.x + (p2.x - p0.x) / 6;
-        const cp1y = p1.y + (p2.y - p0.y) / 6;
-        const cp2x = p2.x - (p3.x - p1.x) / 6;
-        const cp2y = p2.y - (p3.y - p1.y) / 6;
-        context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+      if (p1 && p2 && p1.x && p1.y) {
+        context.beginPath();
+        context.moveTo(p1.x, p1.y);
+
+        for (let i = 1, len = this.pointCoords.length; i < len; i++) {
+          let midPoint = {
+            x: p1.x + (p2.x - p1.x) / 2,
+            y: p1.y + (p2.y - p1.y) / 2
+          };
+          context.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+          p1 = this.pointCoords[i];
+          p2 = this.pointCoords[i + 1];
+        }
+
+        context.lineTo(p1.x, p1.y);
+        context.stroke();
+        context.closePath();
       }
-
-      context.stroke();
     },
 
     /**
@@ -1097,8 +1517,8 @@ let currentY = 0;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
 
         if (x && y) {
-          currentX = (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
-          currentY = (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
+          currentX = x * this.factor - this.tempCanvas.getBoundingClientRect().left;
+          currentY = y * this.factor - this.tempCanvas.getBoundingClientRect().top;
           this.pointCoords.push({
             x: currentX,
             y: currentY
@@ -1110,12 +1530,12 @@ let currentY = 0;
             if (distanceFirstAndLastPoint > this.threshold) {
               if (!this.thresholdReached) {
                 this.thresholdReached = true;
-                this.$emit('threshold-reached');
+                this.$emit('thresholdReached');
               }
             }
           }
 
-          this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx, true);
+          this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }
     }
@@ -1127,106 +1547,6 @@ let currentY = 0;
 // EXTERNAL MODULE: ./src/Paintable.vue?vue&type=style&index=0&lang=css&
 var Paintablevue_type_style_index_0_lang_css_ = __webpack_require__("4226");
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
 // CONCATENATED MODULE: ./src/Paintable.vue
 
 
@@ -1236,7 +1556,7 @@ function normalizeComponent (
 
 /* normalize component */
 
-var component = normalizeComponent(
+var Paintable_component = normalizeComponent(
   src_Paintablevue_type_script_lang_js_,
   render,
   staticRenderFns,
@@ -1247,7 +1567,7 @@ var component = normalizeComponent(
   
 )
 
-/* harmony default export */ var Paintable = (component.exports);
+/* harmony default export */ var Paintable = (Paintable_component.exports);
 // CONCATENATED MODULE: ./src/plugin.js
 
 const PaintablePlugin = {

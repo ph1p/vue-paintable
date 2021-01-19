@@ -1,5 +1,12 @@
 <template>
   <div class="paintable" v-if="!hide">
+    <Navigation
+      v-if="!disableNavigation"
+      :horizontalNavigation="horizontalNavigation"
+    >
+      <div slot="paintable-navigation-draw"></div>
+    </Navigation>
+
     <canvas
       :ref="'canvas-' + canvasId"
       :class="{ active: isActive || alwaysOnTop }"
@@ -40,8 +47,13 @@
 let currentX = 0;
 let currentY = 0;
 
+import Navigation from './components/Navigation';
+
 export default {
   name: 'paintable',
+  components: {
+    Navigation
+  },
   props: {
     factor: {
       type: Number,
@@ -103,6 +115,10 @@ export default {
       ]
     },
     horizontalNavigation: {
+      type: Boolean,
+      default: false
+    },
+    disableNavigation: {
       type: Boolean,
       default: false
     },
@@ -274,6 +290,9 @@ export default {
           })
         );
 
+        // set canvas width and height
+        this.setCanvasSize();
+
         // load image from storage
         this.loadImageFromStorage();
 
@@ -302,9 +321,9 @@ export default {
     restoreCanvasState(pop, push) {
       this.ctx.globalCompositeOperation = 'source-over';
       if (pop.length) {
-        const restoreState = pop.pop();
+        const restore_state = pop.pop();
         this.saveCurrentCanvasState(this.canvas, push, true);
-        this.loadImageFromStorage(restoreState);
+        this.loadImageFromStorage(restore_state);
       }
     },
     /**
@@ -327,17 +346,25 @@ export default {
 
       const base64Image = image || (await this.getItem(this.name));
       if (base64Image) {
-        const dummyImage = new Image();
-        dummyImage.onload = () => {
-          this.ctx.drawImage(dummyImage, 0, 0);
+        let image = new Image();
+        image.onload = () => {
+          this.ctx.drawImage(image, 0, 0);
           this.canvasIsEmpty = this.isCanvasBlank();
         };
-        dummyImage.src = base64Image; // eslint-disable-line
+        image.src = base64Image; // eslint-disable-line
       } else {
         this.canvasIsEmpty = this.isCanvasBlank();
       }
     },
-
+    /**
+     * Set current canvas size
+     */
+    setCanvasSize() {
+      // this.width = window.innerWidth;
+      // this.height = window.innerHeight;
+      currentX = 0;
+      currentY = 0;
+    },
     /**
      * Clear complete canvas
      */
@@ -394,24 +421,19 @@ export default {
         this.isLineWidthPickerOpen = false;
         this.isColorPickerOpen = false;
         this.startedDrawing = true;
-
         this.saveCurrentCanvasState(this.canvas);
-
         const x = !this.isMouse ? e.targetTouches[0].clientX : e.clientX;
         const y = !this.isMouse ? e.targetTouches[0].clientY : e.clientY;
-
         if (x && y) {
           currentX =
             (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
           currentY =
             (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
-
           this.pointCoords.push({
             x: currentX,
             y: currentY
           });
         }
-
         this.tempCtx.globalCompositeOperation = 'source-over';
         this.ctx.globalCompositeOperation = this.isEraserActive
           ? 'destination-out'
@@ -433,30 +455,30 @@ export default {
     /**
      * Generate line from points array
      */
-    drawLine(context, isTemporaryLine = false) {
-      const points = this.pointCoords.filter(
-        (e, i) => i % (isTemporaryLine ? 10 : 25) === 0
-      );
+    drawLine(context) {
       this.tempCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      context.beginPath();
-      context.moveTo(points[0].x, points[0].y);
+      let p1 = this.pointCoords[0];
+      let p2 = this.pointCoords[1];
 
-      for (let point = 0; point < points.length - 1; point++) {
-        const p0 = point > 0 ? points[point - 1] : points[0];
-        const p1 = points[point];
-        const p2 = points[point + 1];
-        const p3 = point != points.length - 2 ? points[point + 2] : p2;
+      if (p1 && p2 && p1.x && p1.y) {
+        context.beginPath();
+        context.moveTo(p1.x, p1.y);
 
-        const cp1x = p1.x + (p2.x - p0.x) / 6;
-        const cp1y = p1.y + (p2.y - p0.y) / 6;
+        for (let i = 1, len = this.pointCoords.length; i < len; i++) {
+          let midPoint = {
+            x: p1.x + (p2.x - p1.x) / 2,
+            y: p1.y + (p2.y - p1.y) / 2
+          };
+          context.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+          p1 = this.pointCoords[i];
+          p2 = this.pointCoords[i + 1];
+        }
 
-        const cp2x = p2.x - (p3.x - p1.x) / 6;
-        const cp2y = p2.y - (p3.y - p1.y) / 6;
-
-        context.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+        context.lineTo(p1.x, p1.y);
+        context.stroke();
+        context.closePath();
       }
-      context.stroke();
     },
     /**
      * Draw line on move and add current position to an array
@@ -470,9 +492,9 @@ export default {
 
         if (x && y) {
           currentX =
-            (x - this.tempCanvas.getBoundingClientRect().left) * this.factor;
+            x * this.factor - this.tempCanvas.getBoundingClientRect().left;
           currentY =
-            (y - this.tempCanvas.getBoundingClientRect().top) * this.factor;
+            y * this.factor - this.tempCanvas.getBoundingClientRect().top;
 
           this.pointCoords.push({
             x: currentX,
@@ -496,12 +518,12 @@ export default {
             if (distanceFirstAndLastPoint > this.threshold) {
               if (!this.thresholdReached) {
                 this.thresholdReached = true;
-                this.$emit('threshold-reached');
+                this.$emit('thresholdReached');
               }
             }
           }
 
-          this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx, true);
+          this.drawLine(!this.isEraserActive ? this.tempCtx : this.ctx);
         }
       }
     }
